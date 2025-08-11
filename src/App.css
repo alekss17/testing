@@ -1,18 +1,15 @@
-/* ✅ Общие сбросы */
 html, body, #root {
     min-height: 100%;
     margin: 0;
     font-family: Arial, sans-serif;
   }
   
-  /* ✅ Обёртка всего приложения */
   .app-wrapper {
     display: flex;
     flex-direction: column;
     min-height: 100vh
   }
   
-  /* ✅ Хедер сверху */
   .header-container {
     background-color: green;
     padding: 10px;
@@ -23,14 +20,12 @@ html, body, #root {
     height: auto;
   }
   
-  /* ✅ Основная часть под хедером */
   .main {
     display: flex;
     flex: 1;
-    min-height: 0; /* важно для растяжки */
+    min-height: 0;
   }
   
-  /* ✅ Блок ссылок NavBar */
   .Routes {
     display: flex;
     flex-direction: column;
@@ -42,7 +37,6 @@ html, body, #root {
     height: 100%;
   }
   
-  /* ✅ Контент справа */
   .content {
     flex: 1;
     padding: 20px;
@@ -50,7 +44,6 @@ html, body, #root {
     background-color: skyblue;
   }
   
-  /* ✅ Убираем странные отступы */
   .Home {
     color: white;
     text-decoration: none;

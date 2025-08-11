@@ -1,5 +1,8 @@
+let rerenderEntireTree = () => {
+  console.log('state is changed');
+}
 
-let State = {
+let state = {
     dialogs: [
         {id: 1, name: 'Dimych-', messages: 'hi'},
         {id: 2, name: 'Andrey-', messages: 'How are it-kamasutra'},
@@ -13,15 +16,23 @@ let State = {
         {message: 'It`s my first post', likescount: '23'},
         {message: 'Hi, hove are you?', likescount: '12'},
         {message: 'It`s my first post', likescount: '35'},
-      ]
+      ],
+      newPostText: ''
 }
 
-export let addPost = (postMessage) => {
+window.state = state;
+
+export let addPost = () => {
   let newPost = {
-    message: postMessage,
+    message: state.newPostText,
     likescount: 4
   };
-  State.postData.push(newPost);
+  state.postData.push(newPost);
+  rerenderEntireTree(state);
+}
+export let updateNewPostChange = (newText) => {
+  state.newPostText = newText;
+  rerenderEntireTree(state);
 }
 
-export default State;
+export default state;

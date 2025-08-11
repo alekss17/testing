@@ -11,11 +11,10 @@ import { Routes, Route, BrowserRouter } from 'react-router-dom';
 
 
 const Homer = (props) => {
-
-  let postmaping = props.postData.map( d => <Post message={d.message} likescount={d.likescount} />)
+  let postmaping = props.postData.map((d, index) => <Post key={index} message={d.message} likescount={d.likescount} />)
   return(
     <div>
-      <Myposts addPost={props.addPost} />
+      <Myposts addPost={props.addPost} newPostText={props.newPostText} updateNewPostChange={props.updateNewPostChange}/>
         {postmaping}
   </div>
   )
@@ -30,11 +29,11 @@ function App(props) {
           <NavBar />
           <div className="content">
             <Routes>
-            <Route path="/" element={<Homer className='Home' postData={props.appState.postData} addPost={props.addPost} />} />
+            <Route path="/" element={<Homer className='Home' postData={props.appState.postData} addPost={props.addPost} updateNewPostChange={props.updateNewPostChange} />} />
             <Route path="/dialogs" element={<Dialogs dialogs={props.appState.dialogs}  MessagesData={props.appState.MessagesData} />} />
-            <Route path="/myposts" element={<Myposts addPost={props.addPost} />} />
-              <Route path="/music" element={<Music MessagesData={props.appState.MessagesData} />} />
-              <Route path="/settings" element={<Settings />} />
+            <Route path="/myposts" element={<Myposts addPost={props.addPost} newPostText={props.appState.newPostText} updateNewPostChange={props.updateNewPostChange} />} />
+            <Route path="/music" element={<Music MessagesData={props.appState.MessagesData} />} />
+            <Route path="/settings" element={<Settings />} />
             </Routes>
           </div>
         </div>

@@ -26,8 +26,8 @@ const PeresMessage = (props) => {
  }
 
 const Dialogs = (props) => {
-    const dialogsElements = props.dialogs.map(d => <DialogItem name={d.name} id={d.id} /> );
-    const PeresDialog = props.dialogs.map(d => <PeresMessage messages={d.messages} /> );
+    const dialogsElements = props.dialogs.map((d, index) => <DialogItem key={index} name={d.name} id={d.id} /> );
+    const PeresDialog = props.dialogs.map((d, index) => <PeresMessage key={index} messages={d.messages} /> );
     return (
         <div className="dialog">
             <div className="Del">
