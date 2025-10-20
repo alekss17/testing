@@ -4,19 +4,22 @@ let rerenderEntireTree = () => {
 
 let state = {
     dialogs: [
-        {id: 1, name: 'Dimych-', messages: 'hi'},
-        {id: 2, name: 'Andrey-', messages: 'How are it-kamasutra'},
-        {id: 3, name: 'Sveta-', messages: 'yo'},
-        {id: 4, name: 'Sasha-', messages: 'yo'},
-        {id: 5, name: 'Valera-', messages: 'yo'},
-        {id: 6, name: 'Viktor-', messages: 'yo'},
+        {id: 1, name: 'Dimych - '},
+        {id: 2, name: 'Andrey - '},
+        {id: 3, name: 'Sveta - '},
+        {id: 4, name: 'Sasha - '},
+        {id: 5, name: 'Valera - '},
+        {id: 6, name: 'Viktor - '},
       ],
-    postData: [
-        {message: 'Hi, hove are you?', likescount: '0'},
-        {message: 'It`s my first post', likescount: '23'},
-        {message: 'Hi, hove are you?', likescount: '12'},
-        {message: 'It`s my first post', likescount: '35'},
+      Messages: [
+        {messages: ' hi'},
+        {messages: ' How are it-kamasutra'},
+        {messages: ' yo'},
+        {messages: ' yo'},
+        {messages: ' yo'},
+        {messages: ' yo'},
       ],
+    postData: [],
       newPostText: ''
 }
 
@@ -25,7 +28,7 @@ window.state = state;
 export let addPost = () => {
   let newPost = {
     message: state.newPostText,
-    likescount: 4
+    likescount: Math.random()
   };
   state.postData.push(newPost);
   rerenderEntireTree(state);
