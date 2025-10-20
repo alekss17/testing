@@ -33,6 +33,8 @@ export let addPost = () => {
   state.postData.push(newPost);
   rerenderEntireTree(state);
 }
+
+
 export let updateNewPostChange = (newText) => {
   state.newPostText = newText;
   rerenderEntireTree(state);

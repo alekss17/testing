@@ -4,16 +4,16 @@ import '../App.css';
 const Myposts = (props) => {
   let NewPostelement = React.createRef();
 
-  let addPost = () => {
-    if (addPost === '') {return;}
-    props.addPost();
-    NewPostelement.current.value = '';
-  }
+let addPost = () => {
+  if (addPost === '') {return;}
+  props.addPost();
+  NewPostelement.current.value = '';
+}
 
-  let onPostChange = () => {
-    let text = NewPostelement.current.value;
-    props.updateNewPostChange(text);
-    }
+let onPostChange = () => {
+  let text = NewPostelement.current.value;
+  props.updateNewPostChange(text);
+  }
     return (
       <div>
       <p>Home</p>

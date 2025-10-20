@@ -19,7 +19,7 @@ const PeresMessage = (props) => {
     return (<div className="message"> <p>{props.messages}</p> </div> );
 };
 
- let NewReactRef = React.createRef();
+const NewReactRef = React.createRef()
 
  let textarea = () => {
     let text = NewReactRef.current.value;

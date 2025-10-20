@@ -6,7 +6,8 @@ import Myposts from './components/Myposts';
 import Settings from './components/Settings';
 import Header from './components/header';
 import Post from './components/Post';
-import { Routes, Route, BrowserRouter } from 'react-router-dom';
+import Test from './components/tests';
+import { Routes, Route,} from 'react-router-dom';
 
 
 
@@ -22,7 +23,6 @@ const Homer = (props) => {
 
 function App(props) {
   return (
-<BrowserRouter>
       <div className="app-wrapper">
         <Header />
         <div className="main">
@@ -34,11 +34,11 @@ function App(props) {
             <Route path="/myposts" element={<Myposts addPost={props.addPost} newPostText={props.appState.newPostText} updateNewPostChange={props.updateNewPostChange} />} />
             <Route path="/music" element={<Music MessagesData={props.appState.MessagesData} />} />
             <Route path="/settings" element={<Settings />} />
+            <Route path="/test" element={<Test />} />
             </Routes>
           </div>
         </div>
       </div>
-    </BrowserRouter>
   );
 }
 
