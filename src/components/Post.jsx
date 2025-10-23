@@ -1,4 +1,4 @@
-import '../App.css';
+import '../Styles/Post.css'
 
 const Post = (props) => {
     return(

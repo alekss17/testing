@@ -1,0 +1,46 @@
+html, body, #root {
+    min-height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  .app-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh
+  }
+    
+  .main {
+    display: flex;
+    flex: 1;
+    min-height: 0;
+  }
+  
+  .Routes {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 150px;
+    padding: 10px;
+    box-sizing: border-box;
+    background-color: rgba(245, 215, 95, 0.751);
+    height: 100%;
+  }
+  
+  .content {
+    flex: 1;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: skyblue;
+  }
+  
+  .Home {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .NAv {
+    color: black;
+    text-decoration: none;
+  }

@@ -1,10 +1,10 @@
-import '../App.css';
+import '../Styles/Music.css';
 
 const Music = (props) => {
     return(
         <div>
-            <p className="messagesN">Music</p>
-            <div className="morMessages">
+            <p>Music</p>
+            <div>
             </div>
         </div>
     );

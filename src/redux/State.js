@@ -1,43 +1,61 @@
 let rerenderEntireTree = () => {
   console.log('state is changed');
-}
+};
 
 let state = {
-    dialogs: [
-        {id: 1, name: 'Dimych - '},
-        {id: 2, name: 'Andrey - '},
-        {id: 3, name: 'Sveta - '},
-        {id: 4, name: 'Sasha - '},
-        {id: 5, name: 'Valera - '},
-        {id: 6, name: 'Viktor - '},
-      ],
-      Messages: [
-        {messages: ' hi'},
-        {messages: ' How are it-kamasutra'},
-        {messages: ' yo'},
-        {messages: ' yo'},
-        {messages: ' yo'},
-        {messages: ' yo'},
-      ],
-    postData: [],
-      newPostText: ''
-}
+  dialogs: [
+    { id: 1, name: 'Dimych - ' },
+    { id: 2, name: 'Andrey - ' },
+    { id: 3, name: 'Sveta - ' },
+    { id: 4, name: 'Sasha - ' },
+    { id: 5, name: 'Valera - ' },
+    { id: 6, name: 'Viktor - ' },
+  ],
+  Messages: [
+    { messages: ' hi' },
+    { messages: ' How are it-kamasutra' },
+    { messages: ' yo' },
+    { messages: ' yo' },
+    { messages: ' yo' },
+    { messages: ' yo' },
+  ],
+  postData: [],
+  newPostText: '',
+  newDialogText: '',
+};
 
-window.state = state;
-
-export let addPost = () => {
-  let newPost = {
+export const addPost = () => {
+  const newPost = {
     message: state.newPostText,
     likescount: Math.random()
   };
   state.postData.push(newPost);
-  rerenderEntireTree(state);
-}
+  state.newPostText = '';
+  rerenderEntireTree();
+};
 
-
-export let updateNewPostChange = (newText) => {
+export const updateNewPostChange = (newText) => {
   state.newPostText = newText;
-  rerenderEntireTree(state);
-}
+  rerenderEntireTree();
+};
+
+export const addMessage = () => {
+  const newdialog = {
+    messages: state.newDialogText
+  };
+  state.Messages.push(newdialog);
+  state.newDialogText = ''; 
+  rerenderEntireTree();
+};
+
+export const updateNewDialogChange = (newText) => {
+  state.newDialogText = newText;
+  rerenderEntireTree();
+};
+
+
+export const subscribe = (observer) => {
+  rerenderEntireTree = observer;
+};
 
 export default state;

@@ -1,0 +1,9 @@
+.header-container {
+    background-color: green;
+    padding: 10px;
+  }
+  
+  .header-icon {
+    width: 20px;
+    height: auto;
+  }

@@ -1,11 +1,12 @@
 import React from 'react';
-import '../App.css';
+import '../Styles/Myposts.css'
 
 const Myposts = (props) => {
+  debugger;
   let NewPostelement = React.createRef();
 
 let addPost = () => {
-  if (addPost === '') {return;}
+  if (!props.newPostText.trim()) return;
   props.addPost();
   NewPostelement.current.value = '';
 }
@@ -19,12 +20,14 @@ let onPostChange = () => {
       <p>Home</p>
     <img className='img-gora' src='https://www.wearegecko.co.uk/media/50316/mountain-3.jpg'></img>
     <p>ava + description</p>
+    <div className='PostsAddHome'>
         <div>
-        <textarea onChange={onPostChange} ref={NewPostelement} placeholder='type your post'  value={props.newPostText} />
+        <textarea className='TextAreaAddPost' onChange={onPostChange} ref={NewPostelement} placeholder='type your post'  value={props.newPostText} />
         </div>
-        <div>
-        <button onClick={ addPost }>Send Message</button>
+        <div className='AddButtonPost'>
+        <button className='GetPostButton' onClick={ addPost }>Send Message</button>
         </div>
+      </div>
       </div>
     );
   };

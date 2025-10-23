@@ -1,0 +1,42 @@
+.GetPostButton {
+    background-color: rgb(10, 24, 173);
+    border: 0;
+    border-radius: 15px;
+    width: 150px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.GetPostButton:hover {
+    background-color: rgb(28, 45, 73);
+    transition: 0.2s;
+}
+
+.GetPostButton:active {
+    background-color: #0000ff;
+    transition: 0.4ms;
+}
+
+.img-gora {
+    width: 700px;
+    height: 260px;
+  }
+
+.TextAreaAddPost {
+    background: linear-gradient(to bottom right, #dfdfb2, #fffa78);
+    color: #232323;
+    border: 0;
+    padding-top: 15px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.PostsAddHome {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.AddButtonPost {
+    align-items: center;
+}

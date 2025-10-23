@@ -1,0 +1,56 @@
+.GetPostButton {
+    background-color: rgb(10, 24, 173);
+    border: 0;
+    border-radius: 15px;
+    width: 150px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.GetPostButton:hover {
+    background-color: rgb(28, 45, 73);
+    transition: 0.2s;
+}
+
+.GetPostButton:active {
+    background-color: #0000ff;
+}
+
+.TextAreaDialogs {
+    background: linear-gradient(to bottom right, #dfdfb2, #fffa78);
+    color: #232323;
+    border: 0;
+    padding-top: 15px;
+    text-align: center;
+    margin-right: 10px;
+}
+
+.Dialog-faces {
+    width: 20px;
+    height: 20px;
+    border-radius: 20px;
+}
+
+  .mesD {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .Del {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 27px;
+    margin-top: 10px;
+  }
+
+.dopRef {
+    display: flex;
+    align-items: center;
+}
+
+.dialog {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: 10px;
+}
