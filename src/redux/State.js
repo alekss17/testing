@@ -1,61 +1,60 @@
-let rerenderEntireTree = () => {
+let store = {
+_state: {
+    dialogs: [
+      { id: 1, name: 'Dimych - ' },
+      { id: 2, name: 'Andrey - ' },
+      { id: 3, name: 'Sveta - ' },
+      { id: 4, name: 'Sasha - ' },
+      { id: 5, name: 'Valera - ' },
+      { id: 6, name: 'Viktor - ' },
+    ],
+    Messages: [
+      { messages: ' hi' },
+      { messages: ' How are it-kamasutra' },
+      { messages: ' yo' },
+      { messages: ' yo' },
+      { messages: ' yo' },
+      { messages: ' yo' },
+    ],
+    postData: [],
+    newPostText: '',
+    newDialogText: '',
+},
+StateReturn() {
+  return this._state
+},
+_callSubscriber() {
   console.log('state is changed');
-};
-
-let state = {
-  dialogs: [
-    { id: 1, name: 'Dimych - ' },
-    { id: 2, name: 'Andrey - ' },
-    { id: 3, name: 'Sveta - ' },
-    { id: 4, name: 'Sasha - ' },
-    { id: 5, name: 'Valera - ' },
-    { id: 6, name: 'Viktor - ' },
-  ],
-  Messages: [
-    { messages: ' hi' },
-    { messages: ' How are it-kamasutra' },
-    { messages: ' yo' },
-    { messages: ' yo' },
-    { messages: ' yo' },
-    { messages: ' yo' },
-  ],
-  postData: [],
-  newPostText: '',
-  newDialogText: '',
-};
-
-export const addPost = () => {
+},
+addPost() {
   const newPost = {
-    message: state.newPostText,
+    message: this._state.newPostText,
     likescount: Math.random()
   };
-  state.postData.push(newPost);
-  state.newPostText = '';
-  rerenderEntireTree();
-};
+  this._state.postData.push(newPost);
+  this._state.newPostText = '';
+  this._callSubscriber();
+},
+updateNewPostChange(newText) {
+  this._state.newPostText = newText;
+  this._callSubscriber();
+},
 
-export const updateNewPostChange = (newText) => {
-  state.newPostText = newText;
-  rerenderEntireTree();
-};
-
-export const addMessage = () => {
+addMessage() {
   const newdialog = {
-    messages: state.newDialogText
+    messages: this._state.newDialogText
   };
-  state.Messages.push(newdialog);
-  state.newDialogText = ''; 
-  rerenderEntireTree();
-};
+  this._state.Messages.push(newdialog);
+  this._state.newDialogText = ''; 
+  this._callSubscriber();
+},
 
-export const updateNewDialogChange = (newText) => {
-  state.newDialogText = newText;
-  rerenderEntireTree();
-};
+updateNewDialogChange(newText) {
+  this._state.newDialogText = newText;
+  this._callSubscriber();
+},
 
-
-export const subscribe = (observer) => {
-  rerenderEntireTree = observer;
-};
-
-export default state;
+subscribe(observer) {
+  this._callSubscriber = observer;
+}}
+export default store;
