@@ -5,6 +5,7 @@ const Myposts = (props) => {
   let NewPostelement = React.createRef();
 
 let addPost = () => {
+
   if (!props.newPostText.trim()) return;
   props.addPost();
   NewPostelement.current.value = '';

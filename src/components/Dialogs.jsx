@@ -20,6 +20,7 @@ const PeresMessage = (props) => {
 };
 
 const Dialogs = (props) => {
+    debugger;
     const dialogsElements = props.dialogs.map((dialog, index) => (<DialogItem key={index} name={dialog.name} id={dialog.id} />));
     const PeresDialog = props.dialogsMessages.map((Messages, index) => (<PeresMessage key={index} messages={Messages.messages} />));
 
