@@ -1,5 +1,5 @@
 import './index.css';
-import store from './redux/State';
+import store  from './redux/redux-store';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
@@ -14,16 +14,17 @@ let rerenderEntireTree = (state) => {
       <BrowserRouter>
         <App
           appState={state}
-          addPost={store.addPost.bind(store)}
-          updateNewPostChange={store.updateNewPostChange.bind(store)}
-          updateNewDialogChange={store.updateNewDialogChange.bind(store)}
-          addMessage={store.addMessage.bind(store)}
+          dispatch={store.dispatch.bind(store)}
+          store={store}
         />
       </BrowserRouter>
     </React.StrictMode>
   );
 };
 
-store.subscribe(rerenderEntireTree);
+store.subscribe( () => {
+  let state = store.getState()
+  rerenderEntireTree(state)
+});
 
-rerenderEntireTree(store.StateReturn());
+rerenderEntireTree(store.getState());

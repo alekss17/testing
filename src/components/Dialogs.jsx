@@ -1,39 +1,21 @@
 import React from "react";
 
-import { NavLink } from "react-router-dom";
+import {Message, DialogItem} from './DialogsMapsItems'
 import '../Styles/Dialogs.css';
 
-const DialogItem = (props) => {
-    let path = "/dialogs/" + props.id;
-    let name = props.name
-
-    return (
-        <div>
-            <img className="Dialog-faces" src="https://www.meme-arsenal.com/memes/9e68a78a292b4ed1555a338561dca8c3.jpg" alt="" />
-            <NavLink className="NAv" to={path}>{name}</NavLink>
-        </div>
-    );
-};
-
-const PeresMessage = (props) => {
-    return (<div> <p>{props.messages}</p> </div> );
-};
 
 const Dialogs = (props) => {
-    debugger;
     const dialogsElements = props.dialogs.map((dialog, index) => (<DialogItem key={index} name={dialog.name} id={dialog.id} />));
-    const PeresDialog = props.dialogsMessages.map((Messages, index) => (<PeresMessage key={index} messages={Messages.messages} />));
-
-    const NewReactRef = React.createRef();
+    const PeresDialog = props.dialogsMessages.map((Messages, index) => (<Message key={index} messages={Messages.messages} />));
 
     const onAddMessage = () => {
         if (!props.newDialogText.trim()) return;
-        props.addMessage();
+        props.onAddMessage()
     };
 
-    const onDialogChange = () => {
-        const text = NewReactRef.current.value;
-        props.updateNewDialogChange(text);
+    const onDialogChange = (e) => {
+        const text = e.target.value;
+        props.onDialogChange(text)
     };
 
     return (
@@ -41,7 +23,8 @@ const Dialogs = (props) => {
             <div className="Del">{dialogsElements}</div>
             <div className="mesD">{PeresDialog}</div>
             <div className="dopRef">
-                <textarea className="TextAreaDialogs" placeholder="type message" onChange={onDialogChange} value={props.newDialogText} ref={NewReactRef}/>
+                <textarea className="TextAreaDialogs" placeholder="type message" onChange={onDialogChange}
+                 value={props.newDialogText}/>
                 <button className="GetPostButton" onClick={onAddMessage}>добавить</button>
             </div>
         </div>

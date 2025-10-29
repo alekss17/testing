@@ -5,15 +5,14 @@ const Myposts = (props) => {
   let NewPostelement = React.createRef();
 
 let addPost = () => {
-
   if (!props.newPostText.trim()) return;
-  props.addPost();
+  props.addPost()
   NewPostelement.current.value = '';
 }
 
 let onPostChange = () => {
   let text = NewPostelement.current.value;
-  props.updateNewPostChange(text);
+  props.updateNewPostText(text)
   }
     return (
       <div>
