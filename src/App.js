@@ -9,7 +9,7 @@ import Home from './components/Home';
 import { Routes, Route,} from 'react-router-dom';
 import MypostsContainer from './components/MypostsContainer';
 
-function App(props) {
+function App() {
   return (
       <div className="app-wrapper">
 
@@ -18,9 +18,9 @@ function App(props) {
           <NavBar />
           <div className="content">
             <Routes>
-            <Route path="/"element={<Home store={props.store}/>}/>
-            <Route path="/dialogs" element={<DialogsContainer store={props.store} />} />
-            <Route path="/myposts" element={<MypostsContainer store={props.store} />} />
+            <Route path="/"element={<Home />}/>
+            <Route path="/dialogs" element={<DialogsContainer />} />
+            <Route path="/myposts" element={<MypostsContainer />} />
             <Route path="/music" element={<Music />} />
             <Route path="/settings" element={<Settings />} />
             <Route path="/test" element={<Test />} />

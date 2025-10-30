@@ -1,16 +1,25 @@
 import '../Styles/Home.css';
 import Post from './Post';
 import MypostsContainer from './MypostsContainer';
+import MyContext from '../ContextApi';
 
-const Home = (props) => {
-  let postmaping = props.store.getState().ProfileReducer.postData.map((d, index) => (
-    <Post key={index} message={d.message} likescount={d.likescount} />
-  ));  
+const Home = () => {
     return (
+      <MyContext.Consumer>
+        { 
+        store => {
+            let postmaping = store.getState().ProfileReducer.postData.map((d, index) => (
+              <Post key={index} message={d.message} likescount={d.likescount} />
+            )); 
+            return ( 
         <>
-       <MypostsContainer store={props.store} />
+       <MypostsContainer />
        {postmaping}
         </>
+            )
+    }
+}
+        </MyContext.Consumer>
       
     );
   };

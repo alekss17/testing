@@ -4,27 +4,25 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
+import MyContext, { Provider } from './ContextApi';
 
 const container = document.getElementById('root');
 const root = ReactDOM.createRoot(container);
 
-let rerenderEntireTree = (state) => {
+let rerenderEntireTree = () => {
   root.render(
     <React.StrictMode>
       <BrowserRouter>
-        <App
-          appState={state}
-          dispatch={store.dispatch.bind(store)}
-          store={store}
-        />
+      <Provider store={store}>
+        <App />
+        </Provider>
       </BrowserRouter>
     </React.StrictMode>
   );
 };
 
 store.subscribe( () => {
-  let state = store.getState()
-  rerenderEntireTree(state)
+  rerenderEntireTree()
 });
 
 rerenderEntireTree(store.getState());
