@@ -1,17 +1,15 @@
-import React from 'react';
 import '../Styles/Myposts.css'
 
 const Myposts = (props) => {
-  let NewPostelement = React.createRef();
 
-let addPost = () => {
+let addPost = (e) => {
   if (!props.newPostText.trim()) return;
   props.addPost()
-  NewPostelement.current.value = '';
+  e.target.value = '';
 }
 
-let onPostChange = () => {
-  let text = NewPostelement.current.value;
+let onPostChange = (e) => {
+  let text = e.target.value;
   props.updateNewPostText(text)
   }
     return (
@@ -21,7 +19,7 @@ let onPostChange = () => {
     <p>ava + description</p>
     <div className='PostsAddHome'>
         <div>
-        <textarea className='TextAreaAddPost' onChange={onPostChange} ref={NewPostelement} placeholder='type your post'  value={props.newPostText} />
+        <textarea className='TextAreaAddPost' onChange={onPostChange} placeholder='type your post'  value={props.newPostText} />
         </div>
         <div className='AddButtonPost'>
         <button className='GetPostButton' onClick={ addPost }>Send Message</button>

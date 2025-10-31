@@ -1,27 +1,25 @@
 import '../Styles/Home.css';
 import Post from './Post';
 import MypostsContainer from './MypostsContainer';
-import MyContext from '../ContextApi';
+import { connect } from 'react-redux';
 
-const Home = () => {
-    return (
-      <MyContext.Consumer>
-        { 
-        store => {
-            let postmaping = store.getState().ProfileReducer.postData.map((d, index) => (
-              <Post key={index} message={d.message} likescount={d.likescount} />
-            )); 
-            return ( 
-        <>
-       <MypostsContainer />
-       {postmaping}
-        </>
-            )
-    }
-}
-        </MyContext.Consumer>
-      
-    );
+let mapStateToProps = (state) => {
+  return {
+    postData: state.ProfileReducer.postData
   };
-  
-  export default Home;
+};
+
+const Home = (props) => {
+  const postMapping = props.postData.map((d, index) => (
+    <Post key={index} message={d.message} likescount={d.likescount} />
+  ));
+
+  return (
+    <>
+      <MypostsContainer />
+      {postMapping}
+    </>
+  );
+};
+
+export default connect(mapStateToProps)(Home);

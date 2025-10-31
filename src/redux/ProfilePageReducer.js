@@ -22,9 +22,6 @@ const ProfilePage = (state = initialState, action) => {
             postData: [...state.postData, newPost],
             newPostText: ''
         };    
-    state.postData.push(newPost);
-        state.newPostText = '';
-        return state;
         case UPDATENEWPOSTCHANGE:
     return {
         ...state,
