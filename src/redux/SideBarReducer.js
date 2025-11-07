@@ -1,8 +1,6 @@
-
 let initialState = () => {}
 
 const slideBarR = (state = initialState, action) => {
-
     return state;
 }
 

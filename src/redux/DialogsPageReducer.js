@@ -11,12 +11,7 @@ let initialState = {
     { id: 6, name: 'Viktor - ' },
   ],
   Messages: [
-    { messages: ' hi' },
-    { messages: ' How are it-kamasutra' },
-    { messages: ' yo' },
-    { messages: ' yo' },
-    { messages: ' yo' },
-    { messages: ' yo' },
+    { messages: ' hi' } 
   ],
   newDialogText: '',
 }
@@ -26,16 +21,16 @@ const DialogsPageR = (state = initialState, action) => {
     switch(action.type) {
         case addMessage:
           const newDialog = { messages: state.newDialogText };
-        return {
-          ...state,
+          return {
+            ...state,
           Messages: [...state.Messages, newDialog],
           newDialogText: ''
-        };
+          }
       case updateNewDialogChange:
         return {
           ...state,
           newDialogText: action.newMessageText
-        };
+          }
     default: return state
     }
 }

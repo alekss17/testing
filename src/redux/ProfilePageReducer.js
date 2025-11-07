@@ -1,4 +1,3 @@
-import React from "react"
 const ADDPOST = 'ADD-POST'
 const UPDATENEWPOSTCHANGE = 'UPDATE-NEW-POST-CHANGE'
 
@@ -18,15 +17,15 @@ const ProfilePage = (state = initialState, action) => {
             likescount: Math.random()
         };
         return {
-            ...state,
-            postData: [...state.postData, newPost],
-            newPostText: ''
-        };    
+          ...state,
+        postData: [...state.postData, newPost],
+          newPostText: ''
+        }   
         case UPDATENEWPOSTCHANGE:
-    return {
-        ...state,
+          return {
+          ...state,
         newPostText: action.newText
-    };
+      }
         default: return state;
     }
 }

@@ -1,0 +1,87 @@
+{
+      "items": [
+        {
+          "id": 1047,
+          "uniqueUrlName": null,
+          "photos": { "small": null, "large": null },
+          "status": null,
+          "followed": false,
+          "name": "Andruha"
+        },
+       {
+          "id": 1048,
+          "uniqueUrlName": null,
+          "photos": { "small": null, "large": null },
+          "status": null,
+          "followed": true,
+          "name": "Masha"
+        },
+        {
+          "id": 1049,
+          "uniqueUrlName": null,
+          "photos": { "small": null, "large": null },
+          "status": null,
+          "followed": false,
+          "name": "Kostya"
+        },
+        {
+          "id": 1050,
+          "uniqueUrlName": null,
+          "photos": { "small": null, "large": null },
+          "status": null,
+          "followed": true,
+          "name": "Dima"
+        },
+        {
+          "id": 1051,
+          "uniqueUrlName": null,
+          "photos": { "small": null, "large": null },
+          "status": null,
+          "followed": false,
+          "name": "Katya"
+        },
+        {
+          "id": 1052,
+          "uniqueUrlName": null,
+          "photos": { "small": null, "large": null },
+          "status": null,
+          "followed": false,
+          "name": "Roma"
+        },
+        {
+          "id": 1053,
+          "uniqueUrlName": null,
+          "photos": { "small": null, "large": null },
+          "status": null,
+          "followed": true,
+          "name": "Sergey"
+        },
+        {
+          "id": 1054,
+          "uniqueUrlName": null,
+          "photos": { "small": null, "large": null },
+          "status": null,
+          "followed": false,
+          "name": "Tanya"
+        },
+        {
+          "id": 1055,
+          "uniqueUrlName": null,
+          "photos": { "small": null, "large": null },
+          "status": null,
+          "followed": false,
+          "name": "Vanya"
+        },
+        {
+          "id": 1056,
+          "uniqueUrlName": null,
+          "photos": { "small": null, "large": null },
+          "status": null,
+          "followed": false,
+          "name": "Anya"
+        }
+      ],
+      "totalCount": 44,
+      "error": null
+    }
+  

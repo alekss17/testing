@@ -1,5 +1,3 @@
-import React from "react";
-
 import {Message, DialogItem} from './DialogsMapsItems'
 import '../Styles/Dialogs.css';
 
