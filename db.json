@@ -1,82 +1,58 @@
 {
-      "items": [
+      "Users": [
         {
           "id": 1047,
           "uniqueUrlName": null,
-          "photos": { "small": null, "large": null },
-          "status": null,
-          "followed": false,
-          "name": "Andruha"
-        },
-       {
-          "id": 1048,
-          "uniqueUrlName": null,
-          "photos": { "small": null, "large": null },
-          "status": null,
-          "followed": true,
-          "name": "Masha"
-        },
-        {
-          "id": 1049,
-          "uniqueUrlName": null,
-          "photos": { "small": null, "large": null },
-          "status": null,
-          "followed": false,
-          "name": "Kostya"
-        },
-        {
-          "id": 1050,
-          "uniqueUrlName": null,
-          "photos": { "small": null, "large": null },
-          "status": null,
+          "photos": { "small": "https://i.pinimg.com/1200x/57/00/c0/5700c04197ee9a4372a35ef16eb78f4e.jpg", "large": "https://via.placeholder.com/50" },
+          "status": "I'm a boss",
           "followed": true,
           "name": "Dima"
         },
         {
           "id": 1051,
           "uniqueUrlName": null,
-          "photos": { "small": null, "large": null },
-          "status": null,
+          "photos": { "small": "https://i.pinimg.com/1200x/57/00/c0/5700c04197ee9a4372a35ef16eb78f4e.jpg", "large": "https://via.placeholder.com/50" },
+          "status": "I'm a boss",
           "followed": false,
           "name": "Katya"
         },
         {
           "id": 1052,
           "uniqueUrlName": null,
-          "photos": { "small": null, "large": null },
-          "status": null,
+          "photos": { "small": "https://i.pinimg.com/1200x/57/00/c0/5700c04197ee9a4372a35ef16eb78f4e.jpg", "large": "https://via.placeholder.com/50" },
+          "status": "I'm a boss",
           "followed": false,
           "name": "Roma"
         },
         {
           "id": 1053,
           "uniqueUrlName": null,
-          "photos": { "small": null, "large": null },
-          "status": null,
+          "photos": { "small": "https://i.pinimg.com/1200x/57/00/c0/5700c04197ee9a4372a35ef16eb78f4e.jpg", "large": "https://via.placeholder.com/50" },
+          "status": "I'm a boss",
           "followed": true,
           "name": "Sergey"
         },
         {
           "id": 1054,
           "uniqueUrlName": null,
-          "photos": { "small": null, "large": null },
-          "status": null,
+          "photos": { "small": "https://i.pinimg.com/1200x/57/00/c0/5700c04197ee9a4372a35ef16eb78f4e.jpg", "large": "https://via.placeholder.com/50" },
+          "status": "I'm a boss",
           "followed": false,
           "name": "Tanya"
         },
         {
           "id": 1055,
           "uniqueUrlName": null,
-          "photos": { "small": null, "large": null },
-          "status": null,
+          "photos": { "small": "https://i.pinimg.com/1200x/57/00/c0/5700c04197ee9a4372a35ef16eb78f4e.jpg", "large": "https://via.placeholder.com/50" },
+          "status": "I'm a boss",
           "followed": false,
           "name": "Vanya"
         },
         {
           "id": 1056,
           "uniqueUrlName": null,
-          "photos": { "small": null, "large": null },
-          "status": null,
+          "photos": { "small": "https://i.pinimg.com/1200x/57/00/c0/5700c04197ee9a4372a35ef16eb78f4e.jpg", "large": "https://via.placeholder.com/50" },
+          "status": "I'm a boss",
           "followed": false,
           "name": "Anya"
         }

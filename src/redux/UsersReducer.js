@@ -4,7 +4,7 @@ const SetUsers = 'SETUSERS'
 
 
 let initialState = {
-  Users: []
+  Users: [],
 }
 
 
@@ -16,7 +16,7 @@ const UserPage = (state = initialState, action) => {
         Users: state.Users.map(u => {
           if (u.id === action.id) {
             return {
-              ...u, folowed: true
+              ...u, followed: true
             }}
           return u
         })
@@ -27,7 +27,7 @@ const UserPage = (state = initialState, action) => {
         Users: state.Users.map((u, id) => {
           if (u.id === action.id) {
             return {
-              ...u, folowed: false
+              ...u, followed: false
             }
           }
           return u;
@@ -35,7 +35,7 @@ const UserPage = (state = initialState, action) => {
       }
       case SetUsers:
         return {
-          ...state, Users: [...state.Users, ...action.users]
+          ...state, Users: [...state.Users, ...action.users],
         }
         default: return state;
     }

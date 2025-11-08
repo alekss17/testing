@@ -5,7 +5,7 @@ import { UnFollOWAC, FollowAC, SetUsersAC } from '../redux/UsersReducer';
 
 let MapStateToProps = (state) => {
     return {
-        users: state.UserPageReducer.Users
+        users: state.UserPageReducer.Users,
         }
 }
 
@@ -17,10 +17,10 @@ let MapDispatchToProps = (dispatch) => {
         UnFollow: (id) => {
             dispatch(UnFollOWAC(id))
         },
-        SetUsers: (users) => {
+        setUsers: (users) => {
             dispatch(SetUsersAC(users))
         }
-        }
+    }
 }
 
 
