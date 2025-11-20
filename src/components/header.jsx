@@ -1,3 +1,4 @@
+import { NavLink } from 'react-router-dom';
 import '../Styles/Header.css'
 
 const Header = () => {
@@ -8,6 +9,9 @@ const Header = () => {
         src="https://img.freepik.com/free-vector/abstract-wavy-background-template_1035-8922.jpg"
         alt="Header logo"
       />
+      <div className='loginB'>
+        <NavLink className='login' to={'/login'}>login</NavLink>
+      </div>
     </header>
   );
 };

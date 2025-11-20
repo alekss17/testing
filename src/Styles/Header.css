@@ -1,9 +1,23 @@
 .header-container {
+  display: flex;
     background-color: green;
     padding: 10px;
+    align-items: center;
+    justify-content: space-between;
   }
   
   .header-icon {
     width: 20px;
     height: auto;
   }
+
+.loginB {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.login {
+  color: white;
+  text-decoration: none;
+}

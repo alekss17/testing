@@ -1,3 +1,7 @@
+.profileLargePhoto {
+    width: 200px;
+    height: 200px
+}
 .GetPostButton {
     background-color: rgb(10, 24, 173);
     border: 0;

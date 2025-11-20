@@ -1,6 +1,10 @@
 import '../Styles/Myposts.css'
+import Post from './Post';
 
 const Myposts = (props) => {
+  const postMapping = props.postData.map((d, index) => (
+    <Post key={index} message={d.message} likescount={d.likescount} />
+  ));
 
 let addPost = (e) => {
   if (!props.newPostText.trim()) return;
@@ -12,11 +16,9 @@ let onPostChange = (e) => {
   let text = e.target.value;
   props.updateNewPostText(text)
   }
+
     return (
       <div>
-      <p>Home</p>
-    <img className='img-gora' src='https://www.wearegecko.co.uk/media/50316/mountain-3.jpg'></img>
-    <p>ava + description</p>
     <div className='PostsAddHome'>
         <div>
         <textarea className='TextAreaAddPost' onChange={onPostChange} placeholder='type your post'  value={props.newPostText} />
@@ -25,6 +27,7 @@ let onPostChange = (e) => {
         <button className='GetPostButton' onClick={ addPost }>Send Message</button>
         </div>
       </div>
+      {postMapping}
       </div>
     );
   };

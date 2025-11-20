@@ -1,11 +1,13 @@
 const ADDPOST = 'ADD-POST'
 const UPDATENEWPOSTCHANGE = 'UPDATE-NEW-POST-CHANGE'
+const SETUSERPROFILE = 'SET_USER_PROFILE'
 
 let initialState = {
-      postData: [ 
+  postData: [ 
        { id: 1, message: 'Hi, how are you?', likescount: 12 }
     ],
-      newPostText: ''
+    profile: null,
+    newPostText: ''
 }
 
 
@@ -26,6 +28,11 @@ const ProfilePage = (state = initialState, action) => {
           ...state,
         newPostText: action.newText
       }
+      case SETUSERPROFILE:
+        return{
+          ...state,
+          profile: action.profile
+        }
         default: return state;
     }
 }
@@ -35,10 +42,14 @@ export const addPostActionCreator = () => {
        type: 'ADD-POST'
    
      }}
-   export const updateNewPostChangeActionCreator = (text) => {
+export const updateNewPostChangeActionCreator = (text) => {
      return{
      type: 'UPDATE-NEW-POST-CHANGE', newText: text
    }}
+export const SetUserProfile = (profile) => {
+    return{
+    type: SETUSERPROFILE, profile
+  }}
    
 
 export default ProfilePage

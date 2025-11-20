@@ -1,63 +1,246 @@
 {
-      "Users": [
-        {
-          "id": 1047,
-          "uniqueUrlName": null,
-          "photos": { "small": "https://i.pinimg.com/1200x/57/00/c0/5700c04197ee9a4372a35ef16eb78f4e.jpg", "large": "https://via.placeholder.com/50" },
-          "status": "I'm a boss",
-          "followed": true,
-          "name": "Dima"
+  "Users": [
+  { "id": 2, "uniqueUrlName": null, "photos": { "small": "", "large": "" }, "status": "I'm a boss", "followed": true, "name": "Dima" },
+  { "id": 3, "uniqueUrlName": null, "photos": { "small": "", "large": "" }, "status": "I'm a boss", "followed": false, "name": "Katya" },
+  { "id": 4, "uniqueUrlName": null, "photos": { "small": "", "large": "" }, "status": "I'm a boss", "followed": false, "name": "Roma" },
+  { "id": 5, "uniqueUrlName": null, "photos": { "small": "", "large": "" }, "status": "I'm a boss", "followed": true, "name": "Sergey" },
+  { "id": 6, "uniqueUrlName": null, "photos": { "small": "", "large": "" }, "status": "I'm a boss", "followed": false, "name": "Tanya" },
+  { "id": 7, "uniqueUrlName": null, "photos": { "small": "", "large": "" }, "status": "I'm a boss", "followed": false, "name": "Vanya" },
+  { "id": 8, "uniqueUrlName": null, "photos": { "small": "", "large": "" }, "status": "I'm a boss", "followed": false, "name": "Anya" },
+  { "id": 9, "uniqueUrlName": null, "photos": { "small": "", "large": "" }, "status": "I'm a boss", "followed": false, "name": "Krutoj" },
+  { "id": 10, "uniqueUrlName": null, "photos": { "small": "", "large": "" }, "status": "I'm a boss", "followed": false, "name": "Alex" },
+  { "id": 11, "uniqueUrlName": null, "photos": { "small": "", "large": "" }, "status": "I'm a boss", "followed": false, "name": "Igor" },
+  { "id": 12, "uniqueUrlName": null, "photos": { "small": "", "large": "" }, "status": "Ready for work", "followed": true, "name": "Masha" },
+  { "id": 13, "uniqueUrlName": null, "photos": { "small": "", "large": "" }, "status": "Happy day", "followed": false, "name": "Oleg" },
+  { "id": 14, "uniqueUrlName": null, "photos": { "small": "", "large": "" }, "status": "Feeling good", "followed": true, "name": "Svetlana" },
+  { "id": 15, "uniqueUrlName": null, "photos": { "small": "", "large": "" }, "status": "On vacation", "followed": false, "name": "Pavel" },
+  { "id": 16, "uniqueUrlName": null, "photos": { "small": "", "large": "" }, "status": "Busy", "followed": true, "name": "Irina" },
+  { "id": 17, "uniqueUrlName": null, "photos": { "small": "", "large": "" }, "status": "Chilling", "followed": false, "name": "Daniil" },
+  { "id": 18, "uniqueUrlName": null, "photos": { "small": "", "large": "" }, "status": "Working hard", "followed": true, "name": "Alena" },
+  { "id": 19, "uniqueUrlName": null, "photos": { "small": "", "large": "" }, "status": "At home", "followed": false, "name": "Kirill" },
+  { "id": 20, "uniqueUrlName": null, "photos": { "small": "", "large": "" }, "status": "Busy coding", "followed": true, "name": "Elena" },
+  { "id": 21, "uniqueUrlName": null, "photos": { "small": "", "large": "" }, "status": "Learning React", "followed": false, "name": "Anton" },
+  { "id": 22, "uniqueUrlName": null, "photos": { "small": "", "large": "" }, "status": "Feeling great", "followed": true, "name": "Natalia" },
+  { "id": 23, "uniqueUrlName": null, "photos": { "small": "", "large": "" }, "status": "Happy coding", "followed": false, "name": "Maxim" },
+  { "id": 24, "uniqueUrlName": null, "photos": { "small": "", "large": "" }, "status": "Chill mode", "followed": true, "name": "Sofia" },
+  { "id": 25, "uniqueUrlName": null, "photos": { "small": "", "large": "" }, "status": "Working out", "followed": false, "name": "Igor" },
+  { "id": 26, "uniqueUrlName": null, "photos": { "small": "", "large": "" }, "status": "On a trip", "followed": true, "name": "Anna" },
+  { "id": 27, "uniqueUrlName": null, "photos": { "small": "", "large": "" }, "status": "Coffee time", "followed": false, "name": "Denis" },
+  { "id": 28, "uniqueUrlName": null, "photos": { "small": "", "large": "" }, "status": "Reading book", "followed": true, "name": "Vera" },
+  { "id": 29, "uniqueUrlName": null, "photos": { "small": "", "large": "" }, "status": "Gaming", "followed": false, "name": "Oksana" },
+  { "id": 30, "uniqueUrlName": null, "photos": { "small": "", "large": "" }, "status": "Chill vibes", "followed": true, "name": "Ilya" },
+  { "id": 31, "uniqueUrlName": null, "photos": { "small": "", "large": "" }, "status": "Learning JS", "followed": false, "name": "Marina" }
+],
+    "Profiles": [
+      {
+        "aboutMe": "я круто чувак 1001%",
+        "contacts": {
+          "facebook": "facebook.com",
+          "websijte": null,
+          "vk": "vk.com/dimych",
+          "twitter": "https://twitter.com/@sdf",
+          "instagram": "instagra.com/sds",
+          "youtube": null,
+          "github": "github.com",
+          "mainLink": null
         },
-        {
-          "id": 1051,
-          "uniqueUrlName": null,
-          "photos": { "small": "https://i.pinimg.com/1200x/57/00/c0/5700c04197ee9a4372a35ef16eb78f4e.jpg", "large": "https://via.placeholder.com/50" },
-          "status": "I'm a boss",
-          "followed": false,
-          "name": "Katya"
-        },
-        {
-          "id": 1052,
-          "uniqueUrlName": null,
-          "photos": { "small": "https://i.pinimg.com/1200x/57/00/c0/5700c04197ee9a4372a35ef16eb78f4e.jpg", "large": "https://via.placeholder.com/50" },
-          "status": "I'm a boss",
-          "followed": false,
-          "name": "Roma"
-        },
-        {
-          "id": 1053,
-          "uniqueUrlName": null,
-          "photos": { "small": "https://i.pinimg.com/1200x/57/00/c0/5700c04197ee9a4372a35ef16eb78f4e.jpg", "large": "https://via.placeholder.com/50" },
-          "status": "I'm a boss",
-          "followed": true,
-          "name": "Sergey"
-        },
-        {
-          "id": 1054,
-          "uniqueUrlName": null,
-          "photos": { "small": "https://i.pinimg.com/1200x/57/00/c0/5700c04197ee9a4372a35ef16eb78f4e.jpg", "large": "https://via.placeholder.com/50" },
-          "status": "I'm a boss",
-          "followed": false,
-          "name": "Tanya"
-        },
-        {
-          "id": 1055,
-          "uniqueUrlName": null,
-          "photos": { "small": "https://i.pinimg.com/1200x/57/00/c0/5700c04197ee9a4372a35ef16eb78f4e.jpg", "large": "https://via.placeholder.com/50" },
-          "status": "I'm a boss",
-          "followed": false,
-          "name": "Vanya"
-        },
-        {
-          "id": 1056,
-          "uniqueUrlName": null,
-          "photos": { "small": "https://i.pinimg.com/1200x/57/00/c0/5700c04197ee9a4372a35ef16eb78f4e.jpg", "large": "https://via.placeholder.com/50" },
-          "status": "I'm a boss",
-          "followed": false,
-          "name": "Anya"
+        "lookingForAJob": true,
+        "lookingForAJobDescription": "не ищу, a дурачусь",
+        "fullName": "samurai d new name",
+        "userId": 2,
+        "photos": {
+          "small": "https://social-network.samuraijs.com/activecontent/images/users/2/user-small.jpg?v=2",
+          "large": "https://social-network.samuraijs.com/activecontent/images/users/2/user.jpg?v=2"
         }
-      ],
-      "totalCount": 44,
-      "error": null
-    }
-  
+      },
+      {
+        "aboutMe": "я крутой чувак 200%",
+        "contacts": {
+          "facebook": "facebook.com/mega",
+          "websijte": "bababab.com",
+          "vk": "vk.com/mega",
+          "twitter": "babababab.com",
+          "instagram": "babababab/bababab.com",
+          "youtube": "Alekss.com",
+          "github": "github.com/mega",
+          "mainLink": "MAIN"
+        },
+        "lookingForAJob": false,
+        "lookingForAJobDescription": "живу в кайф",
+        "fullName": "Mega Samurai",
+        "userId": 3,
+        "photos": {
+          "small": "https://social-network.samuraijs.com/activecontent/images/users/3/user-small.jpg?v=1",
+          "large": "https://img.freepik.com/free-photo/closeup-scarlet-macaw-from-side-view-scarlet-macaw-closeup-head_488145-3540.jpg?semt=ais_hybrid&w=740&q=80"
+        }
+      },
+      {
+        "aboutMe": "программист-самоук",
+        "contacts": {
+          "facebook": null,
+          "websijte": null,
+          "vk": "vk.com/selfmade",
+          "twitter": null,
+          "instagram": "instagram.com/selfmade",
+          "youtube": null,
+          "github": "github.com/selfmade",
+          "mainLink": null
+        },
+        "lookingForAJob": true,
+        "lookingForAJobDescription": "React, TS",
+        "fullName": "Self Made Dev",
+        "userId": 4,
+        "photos": {
+          "small": "",
+          "large": ""
+        }
+      },
+      {
+        "aboutMe": "обожаю кодить",
+        "contacts": {
+          "facebook": "facebook.com/code",
+          "websijte": null,
+          "vk": null,
+          "twitter": null,
+          "instagram": "instagram.com/code",
+          "youtube": null,
+          "github": "github.com/code",
+          "mainLink": null
+        },
+        "lookingForAJob": true,
+        "lookingForAJobDescription": "хочу писать бэкенд",
+        "fullName": "Coder Man",
+        "userId": 5,
+        "photos": {
+          "small": "",
+          "large": ""
+        }
+      },
+      {
+        "aboutMe": "живу в интернете",
+        "contacts": {
+          "facebook": null,
+          "websijte": null,
+          "vk": "vk.com/netlife",
+          "twitter": null,
+          "instagram": null,
+          "youtube": null,
+          "github": null,
+          "mainLink": null
+        },
+        "lookingForAJob": false,
+        "lookingForAJobDescription": "пока нет",
+        "fullName": "Net Life",
+        "userId": 6,
+        "photos": {
+          "small": "",
+          "large": ""
+        }
+      },
+      {
+        "aboutMe": "люблю фронтенд",
+        "contacts": {
+          "facebook": null,
+          "websijte": null,
+          "vk": null,
+          "twitter": "twitter.com/front",
+          "instagram": null,
+          "youtube": null,
+          "github": "github.com/front",
+          "mainLink": null
+        },
+        "lookingForAJob": true,
+        "lookingForAJobDescription": "ищу стажировку",
+        "fullName": "Front Kid",
+        "userId": 7,
+        "photos": {
+          "small": "",
+          "large": ""
+        }
+      },
+      {
+        "aboutMe": "JS — это жизнь",
+        "contacts": {
+          "facebook": null,
+          "websijte": null,
+          "vk": null,
+          "twitter": null,
+          "instagram": "instagram.com/js",
+          "youtube": null,
+          "github": "github.com/jsfan",
+          "mainLink": null
+        },
+        "lookingForAJob": false,
+        "lookingForAJobDescription": "работаю удалённо",
+        "fullName": "JS Fan",
+        "userId": 8,
+        "photos": {
+          "small": "",
+          "large": ""
+        }
+      },
+      {
+        "aboutMe": "люблю путешествовать",
+        "contacts": {
+          "facebook": "facebook.com/travel",
+          "websijte": null,
+          "vk": null,
+          "twitter": null,
+          "instagram": "instagram.com/travel",
+          "youtube": null,
+          "github": null,
+          "mainLink": null
+        },
+        "lookingForAJob": false,
+        "lookingForAJobDescription": "работаю гидом",
+        "fullName": "Traveler",
+        "userId": 9,
+        "photos": {
+          "small": "",
+          "large": ""
+        }
+      },
+      {
+        "aboutMe": "живу спортом",
+        "contacts": {
+          "facebook": null,
+          "websijte": null,
+          "vk": "vk.com/sport",
+          "twitter": null,
+          "instagram": null,
+          "youtube": null,
+          "github": null,
+          "mainLink": null
+        },
+        "lookingForAJob": false,
+        "lookingForAJobDescription": "спорт — жизнь",
+        "fullName": "Sport Guy",
+        "userId": 10,
+        "photos": {
+          "small": "",
+          "large": ""
+        }
+      },
+      {
+        "aboutMe": "новичок в IT",
+        "contacts": {
+          "facebook": null,
+          "websijte": null,
+          "vk": null,
+          "twitter": null,
+          "instagram": null,
+          "youtube": null,
+          "github": "github.com/newbie",
+          "mainLink": null
+        },
+        "lookingForAJob": true,
+        "lookingForAJobDescription": "готов учиться",
+        "fullName": "Newbie Dev",
+        "userId": 11,
+        "photos": {
+          "small": "",
+          "large": ""
+        }
+      }
+    ]
+  }  
