@@ -1,3 +1,5 @@
+import { UsersApi } from '../DAL/api'
+
 const ADDPOST = 'ADD-POST'
 const UPDATENEWPOSTCHANGE = 'UPDATE-NEW-POST-CHANGE'
 const SETUSERPROFILE = 'SET_USER_PROFILE'
@@ -50,6 +52,15 @@ export const SetUserProfile = (profile) => {
     return{
     type: SETUSERPROFILE, profile
   }}
+
+export const GetProfile = (userId) => {
+    return (dispatch) => {
+      UsersApi.GetProfile(userId).then(data => {
+        const userProfile = data; 
+        dispatch(SetUserProfile(userProfile));
+      })
+    }
+}
    
 
 export default ProfilePage

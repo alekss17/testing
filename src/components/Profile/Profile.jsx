@@ -1,5 +1,5 @@
-import '../Styles/Home.css';
-import MypostsContainer from './MypostsContainer';
+import '../../Styles/Home.css';
+import MypostsContainer from '../Myposts/MypostsContainer';
 import ProfileInfo from './ProfileInfo';
 
 const Profile = (props) => {

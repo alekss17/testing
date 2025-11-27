@@ -35,11 +35,11 @@ const DialogsPageR = (state = initialState, action) => {
     }
 }
 
-export const addMessageActionCreator = () => {
+export const onAddMessage = () => {
   return {
      type: 'addMessage'
    }}
- export const updateNewdialogChangeActionCreator = (text) => {
+ export const onDialogChange = (text) => {
    return{
    type: 'updateNewDialogChange', newMessageText: text
  }}

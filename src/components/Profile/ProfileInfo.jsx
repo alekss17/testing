@@ -1,5 +1,6 @@
-import '../Styles/Myposts.css'
-import Preloader from './common/Preloader/Prelooader';
+import '../../Styles/Myposts.css'
+import Preloader from '../common/Preloader/Prelooader';
+import ProfileStatus from './ProfileStatus'
 
 const ProfileInfo = (props) => {
 
@@ -9,8 +10,8 @@ const ProfileInfo = (props) => {
     return (
         <>
     <p>Home</p>
-    <img className='img-gora' src='https://www.wearegecko.co.uk/media/50316/mountain-3.jpg'></img>
     <div><img className='profileLargePhoto' src={props.profile.photos.large}/></div>
+    <ProfileStatus profileStatus='Hello world' />
     <div>
         <p>About Me: {props.profile.aboutMe}</p>
     </div>

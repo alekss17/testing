@@ -1,9 +1,14 @@
+import { AuthApi } from '../DAL/api'
+
 const SET_USER_DATA = 'SETUSERDATA'
+const IS_AUTH_CHECKING = 'ISAUTHCHECKING'
 
 let initialState = {
-    userId: null,
+    email: null,
     login: null,
-    email: null
+    userId: null,
+    isAuth: false,
+    isAuthChecking: false
 }
 
 const authReducer = (state = initialState, action) => {
@@ -11,13 +16,34 @@ const authReducer = (state = initialState, action) => {
         case SET_USER_DATA:
                 return {
                     ...state,
-                    ...action.data
+                    ...action.data,
+                    isAuth: true
                 }
+                case IS_AUTH_CHECKING:
+                    return {
+                        ...state,
+                        isAuthChecking: action.bollean
+             }
         default:
             return state
     }
 }
 
-export const SetUserData = (userId, login, email) => ({ type: SET_USER_DATA, data: {userId, login, email} });
+export const SetAuthUserData = (email, login, userId) => ({ type: SET_USER_DATA, data: {email, login, userId} });
+export const isAuthChecking = (bollean) => ({type: IS_AUTH_CHECKING, bollean })
+
+export const GetMe = () => {
+    return (dispatch) => {
+        dispatch(isAuthChecking(false))
+        AuthApi.GetMe()
+        .then(data => {
+            if (data.resultCode === 0) {
+                dispatch(isAuthChecking(true))
+              let {email, login, id} = data.data
+              dispatch(SetAuthUserData(email, login, id))
+            }
+          });
+    }
+}
 
 export default authReducer;

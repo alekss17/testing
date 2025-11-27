@@ -1,4 +1,4 @@
-import '../Styles/Post.css'
+import '../../Styles/Post.css'
 
 const Post = (props) => {
     const {likescount, message} = props;

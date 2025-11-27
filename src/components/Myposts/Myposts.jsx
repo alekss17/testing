@@ -1,4 +1,4 @@
-import '../Styles/Myposts.css'
+import '../../Styles/Myposts.css'
 import Post from './Post';
 
 const Myposts = (props) => {
