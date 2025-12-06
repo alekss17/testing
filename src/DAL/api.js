@@ -15,23 +15,36 @@ export const UsersApi = {
         instance.get(`users?page=${currentPage}&count=${pageSize}`,)
         .then(response => response.data)
     )},
-    GetProfile(userId = 2) {
-        return (
-            instance.get(`profile/${userId}`)
-            .then(response => response.data)
-        )
-    },
-    UnFollow(userId = 2) {
+    UnFollow(userId = 32664) {
         return (
             instance.delete(`follow/${userId}`)
             .then(response => response.data)
         )
     },
-    Follow(userId = 2) {
+    Follow(userId = 32664) {
         return (
             instance.post(`follow/${userId}`, {})
             .then(response => response.data)
         )
+    }
+}
+
+export const ProfileApi = {
+    GetProfile(userId = 32664) {
+        return (
+            instance.get(`profile/${userId}`)
+            .then(response => response.data)
+        )
+    },
+    GetProfileStatus(userId = 32664) {
+        return (
+            instance.get(`profile/status/${userId}`)
+            .then(response => response.data)
+        )
+    },
+    UpdateProfileStatus(status) {
+        return instance.put('profile/status', {status})
+        .then( response => response.data)
     }
 }
 
@@ -41,5 +54,16 @@ export const AuthApi = {
             instance.get('auth/me')
             .then(response => response.data)
         )
-    }
+    },
+    Login(email, password, rememberMe = false) {
+        return (
+            instance.post('auth/login', {email, password, rememberMe})
+            .then(response => response.data)
+        )},
+    Logout() {
+        return (
+            instance.delete('auth/login')
+            .then(response => response.data)
+        )
+     }
 }

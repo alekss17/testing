@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import '../../Styles/Users.css';
 import userPhoto from '../../assets/images/user.jpg'
 import { NavLink } from 'react-router-dom';
 
 const Users = (props) => {
+    const curP = props.currentPage
+
     let pagesCount = Math.ceil(props.TotalUserCount / props.PageSize);
     let pages = [];
     for (let i = 1; i <= pagesCount; i++) pages.push(i);
@@ -13,7 +15,7 @@ const Users = (props) => {
             {pages.map(p => (
                 <span
                     key={p}
-                    className={props.currentPage === p ? 'ActiveSpanPageUsers' : ''}
+                    className={curP === p ? 'ActiveSpanPageUsers' : ''}
                     onClick={() => props.OnePageChanged(p)}
                 >{p}</span>
             ))}

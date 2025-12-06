@@ -35,6 +35,10 @@
     margin-bottom: 10px;
 }
 
+.TextAreaAddPost:active {
+    border: 0;
+}
+
 .PostsAddHome {
     display: flex;
     align-items: center;

@@ -4,8 +4,9 @@ import Users from './Users';
 import { AcceptUnFollow, AcceptFollow, GetUsers, ToggleIsFollowing} from '../../redux/UsersReducer';
 import {UnFollow, Follow} from '../../redux/UsersReducer'
 import Preloader from '../common/Preloader/Prelooader'
-import AuthRedirectComponent from '../../hoc/WithAuthNavigate';
-import { compose } from 'redux';
+import { Navigate } from 'react-router-dom';
+import { FollowingInProgress, GetCurrentPage, GetFatching, GetPageSize, GetTotalUserCount, GetUsersSuper } from '../../redux/UsersSelector';
+import { GetIsAuth, GetisAuthChecking } from '../../redux/authSelector';
 
 class UsersApiContainer extends React.Component {
 
@@ -18,6 +19,14 @@ class UsersApiContainer extends React.Component {
     }
 
     render() {
+        if (this.props.isAuthChecking) {
+            return <Preloader />
+        }
+
+        if (!this.props.isAuth) {
+            return <Navigate to="/login" replace />
+        }
+
         return <>
             {this.props.isFatching ? <Preloader /> : null}
             <Users
@@ -38,16 +47,15 @@ class UsersApiContainer extends React.Component {
 
 let MapStateToProps = (state) => {
     return {
-        Users: state.UserPageReducer.Users,
-        TotalUserCount: state.UserPageReducer.TotalUserCount,
-        PageSize: state.UserPageReducer.PageSize,
-        currentPage: state.UserPageReducer.currentPage,
-        isFatching: state.UserPageReducer.isFatching,
-        FollowingInProgress: state.UserPageReducer.FollowingInProgress
+        Users: GetUsersSuper(state),
+        TotalUserCount: GetTotalUserCount(state),
+        PageSize: GetPageSize(state),
+        currentPage: GetCurrentPage(state),
+        isFatching: GetFatching(state),
+        FollowingInProgress: FollowingInProgress(state),
+        isAuth: GetIsAuth(state),
+        isAuthChecking: GetisAuthChecking(state)
     }
 }
 
-export default compose(
-    connect(MapStateToProps, { AcceptFollow, AcceptUnFollow, Follow, UnFollow, GetUsers, ToggleIsFollowing}),
-    AuthRedirectComponent
-)(UsersApiContainer);
+export default connect(MapStateToProps, { AcceptFollow, AcceptUnFollow, Follow, UnFollow, GetUsers, ToggleIsFollowing})(UsersApiContainer);

@@ -3,15 +3,12 @@ import Preloader from '../common/Preloader/Prelooader';
 import ProfileStatus from './ProfileStatus'
 
 const ProfileInfo = (props) => {
-
-    if (!props.profile) {
-        return <Preloader />
-    }
+    if (!props.profile) return <Preloader />;
     return (
         <>
     <p>Home</p>
-    <div><img className='profileLargePhoto' src={props.profile.photos.large}/></div>
-    <ProfileStatus profileStatus='Hello world' />
+    <div><img className='profileLargePhoto' src={ props.profile && props.profile.photos.large}/></div>
+    <ProfileStatus profileStatus={props.profileStatus} UpdateProfileStats={props.UpdateProfileStats} />
     <div>
         <p>About Me: {props.profile.aboutMe}</p>
     </div>

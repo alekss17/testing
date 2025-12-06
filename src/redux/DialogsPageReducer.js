@@ -1,5 +1,4 @@
 const addMessage = 'addMessage'
-const updateNewDialogChange = 'updateNewDialogChange'
 
 let initialState = {
   dialogs: [
@@ -13,35 +12,25 @@ let initialState = {
   Messages: [
     { messages: ' hi' } 
   ],
-  newDialogText: '',
 }
 
 const DialogsPageR = (state = initialState, action) => {
 
     switch(action.type) {
         case addMessage:
-          const newDialog = { messages: state.newDialogText };
+          const newDialog = { messages: action.onDialogBody };
           return {
             ...state,
           Messages: [...state.Messages, newDialog],
-          newDialogText: ''
-          }
-      case updateNewDialogChange:
-        return {
-          ...state,
-          newDialogText: action.newMessageText
           }
     default: return state
     }
 }
 
-export const onAddMessage = () => {
+export const onAddMessage = (onDialogBody) => {
   return {
-     type: 'addMessage'
+     type: 'addMessage',
+     onDialogBody
    }}
- export const onDialogChange = (text) => {
-   return{
-   type: 'updateNewDialogChange', newMessageText: text
- }}
 
 export default DialogsPageR;
