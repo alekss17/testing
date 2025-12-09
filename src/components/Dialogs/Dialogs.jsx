@@ -5,12 +5,8 @@ import { Navigate } from 'react-router-dom';
 import Preloader from '../common/Preloader/Prelooader'
 
 const Dialogs = (props) => {
-    if (props.isAuthChecking) {
-        return <Preloader />
-    }
-
-    if (!props.isAuth) {
-        return <Navigate to="/login" replace />
+    if (!props.profile) {
+        <Preloader />
     }
 
     const dialogsElements = props.dialogs.map((dialog, index) => (<DialogItem key={index} name={dialog.name} id={dialog.id} />));

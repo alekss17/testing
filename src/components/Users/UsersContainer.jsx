@@ -7,6 +7,8 @@ import Preloader from '../common/Preloader/Prelooader'
 import { Navigate } from 'react-router-dom';
 import { FollowingInProgress, GetCurrentPage, GetFatching, GetPageSize, GetTotalUserCount, GetUsersSuper } from '../../redux/UsersSelector';
 import { GetIsAuth, GetisAuthChecking } from '../../redux/authSelector';
+import { compose } from 'redux';
+import AuthRedirectComponent from '../../hoc/WithAuthNavigate';
 
 class UsersApiContainer extends React.Component {
 
@@ -19,14 +21,6 @@ class UsersApiContainer extends React.Component {
     }
 
     render() {
-        if (this.props.isAuthChecking) {
-            return <Preloader />
-        }
-
-        if (!this.props.isAuth) {
-            return <Navigate to="/login" replace />
-        }
-
         return <>
             {this.props.isFatching ? <Preloader /> : null}
             <Users
@@ -58,4 +52,7 @@ let MapStateToProps = (state) => {
     }
 }
 
-export default connect(MapStateToProps, { AcceptFollow, AcceptUnFollow, Follow, UnFollow, GetUsers, ToggleIsFollowing})(UsersApiContainer);
+export default compose(
+    connect(MapStateToProps, { AcceptFollow, AcceptUnFollow, Follow, UnFollow, GetUsers, ToggleIsFollowing}),
+    AuthRedirectComponent
+)(UsersApiContainer);

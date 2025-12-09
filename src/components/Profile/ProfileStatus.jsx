@@ -10,7 +10,10 @@ const ProfileStatus = (props) => {
     }, [props.profileStatus])
 
     const ActivateEditMode = () => {
-        setEditMode(true)
+        if (props.userId !== props.meId) {
+            return;
+        }
+            setEditMode(true)
     }
     
     const ReActivateEditMode = () => {

@@ -1,17 +1,16 @@
+import React from 'react';
 import '../../Styles/Myposts.css'
 import Post from './Post';
 import AddMessageForm from '../Forms/AddMessageForm'
 
-const Myposts = (props) => {
+const Myposts = React.memo((props) => {
   const postMapping = props.postData.map((d, index) => (
     <Post key={index} message={d.message} likescount={d.likescount} />
-  ));
-
+));
 
   let addNewMessage = (values) => {
     props.addPost(values.newMessageBody)
-  }
-
+}
 
     return (
       <div>
@@ -19,7 +18,7 @@ const Myposts = (props) => {
       {postMapping}
       </div>
     );
-  };
+});
 
   
   export default Myposts;

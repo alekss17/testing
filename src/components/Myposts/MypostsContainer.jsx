@@ -1,6 +1,8 @@
 import { connect } from 'react-redux';
 import {addPostActionCreator} from '../../redux/ProfilePageReducer'
 import Myposts from './Myposts';
+import { compose } from 'redux';
+import AuthRedirectComponent from '../../hoc/WithAuthNavigate'
 
 let MapStateToProps = (state) => {
   return {
@@ -8,7 +10,10 @@ let MapStateToProps = (state) => {
   }
 }
 
-const MypostsContainer = connect(MapStateToProps, {addPost: addPostActionCreator, })(Myposts)
+const MypostsContainer = compose(
+  connect(MapStateToProps, {addPost: addPostActionCreator, }),
+  AuthRedirectComponent
+)(Myposts)
   
   export default MypostsContainer;
   

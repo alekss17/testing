@@ -1,6 +1,8 @@
 import { connect } from "react-redux";
 import { onAddMessage} from "../../redux/DialogsPageReducer";
 import Dialogs from "./Dialogs";
+import { compose } from "redux";
+import AuthRedirectComponent from "../../hoc/WithAuthNavigate";
 
 let MapStateToProps = (state) => {
   return {
@@ -11,4 +13,7 @@ let MapStateToProps = (state) => {
   }
 }
 
-export default connect(MapStateToProps, {onAddMessage})(Dialogs);
+export default compose(
+  connect(MapStateToProps, {onAddMessage}),
+  AuthRedirectComponent
+)(Dialogs);

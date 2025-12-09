@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import '../../Styles/Users.css';
 import userPhoto from '../../assets/images/user.jpg'
 import { NavLink } from 'react-router-dom';
 
-const Users = (props) => {
+const Users = React.memo((props) => {
     const curP = props.currentPage
 
     let pagesCount = Math.ceil(props.TotalUserCount / props.PageSize);
@@ -44,6 +44,6 @@ const Users = (props) => {
             ))}
         </div>
     );
-}
+})
 
 export default Users

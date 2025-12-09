@@ -3,24 +3,34 @@ import '../../Styles/Home.css';
 import { connect } from 'react-redux';
 import Profile from './Profile';
 import { GetProfile, GetProfilStatus, UpdateProfileStats } from '../../redux/ProfilePageReducer';
-import { Navigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import { compose } from 'redux';
+import AuthRedirectComponent from '../../hoc/WithAuthNavigate';
 
 class ProfileContainer extends Component {
-
   componentDidMount() {
-    if (!this.props.userId) return;
+    this.refreshProfile();
+  }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.userId !== prevProps.userId) {
+      this.refreshProfile();
+    }
+  }
+
+  refreshProfile() {
+    if (!this.props.userId) return;
     this.props.GetProfile(this.props.userId);
     this.props.GetProfilStatus(this.props.userId);
   }
+
   render() {
-              if (!this.props.isAuth && !this.props.isAuthChecking) {
-                  return <Navigate to="/login" replace />
-              }
     return (
-      <>
-        <Profile {...this.props}/>
-      </>
+      <Profile 
+        meId={this.props.meId} 
+        userId={this.props.userId} 
+        {...this.props}
+      />
     );
   }
 }
@@ -30,15 +40,27 @@ const mapStateToProps = (state) => ({
   profileStatus: state.ProfileReducer.ProfileStatus,
   isAuth: state.auth.isAuth,
   isAuthChecking: state.auth.isAuthChecking,
+  meId: state.auth.userId,
   AutorizedUserId: state.auth.userId
 });
 
-const ProfileContainerWrapper = (props) => {
-  let { userId } = useParams();
-  if (!userId) {
-    userId = props.AutorizedUserId;
-  }
-  return <ProfileContainer {...props} userId={userId} />;
-}
+// Сначала оборачиваем классовый компонент через compose
+const ConnectedProfileContainer = compose(
+  connect(mapStateToProps, { GetProfile, GetProfilStatus, UpdateProfileStats }),
+  AuthRedirectComponent
+)(ProfileContainer);
 
-export default connect(mapStateToProps, { GetProfile, GetProfilStatus, UpdateProfileStats })(ProfileContainerWrapper)
+// Затем создаём обёртку для useParams
+const ProfileContainerWrapper = (props) => {
+  const { userId } = useParams();
+  const finalUserId = userId || props.AutorizedUserId;
+  
+  return <ConnectedProfileContainer {...props} userId={finalUserId} />;
+};
+
+// Подключаем redux к обёртке для доступа к AutorizedUserId
+export default connect(
+  (state) => ({
+    AutorizedUserId: state.auth.userId
+  })
+)(ProfileContainerWrapper);

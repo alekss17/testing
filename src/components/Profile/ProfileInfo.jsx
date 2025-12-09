@@ -8,7 +8,7 @@ const ProfileInfo = (props) => {
         <>
     <p>Home</p>
     <div><img className='profileLargePhoto' src={ props.profile && props.profile.photos.large}/></div>
-    <ProfileStatus profileStatus={props.profileStatus} UpdateProfileStats={props.UpdateProfileStats} />
+    <ProfileStatus meId={props.meId} userId={props.userId} profileStatus={props.profileStatus} UpdateProfileStats={props.UpdateProfileStats} />
     <div>
         <p>About Me: {props.profile.aboutMe}</p>
     </div>
