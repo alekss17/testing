@@ -1,4 +1,5 @@
 import { UsersApi } from "../DAL/api"
+import { UpdateObjectInArray } from "../utils/object-helpers"
 
 const FOLLOW = 'FOLLOW'
 const UN_FOLLOW = 'UNFOLLOW'
@@ -22,17 +23,13 @@ const UserPage = (state = initialState, action) => {
         case FOLLOW:
             return {
                 ...state,
-                Users: state.Users.map(u =>
-                    u.id === action.id ? { ...u, followed: true } : u
-                )
+                Users: UpdateObjectInArray(state.Users, action.id, "id", {followed: true})
             }
 
         case UN_FOLLOW:
             return {
                 ...state,
-                Users: state.Users.map(u =>
-                    u.id === action.id ? { ...u, followed: false } : u
-                )
+                Users: UpdateObjectInArray(state.Users, action.id, "id", {followed: false})
             }
 
         case SET_USERS:
@@ -70,43 +67,31 @@ export const ToggleIsFatching = (isFatching) => ({ type: TOOGLE_IS_FATCHING,  is
 export const ToggleIsFollowing = (isFollowing, UserId) => ({ type: TOOGLE_IS_FOLLOWING,  isFollowing, UserId});
 
 export const GetUsers = (currentPage, PageSize) => {
-        return (dispatch) => {
-            
+        return async (dispatch) => {
     dispatch(ToggleIsFatching(true))
-        
-    UsersApi.GetUsers(currentPage, PageSize).then(data => {
+
+    let data = await UsersApi.GetUsers(currentPage, PageSize)
+
         dispatch(SetUsers(data.items))
         dispatch(SetCurrentPage(currentPage))
         dispatch(SetTotalUserCount(100))
         dispatch(ToggleIsFatching(false))
-    });
   }
 }
 
-export const UnFollow = (UserId) => {
-    return (dispatch) => {
-        dispatch(ToggleIsFollowing(true, UserId))
+const FollowUnFollowFlow = async (dispatch, UserId, apiMethod, actionCreator) => {
+    dispatch(ToggleIsFollowing(true, UserId))
 
-        UsersApi.UnFollow(UserId).then(data => {
-             if (data.resultCode === 0 ) {
-                 dispatch(AcceptUnFollow(UserId))
-             }
-             dispatch(ToggleIsFollowing(false, UserId))
-         })
-    }
+    let data = await apiMethod(UserId)
+
+         if (data.resultCode === 0 ) {
+             dispatch(actionCreator(UserId))
+         }
+         dispatch(ToggleIsFollowing(false, UserId))
 }
 
-export const Follow = (UserId) => {
-    return (dispatch) => {
-        dispatch(ToggleIsFollowing(true, UserId))
+export const UnFollow = (UserId) => async (dispatch) => { FollowUnFollowFlow(dispatch, UserId, UsersApi.UnFollow.bind(UsersApi), AcceptUnFollow) }
 
-        UsersApi.Follow(UserId).then(data => {
-             if (data.resultCode === 0 ) {
-                 dispatch(AcceptFollow(UserId))
-             }
-             dispatch(ToggleIsFollowing(false, UserId))
-         })
-    }
-}
+export const Follow = (UserId) => async (dispatch) => { FollowUnFollowFlow(dispatch, UserId, UsersApi.Follow.bind(UsersApi), AcceptFollow) }
 
 export default UserPage;

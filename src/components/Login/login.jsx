@@ -1,7 +1,7 @@
 import React from "react";
 import LoginForm from "../Forms/LoginForm";
 import { connect } from "react-redux";
-import { login, logout } from "../../redux/authReducer";
+import { login } from "../../redux/authReducer";
 import { Navigate } from "react-router-dom";
 
 const Login = (props) => {

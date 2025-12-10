@@ -6,16 +6,16 @@ import '../../Styles/formControl.css'
 
 const MaxLenght40 = MaxLenghtCreator(40);
 
-const LoginForm = (props) => {
+const LoginForm = (formError, Submit) => {
   const validate = value => required(value) || MaxLenght40(value);
 
   return (
 <Formik
   initialValues={{ email: "", password: "", rememberMe: false }}
   enableReinitialize={true} 
-  initialStatus={props.formError} 
+  initialStatus={formError} 
   onSubmit={(values, { setSubmitting }) => {
-    props.Submit(values);
+    Submit(values);
     setSubmitting(false);
   }}
 >

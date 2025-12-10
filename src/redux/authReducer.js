@@ -51,12 +51,10 @@ export const SetFormError = (err) => ({
     err
 })
 
-// Получение данных о текущем пользователе
-export const GetMe = () => (dispatch) => {
+export const GetMe = () => async (dispatch) => {
     dispatch(isAuthChecking(true))
 
-   return AuthApi.GetMe()
-        .then(data => {
+    let data = await AuthApi.GetMe()
             if (data.resultCode === 0) {
                 dispatch(SetAuthUserData(
                     data.data.email,
@@ -65,43 +63,34 @@ export const GetMe = () => (dispatch) => {
                     true
                 ))
             }
-        })
-        .finally(() => {
             dispatch(isAuthChecking(false))
-        })
 }
 
 // Логин
-export const login = (email, password, rememberMe = false) => (dispatch) => {
+export const login = (email, password, rememberMe = false) => async (dispatch) => {
     dispatch(isAuthChecking(true))
 
-    AuthApi.Login(email, password, rememberMe)
-        .then(data => {
+    let data = await AuthApi.Login(email, password, rememberMe)
+
             if (data.resultCode === 0) {
                 dispatch(GetMe()) // после успешного логина обновляем состояние пользователя
             } else {
                 let messages = data.messages.length > 0 ? data.messages[0] : "some error"
                 dispatch(SetFormError(messages))
             }
-        })
-        .finally(() => {
             dispatch(isAuthChecking(false))
-        })
 }
 
 // Логаут
-export const logout = () => (dispatch) => {
+export const logout = () => async (dispatch) => {
     dispatch(isAuthChecking(true))
 
-    AuthApi.Logout()
-        .then(data => {
+    let data = await AuthApi.Logout()
+    
             if (data.resultCode === 0) {
                 dispatch(SetAuthUserData(null, null, null, false))
             }
-        })
-        .finally(() => {
             dispatch(isAuthChecking(false))
-        })
 }
 
 export default authReducer
