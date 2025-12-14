@@ -10,7 +10,7 @@ let initialState = {
     userId: null,
     isAuth: false,
     isAuthChecking: true,
-    formError: []
+    formError: null
 }
 
 const authReducer = (state = initialState, action) => {
@@ -89,6 +89,7 @@ export const logout = () => async (dispatch) => {
     
             if (data.resultCode === 0) {
                 dispatch(SetAuthUserData(null, null, null, false))
+                dispatch(SetFormError(null))
             }
             dispatch(isAuthChecking(false))
 }

@@ -74,7 +74,7 @@ export const GetUsers = (currentPage, PageSize) => {
 
         dispatch(SetUsers(data.items))
         dispatch(SetCurrentPage(currentPage))
-        dispatch(SetTotalUserCount(100))
+        dispatch(SetTotalUserCount(data.totalCount))
         dispatch(ToggleIsFatching(false))
   }
 }

@@ -1,26 +1,35 @@
+import React, { useEffect } from 'react';
 import './Styles/App.css';
 import NavBar from './NavBar';
-import DialogsContainer from './components/Dialogs/DialogsContainer';
-import Music from './components/Music/Music';
-import Settings from './components/Settings/Settings';
 import HeaderContainer from './components/Header/HeaderContainer';
 import Test from './components/tests';
-import ProfileContainer from './components/Profile/ProfileContainer';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import MypostsContainer from './components/Myposts/MypostsContainer';
-import UsersContainer from './components/Users/UsersContainer';
 import Login from './components/Login/login';
-import { useEffect } from 'react';
 import { InitializeApp } from './redux/appReducer';
 import { connect } from 'react-redux';
 import Preloader from './components/common/Preloader/Prelooader';
+import store from './redux/redux-store';
+import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+
+import Music from './components/Music/Music';
+import Settings from './components/Settings/Settings';
+import HelperSuspense from './components/common/Preloader/HelperSuspense';
+
+
+const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
+const MypostsContainer = React.lazy(() => import('./components/Myposts/MypostsContainer'));
+const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'));
+const UsersContainer = React.lazy(() => import('./components/Users/UsersContainer'));
+
+
 
 function App(props) {
 
   useEffect(() => {
     props.InitializeApp()
   }, [])
-  
+
   if (!props.initialized) {
     return <Preloader />
   }
@@ -33,22 +42,23 @@ function App(props) {
 
         <div className="content">
           <Routes>
-
-            {/* Главная — редирект на профиль */}
             <Route path="/" element={<Navigate to="/profile" />} />
 
-            <Route path="/profile/:userId?" element={<ProfileContainer />} />
-            <Route path="/dialogs" element={<DialogsContainer />} />
-            <Route path="/myposts" element={<MypostsContainer />} />
+            <Route path="/profile/:userId?" element={<HelperSuspense Component={ProfileContainer} />} />
+
+            <Route path="/dialogs" element={<HelperSuspense Component={DialogsContainer} />}/>
+
+            <Route path="/myposts" element={<HelperSuspense Component={MypostsContainer} /> }/>
+
             <Route path="/music" element={<Music />} />
             <Route path="/settings" element={<Settings />} />
             <Route path="/test" element={<Test />} />
-            <Route path="/users" element={<UsersContainer />} />
+
+            <Route path="/users" element={<HelperSuspense Component={UsersContainer} />}/>
+
             <Route path="/login" element={<Login />} />
 
-            {/* 404 */}
             <Route path="*" element={<div>404 Not Found</div>} />
-
           </Routes>
         </div>
       </div>
@@ -58,8 +68,21 @@ function App(props) {
 
 const mapStateToProps = (state) => {
   return {
-  initialized: state.app.initialized
+    initialized: state.app.initialized
   }
 }
 
-export default connect(mapStateToProps, { InitializeApp })(App);
+let AppContainer = connect(mapStateToProps, { InitializeApp })(App);
+
+let SamurajJSApp = () => {
+  return <BrowserRouter future={{
+    v7_startTransition: true,
+    v7_relativeSplatPath: true,
+  }}>
+    <Provider store={store}>
+      <AppContainer />
+    </Provider>
+  </BrowserRouter>
+}
+
+export default SamurajJSApp;

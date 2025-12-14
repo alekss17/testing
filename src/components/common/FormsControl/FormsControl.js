@@ -2,8 +2,8 @@ import React from "react"
 import { Field } from "formik";
 import '../../../Styles/formControl.css'
 
-const TextArea = ({ field, form: { touched, errors },  asTag = "textarea", ...props }) => {
-    const error = touched[field.name] && errors[field.name];
+const TextArea = ({ field: {name}, field, form: { touched, errors },  asTag = "textarea", ...props }) => {
+    const error = touched[name] && errors[name];
 
     const Tag = asTag
     return (

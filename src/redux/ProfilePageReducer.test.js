@@ -18,35 +18,31 @@ const initialState = {
   ProfileStatus: ""
 };
 
+test('new post should be added', () => {
+  const action = addPostActionCreator('it-alekss.com');
+  const newState = ProfilePage(initialState, action);
 
-  test('new post should be added', () => {
-    const action = addPostActionCreator('it-alekss.com');
+  expect(newState.postData.length).toBe(4); // было 3 -> стало 4
+});
 
-    const newState = ProfilePage(initialState, action);
+test('new text should be correct', () => {
+  const action = addPostActionCreator('it-alekss.com');
+  const newState = ProfilePage(initialState, action);
 
-    expect(newState.postData.length).toBe(4);
-  });
+  const added = newState.postData[newState.postData.length - 1]; // последний элемент
+  expect(added.message).toBe('it-alekss.com');
+});
 
-  test('new text should be corrected', () => {
-    const action = addPostActionCreator('it-alekss.com');
+test('after deleted length of messages should be decremented', () => {
+  const action = deletePost(2);
+  const newState = ProfilePage(initialState, action);
 
-    const newState = ProfilePage(initialState, action);
+  expect(newState.postData.length).toBe(2);
+});
 
-    expect(newState.postData[3].message).toBe('it-alekss.com');
-  });
+test('after deleting non-existing id length should not change', () => {
+  const action = deletePost(1000000);
+  const newState = ProfilePage(initialState, action);
 
-  test('after deleted length of messages should be decrementet', () => {
-    const action = deletePost(2);
-
-    const newState = ProfilePage(initialState, action);
-
-    expect(newState.postData.length).toBe(2);
-  });
-
-  test('after deleted length of messages shouldn\'t be decrementet', () => {
-    const action = deletePost(1000000);
-
-    const newState = ProfilePage(initialState, action);
-
-    expect(newState.postData.length).toBe(3);
-  });
+  expect(newState.postData.length).toBe(3);
+});

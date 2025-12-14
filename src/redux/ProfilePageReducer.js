@@ -20,6 +20,7 @@ const ProfilePage = (state = initialState, action) => {
     switch (action.type) {
         case ADDPOST: 
         const newPost = {
+          id: state.postData.length + 1,
             message: action.newMessageBody,
             likescount: Math.random()
         };
@@ -49,7 +50,7 @@ const ProfilePage = (state = initialState, action) => {
 
 export const addPostActionCreator = (newMessageBody) => {
     return {
-       type: 'ADD-POST',
+       type: ADDPOST,
        newMessageBody
      }}
 export const SetUserProfile = (profile) => {

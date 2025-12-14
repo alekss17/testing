@@ -5,5 +5,14 @@
 }
 
 .ActiveSpanPageUsers {
+    cursor: pointer;
     font-weight: 900;
+    font-size: 30px;
+    border: 1px, red, solid;
+}
+
+.SpanPaginationNumberBTN {
+    cursor: pointer;
+    font-size: 30px;
+    border: 1px, grey, solid;
 }

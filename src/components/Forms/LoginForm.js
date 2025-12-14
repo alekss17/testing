@@ -6,6 +6,13 @@ import '../../Styles/formControl.css'
 
 const MaxLenght40 = MaxLenghtCreator(40);
 
+const isEmpty = (value) =>
+  value === null ||
+  value === undefined ||
+  value === "" ||
+  (Array.isArray(value) && value.length === 0);
+
+
 const LoginForm = ({formError, Submit}) => {
 
   const validate = value => required(value) || MaxLenght40(value);
@@ -13,20 +20,26 @@ const LoginForm = ({formError, Submit}) => {
   return (
 <Formik
   initialValues={{ email: "", password: "", rememberMe: false }}
-  enableReinitialize={true} 
-  initialStatus={formError} 
-  onSubmit={(values, { setSubmitting }) => {
+  enableReinitialize={true}
+  initialStatus={formError || null}
+  onSubmit={(values, { setSubmitting, setStatus }) => {
+    setStatus(null);   // ← сброс перед новым Submit!
     Submit(values);
     setSubmitting(false);
   }}
 >
-        { ({status}) => (
+    { ({status}) => (
         <Form>
-          
-          { status && 
-          <div className="form-summary-error">
-            {status}
-            </div>}
+
+         {createField("email", "email", validate, TextArea, "input")}
+         {createField("Password", "password", validate, TextArea, "input", "password" )}
+         {createField("", "rememberMe", null, null, "", "checkbox", "remember me")}
+
+ { !isEmpty(status) && 
+  <div className="form-summary-error">
+    {Array.isArray(status) ? status.join(", ") : status}
+  </div>
+}
 
           <div>
             <button type="submit">Login</button>
