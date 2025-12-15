@@ -1,4 +1,5 @@
 import { AuthApi } from '../DAL/api'
+import { instance } from '../DAL/api' 
 
 const SET_USER_DATA = 'SETUSERDATA'
 const IS_AUTH_CHECKING = 'ISAUTHCHECKING'
