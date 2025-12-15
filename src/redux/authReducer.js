@@ -66,19 +66,22 @@ export const GetMe = () => async (dispatch) => {
             dispatch(isAuthChecking(false))
 }
 
-// Логин
 export const login = (email, password, rememberMe = false) => async (dispatch) => {
     dispatch(isAuthChecking(true))
 
     let data = await AuthApi.Login(email, password, rememberMe)
 
-            if (data.resultCode === 0) {
-                dispatch(GetMe()) // после успешного логина обновляем состояние пользователя
-            } else {
-                let messages = data.messages.length > 0 ? data.messages[0] : "some error"
-                dispatch(SetFormError(messages))
-            }
-            dispatch(isAuthChecking(false))
+    if (data.resultCode === 0) {
+        if (data.data?.token) {
+            localStorage.setItem('token', data.data.token)
+            instance.defaults.headers['Authorization'] = `Bearer ${data.data.token}`
+        }
+        dispatch(GetMe())
+    } else {
+        let messages = data.messages.length > 0 ? data.messages[0] : "some error"
+        dispatch(SetFormError(messages))
+    }
+    dispatch(isAuthChecking(false))
 }
 
 // Логаут

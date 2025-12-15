@@ -9,7 +9,7 @@ import { InitializeApp } from './redux/appReducer';
 import { connect } from 'react-redux';
 import Preloader from './components/common/Preloader/Prelooader';
 import store from './redux/redux-store';
-import { BrowserRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
 import Music from './components/Music/Music';
@@ -75,14 +75,11 @@ const mapStateToProps = (state) => {
 let AppContainer = connect(mapStateToProps, { InitializeApp })(App);
 
 let SamurajJSApp = () => {
-  return <BrowserRouter future={{
-    v7_startTransition: true,
-    v7_relativeSplatPath: true,
-  }}>
+  return <HashRouter >
     <Provider store={store}>
       <AppContainer />
     </Provider>
-  </BrowserRouter>
+  </HashRouter>
 }
 
 export default SamurajJSApp;
