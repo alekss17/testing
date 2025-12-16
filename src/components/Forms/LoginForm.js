@@ -23,7 +23,7 @@ const LoginForm = ({formError, Submit}) => {
   enableReinitialize={true}
   initialStatus={formError || null}
   onSubmit={(values, { setSubmitting, setStatus }) => {
-    setStatus(null);   // ← сброс перед новым Submit!
+    setStatus(null);  
     Submit(values);
     setSubmitting(false);
   }}

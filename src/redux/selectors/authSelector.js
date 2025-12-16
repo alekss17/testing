@@ -9,3 +9,15 @@ export const GetisAuthChecking = (state) => {
         state.auth.isAuthChecking
     )
 }
+
+export const loginSelector = (state) => {
+    return (
+        state.auth.login
+    )
+}
+
+export const formErrorSelector = (state) => {
+    return (
+        state.auth.formError
+    )
+}

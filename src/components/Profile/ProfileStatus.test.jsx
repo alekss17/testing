@@ -8,7 +8,7 @@ describe("Profile Status Component", () => {
       <ProfileStatus profileStatus="it-alekss.com" userId={1} meId={1} UpdateProfileStats={() => {}} />
     );
     const tree = component.toJSON();
-    const text = tree.children[0].children[0]; // внутри <p>
+    const text = tree.children[0].children[0];
     expect(text).toBe("it-alekss.com");
   });
      
@@ -33,7 +33,7 @@ describe("Profile Status Component", () => {
       <ProfileStatus profileStatus="it-alekss.com" userId={1} meId={1} UpdateProfileStats={() => {}} />
     );
     const root = component.root;
-    const inputs = root.findAllByType("input"); // не бросает ошибку, возвращает массив
+    const inputs = root.findAllByType("input"); 
     expect(inputs.length).toBe(0);
   });
 
@@ -55,20 +55,18 @@ describe("Profile Status Component", () => {
   
     const root = component.root;
   
-    // включаем edit mode вручную
     const p = root.findByType("p");
   
     act(() => {
-      p.props.onDoubleClick(); // включает editMode
+      p.props.onDoubleClick(); 
     });
   
     const input = root.findByType("input");
   
     act(() => {
-      input.props.onBlur(); // вызывает ReActivateEditMode
+      input.props.onBlur();
     });
   
-    // проверяем, что UpdateProfileStats вызвался
     expect(mockCallback.mock.calls.length).toBe(1);
   });
   

@@ -11,13 +11,11 @@ html, body, #root {
   min-height: 100vh;
 }
 
-/* Layout */
 .main {
   display: flex;
   flex: 1;
 }
 
-/* Sidebar */
 .Routes {
   width: 180px;
   background: linear-gradient(180deg, #141e30, #243b55);
@@ -43,7 +41,6 @@ html, body, #root {
   transform: translateX(4px);
 }
 
-/* Content */
 .content {
   flex: 1;
   padding: 25px;
@@ -62,7 +59,6 @@ html, body, #root {
   }
 }
 
-/* Adaptive */
 @media (max-width: 900px) {
   .main {
     flex-direction: column;

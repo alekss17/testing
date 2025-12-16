@@ -3,9 +3,10 @@ import '../../Styles/Home.css';
 import { connect } from 'react-redux';
 import Profile from './Profile';
 import { GetProfile, GetProfilStatus, UpdateProfileStats, savePhoto } from '../../redux/ProfilePageReducer';
-import { useParams } from 'react-router-dom';
 import { compose } from 'redux';
 import AuthRedirectComponent from '../../hoc/WithAuthNavigate';
+import { useParams } from 'react-router-dom';
+
 
 class ProfileContainer extends Component {
   componentDidMount() {
@@ -51,23 +52,20 @@ const mapStateToProps = (state) => ({
   ProfileLoading: state.ProfileReducer.ProfileLoading
 });
 
-// Сначала оборачиваем классовый компонент через compose
 const ConnectedProfileContainer = compose(
   connect(mapStateToProps, { GetProfile, GetProfilStatus, UpdateProfileStats, savePhoto }),
   AuthRedirectComponent
 )(ProfileContainer);
 
-// Затем создаём обёртку для useParams
 const ProfileContainerWrapper = (props) => {
   const { userId } = useParams();
   const finalUserId = userId || props.meId;
-  
+
   return <ConnectedProfileContainer {...props} userId={finalUserId} />;
 };
 
-// Подключаем redux к обёртке для доступа к AutorizedUserId
+
 export default connect(
   (state) => ({
-    meId: state.auth.userId
-  })
-)(ProfileContainerWrapper);
+    meId: state.auth.userId,
+  }), { GetProfile })(ProfileContainerWrapper);

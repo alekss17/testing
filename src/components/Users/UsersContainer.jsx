@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import Users from './Users';
 import { AcceptUnFollow, AcceptFollow, GetUsers, ToggleIsFollowing, UnFollow, Follow} from '../../redux/UsersReducer';
 import Preloader from '../common/Preloader/Prelooader'
-import { FollowingInProgress, GetCurrentPage, GetFatching, GetPageSize, GetTotalUserCount, GetUsersSuper } from '../../redux/UsersSelector';
-import { GetIsAuth, GetisAuthChecking } from '../../redux/authSelector';
+import { FollowingInProgress, GetCurrentPage, GetFatching, GetPageSize, GetTotalUserCount, GetUsersSuper } from '../../redux/selectors/UsersSelector';
+import { GetIsAuth, GetisAuthChecking } from '../../redux/selectors/authSelector';
 import { compose } from 'redux';
 import AuthRedirectComponent from '../../hoc/WithAuthNavigate';
 

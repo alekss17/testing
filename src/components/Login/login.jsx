@@ -3,6 +3,7 @@ import LoginForm from "../Forms/LoginForm";
 import { connect } from "react-redux";
 import { login } from "../../redux/authReducer";
 import { Navigate } from "react-router-dom";
+import { formErrorSelector, loginSelector } from "../../redux/selectors/authSelector";
 
 const Login = (props) => {
     const Submit = (formData) => {
@@ -23,8 +24,8 @@ const Login = (props) => {
 
 const mapStateToProps = (state) => {
     return {
-    isAuth: state.auth.isAuth,
-    formError: state.auth.formError
+    isAuth: loginSelector(state),
+    formError: formErrorSelector(state)
 }}
 
 export default connect(mapStateToProps, {login})(Login);

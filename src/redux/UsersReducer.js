@@ -1,13 +1,13 @@
 import { UsersApi } from "../DAL/api"
 import { UpdateObjectInArray } from "../utils/object-helpers"
 
-const FOLLOW = 'FOLLOW'
-const UN_FOLLOW = 'UNFOLLOW'
-const SET_USERS = 'SETUSERS'
-const SET_CURRENT_PAGE = 'SETCURRENTPAGE'
-const SET_TOTAL_COUNT = 'SET_TOTAL_COUNT'
-const TOOGLE_IS_FATCHING = 'TOGGLEISFATCHING'
-const TOOGLE_IS_FOLLOWING = 'TOGGLEISFOLLOWING'
+const FOLLOW = 'UsersReducer/FOLLOW'
+const UN_FOLLOW = 'UsersReducer/UNFOLLOW'
+const SET_USERS = 'UsersReducer/SETUSERS'
+const SET_CURRENT_PAGE = 'UsersReducer/SETCURRENTPAGE'
+const SET_TOTAL_COUNT = 'UsersReducer/SET_TOTAL_COUNT'
+const TOOGLE_IS_FATCHING = 'UsersReducer/TOGGLEISFATCHING'
+const TOOGLE_IS_FOLLOWING = 'UsersReducer/TOGGLEISFOLLOWING'
 
 let initialState = {
     Users: [],

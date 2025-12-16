@@ -8,7 +8,6 @@ export const instance = axios.create({
     }
 })
 
-// 🔐 interceptor — подставляет token автоматически
 instance.interceptors.request.use((config) => {
     const token = localStorage.getItem('token')
 
@@ -19,7 +18,6 @@ instance.interceptors.request.use((config) => {
     return config
 })
 
-/* ================= USERS ================= */
 export const UsersApi = {
     GetUsers(currentPage = 1, pageSize = 5) {
         return instance
@@ -40,7 +38,6 @@ export const UsersApi = {
     },
 }
 
-/* ================= PROFILE ================= */
 export const ProfileApi = {
     GetProfile(userId) {
         return instance
@@ -72,7 +69,6 @@ export const ProfileApi = {
     }
 }
 
-/* ================= AUTH ================= */
 export const AuthApi = {
     GetMe() {
         return instance
@@ -90,5 +86,8 @@ export const AuthApi = {
         return instance
             .delete('auth/login')
             .then(res => res.data)
+    },
+    getCaptcha() {
+        return instance.get("/security/get-captcha-url")
     }
 }

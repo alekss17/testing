@@ -1,19 +1,21 @@
 import { connect } from "react-redux";
-import { onAddMessage} from "../../redux/DialogsPageReducer";
+import { onAddMessage, DeleteMessageTH } from "../../redux/DialogsPageReducer";
 import Dialogs from "./Dialogs";
 import { compose } from "redux";
 import AuthRedirectComponent from "../../hoc/WithAuthNavigate";
+import { GetIsAuth, GetisAuthChecking } from "../../redux/selectors/authSelector";
+import { dialogsMessagesSelector, dialogsSelector } from "../../redux/selectors/DialogsSelector";
 
 let MapStateToProps = (state) => {
   return {
-  dialogs: state.DialogsReducer.dialogs,
-  dialogsMessages: state.DialogsReducer.Messages,
-  isAuth: state.auth.isAuth,
-  isAuthChecking: state.auth.isAuthChecking
+  dialogs: dialogsSelector(state),
+  dialogsMessages: dialogsMessagesSelector(state),
+  isAuth: GetIsAuth(state),
+  isAuthChecking: GetisAuthChecking(state)
   }
 }
 
 export default compose(
-  connect(MapStateToProps, {onAddMessage}),
+  connect(MapStateToProps, {onAddMessage, DeleteMessageTH}),
   AuthRedirectComponent
 )(Dialogs);

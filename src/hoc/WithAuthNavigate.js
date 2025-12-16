@@ -12,17 +12,14 @@ const AuthRedirectComponent = (Component) => {
 
     class RedirectComponent extends React.Component {
         render() {
-            // Пока идёт проверка авторизации — показываем прелоадер
             if (this.props.isAuthChecking) {
                 return <Preloader />
             }
 
-            // После проверки: если не авторизован — редирект
             if (!this.props.isAuth) {
                 return <Navigate to="/login" replace />
             }
 
-            // Если авторизован — рендерим компонент
             return <Component {...this.props} />
         }
     }

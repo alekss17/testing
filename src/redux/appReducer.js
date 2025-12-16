@@ -1,6 +1,6 @@
 import { GetMe } from './authReducer'
 
-const INITIALIZED = 'INITIALIZED'
+const INITIALIZED = 'appReducer/INITIALIZED'
 
 const initialState = {
     initialized: false

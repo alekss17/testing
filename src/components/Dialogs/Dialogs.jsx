@@ -1,28 +1,36 @@
-import {Message, DialogItem} from './DialogsMapsItems'
-import AddDialogForm from '../Forms/AddDialogForm';
 import '../../Styles/Dialogs.css';
-import { Navigate } from 'react-router-dom';
-import Preloader from '../common/Preloader/Prelooader'
+import { NavLink, Outlet, useParams } from 'react-router-dom';
+import AddDialogForm from '../Forms/AddDialogForm'
 
-const Dialogs = (props) => {
-    if (!props.profile) {
-        <Preloader />
-    }
 
-    const dialogsElements = props.dialogs.map((dialog, index) => (<DialogItem key={index} name={dialog.name} id={dialog.id} />));
-    const PeresDialog = props.dialogsMessages.map((Messages, index) => (<Message key={index} messages={Messages.messages} />));
-
+const Dialogs = ({dialogs, onAddMessage, DeleteMessageTH}) => {
+    const { userId } = useParams(); 
+    
     const addNewDialog = (values) => {
-        props.onAddMessage(values.onDialogBody)
+        const currentUserId = userId ? Number(userId) : 1; 
+        onAddMessage(values.onDialogBody, currentUserId); 
     }
 
-    return (
-        <div className="dialog">
-            <div className="Del">{dialogsElements}</div>
-            <div className="mesD">{PeresDialog}</div>
-            <AddDialogForm onSubmit={addNewDialog}/>
+      const dialogsElements = dialogs.map((dialog) => (
+        <div key={dialog.id}>
+          <img 
+            className="Dialog-faces" 
+            src="https://www.meme-arsenal.com/memes/9e68a78a292b4ed1555a338561dca8c3.jpg" 
+            alt="" 
+          />
+          <NavLink className="NAv" to={`${dialog.id}`}>{dialog.name}</NavLink>
         </div>
-    );
+      ));
+    
+      return (
+        <div className="dialog">
+          <div className="Del">{dialogsElements}</div>
+          <div className="mesD">
+            <Outlet context={{ DeleteMessageTH }} />
+          </div>
+          <AddDialogForm onSubmit={addNewDialog}/>
+        </div>
+      );    
 };
 
 export default Dialogs;

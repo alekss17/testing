@@ -1,8 +1,8 @@
 import { AuthApi } from '../DAL/api'
 
-const SET_USER_DATA = 'SET_USER_DATA'
-const IS_AUTH_CHECKING = 'IS_AUTH_CHECKING'
-const SET_FORM_ERROR = 'SET_FORM_ERROR'
+const SET_USER_DATA = 'authReducer/SET_USER_DATA'
+const IS_AUTH_CHECKING = 'authReducer/IS_AUTH_CHECKING'
+const SET_FORM_ERROR = 'authReducer/SET_FORM_ERROR'
 
 const initialState = {
     email: null,
@@ -10,7 +10,8 @@ const initialState = {
     userId: null,
     isAuth: false,
     isAuthChecking: true,
-    formError: null
+    formError: null,
+    captcha: null
 }
 
 const authReducer = (state = initialState, action) => {
@@ -71,7 +72,10 @@ export const login = (email, password, rememberMe = false) => async (dispatch) =
         localStorage.setItem('token', data.data.token)
         dispatch(GetMe())
         dispatch(SetFormError(null))
-    } else {
+    } else if (data.resultCode === 10) {
+        const captcha = AuthApi.getCaptcha()
+    }
+    else {
         dispatch(SetFormError(data.messages[0] || 'Login error'))
         dispatch(isAuthChecking(false))
     }

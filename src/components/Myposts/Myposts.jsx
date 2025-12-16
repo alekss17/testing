@@ -5,7 +5,7 @@ import AddMessageForm from '../Forms/AddMessageForm'
 
 const Myposts = React.memo((props) => {
   const postMapping = props.postData.map((d, index) => (
-    <Post key={index} message={d.message} likescount={d.likescount} />
+    <Post id={d.id} DeletePost={props.DeletePost} key={index} message={d.message} likescount={d.likescount} />
 ));
 
   let addNewMessage = (values) => {

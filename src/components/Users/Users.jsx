@@ -7,6 +7,7 @@ const Users = React.memo(({currentPage, TotalUserCount, PageSize, Users, OnePage
     return (
         <div>
             <Paginator currentPage={currentPage} TotalItemsCount={TotalUserCount} PageSize={PageSize} OnePageChanged={OnePageChanged} />
+            <p>(Click on user and select it)</p>
             {Users.map(u => <User User={u} FollowingInProgress={props.FollowingInProgress} Follow={props.Follow} UnFollow={props.UnFollow} key={u.id}/> )}
         </div>
     );

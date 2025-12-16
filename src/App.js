@@ -1,23 +1,26 @@
 import React, { useEffect } from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { InitializeApp } from './redux/appReducer';
+import { connect } from 'react-redux';
+import { HashRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { AppInitializedS } from './redux/selectors/appSelector';
+
 import './Styles/App.css';
+
 import NavBar from './NavBar';
 import HeaderContainer from './components/Header/HeaderContainer';
 import Test from './components/tests';
-import { Routes, Route, Navigate } from 'react-router-dom';
 import Login from './components/Login/login';
-import { InitializeApp } from './redux/appReducer';
-import { connect } from 'react-redux';
 import Preloader from './components/common/Preloader/Prelooader';
 import store from './redux/redux-store';
-import { HashRouter } from 'react-router-dom';
-import { Provider } from 'react-redux';
+import ChatUser from './components/Dialogs/ChatUser'
+import Dialogs from './components/Dialogs/DialogsContainer';
 
 import Music from './components/Music/Music';
 import Settings from './components/Settings/Settings';
 import HelperSuspense from './components/common/Preloader/HelperSuspense';
 
-
-const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
 const MypostsContainer = React.lazy(() => import('./components/Myposts/MypostsContainer'));
 const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'));
 const UsersContainer = React.lazy(() => import('./components/Users/UsersContainer'));
@@ -42,11 +45,14 @@ function App(props) {
 
         <div className="content">
           <Routes>
+
+  <Route path="/dialogs" element={<Dialogs />}>
+    <Route path=":userId" element={<ChatUser />} />
+  </Route>
+
             <Route path="/" element={<Navigate to="/profile" />} />
 
             <Route path="/profile/:userId?" element={<HelperSuspense Component={ProfileContainer} />} />
-
-            <Route path="/dialogs" element={<HelperSuspense Component={DialogsContainer} />}/>
 
             <Route path="/myposts" element={<HelperSuspense Component={MypostsContainer} /> }/>
 
@@ -67,7 +73,7 @@ function App(props) {
 
 const mapStateToProps = (state) => {
   return {
-    initialized: state.app.initialized
+    initialized: AppInitializedS(state)
   }
 }
 
