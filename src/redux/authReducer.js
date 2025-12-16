@@ -1,11 +1,10 @@
 import { AuthApi } from '../DAL/api'
-import { instance } from '../DAL/api' 
 
-const SET_USER_DATA = 'SETUSERDATA'
-const IS_AUTH_CHECKING = 'ISAUTHCHECKING'
-const SETFORMERROR = 'SET_FORM_ERROR'
+const SET_USER_DATA = 'SET_USER_DATA'
+const IS_AUTH_CHECKING = 'IS_AUTH_CHECKING'
+const SET_FORM_ERROR = 'SET_FORM_ERROR'
 
-let initialState = {
+const initialState = {
     email: null,
     login: null,
     userId: null,
@@ -17,85 +16,79 @@ let initialState = {
 const authReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_USER_DATA:
-            return {
-                ...state,
-                ...action.payload,
-            }
+            return { ...state, ...action.payload }
 
         case IS_AUTH_CHECKING:
-            return {
-                ...state,
-                isAuthChecking: action.boolean
-            }
-            case SETFORMERROR:
-                return {
-                    ...state,
-                    formError: action.err
-                }
+            return { ...state, isAuthChecking: action.value }
+
+        case SET_FORM_ERROR:
+            return { ...state, formError: action.error }
+
         default:
             return state
     }
 }
+
 
 export const SetAuthUserData = (email, login, userId, isAuth) => ({
     type: SET_USER_DATA,
     payload: { email, login, userId, isAuth }
 })
 
-export const isAuthChecking = (boolean) => ({
+export const isAuthChecking = (value) => ({
     type: IS_AUTH_CHECKING,
-    boolean
+    value
 })
 
-export const SetFormError = (err) => ({
-    type: SETFORMERROR,
-    err
+export const SetFormError = (error) => ({
+    type: SET_FORM_ERROR,
+    error
 })
 
 export const GetMe = () => async (dispatch) => {
     dispatch(isAuthChecking(true))
 
-    let data = await AuthApi.GetMe()
-            if (data.resultCode === 0) {
-                dispatch(SetAuthUserData(
-                    data.data.email,
-                    data.data.login,
-                    data.data.id,
-                    true
-                ))
-            }
-            dispatch(isAuthChecking(false))
+    const data = await AuthApi.GetMe()
+
+    if (data.resultCode === 0) {
+        dispatch(SetAuthUserData(
+            data.data.email,
+            data.data.login,
+            data.data.id,
+            true
+        ))
+    }
+
+    dispatch(isAuthChecking(false))
 }
 
 export const login = (email, password, rememberMe = false) => async (dispatch) => {
     dispatch(isAuthChecking(true))
 
-    let data = await AuthApi.Login(email, password, rememberMe)
+    const data = await AuthApi.Login(email, password, rememberMe)
 
     if (data.resultCode === 0) {
-        if (data.data?.token) {
-            localStorage.setItem('token', data.data.token)
-            instance.defaults.headers['Authorization'] = `Bearer ${data.data.token}`
-        }
+        localStorage.setItem('token', data.data.token)
         dispatch(GetMe())
+        dispatch(SetFormError(null))
     } else {
-        let messages = data.messages.length > 0 ? data.messages[0] : "some error"
-        dispatch(SetFormError(messages))
+        dispatch(SetFormError(data.messages[0] || 'Login error'))
+        dispatch(isAuthChecking(false))
     }
-    dispatch(isAuthChecking(false))
 }
 
-// Логаут
 export const logout = () => async (dispatch) => {
     dispatch(isAuthChecking(true))
 
-    let data = await AuthApi.Logout()
-    
-            if (data.resultCode === 0) {
-                dispatch(SetAuthUserData(null, null, null, false))
-                dispatch(SetFormError(null))
-            }
-            dispatch(isAuthChecking(false))
+    const data = await AuthApi.Logout()
+
+    if (data.resultCode === 0) {
+        localStorage.removeItem('token')
+        dispatch(SetAuthUserData(null, null, null, false))
+        dispatch(SetFormError(null))
+    }
+
+    dispatch(isAuthChecking(false))
 }
 
 export default authReducer
