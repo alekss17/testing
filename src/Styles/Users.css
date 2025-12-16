@@ -1,18 +1,31 @@
 .ManPhoto {
-    width: 100px;
-    height: 100px;
+    width: 90px;
+    height: 90px;
     border-radius: 50%;
-}
-
-.ActiveSpanPageUsers {
+    object-fit: cover;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  }
+  
+  .ActiveSpanPageUsers {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0 6px;
     cursor: pointer;
-    font-weight: 900;
-    font-size: 30px;
-    border: 1px, red, solid;
-}
-
-.SpanPaginationNumberBTN {
+    color: #2f54eb;
+  }
+  
+  .SpanPaginationNumberBTN {
+    font-size: 20px;
+    margin: 0 6px;
     cursor: pointer;
-    font-size: 30px;
-    border: 1px, grey, solid;
-}
+    color: #555;
+  }
+  
+  .SpanPaginationNumberBTN:hover {
+    color: #000;
+  }
+  
+  .Paginator {
+    display: flex;
+    align-items: center;
+  }

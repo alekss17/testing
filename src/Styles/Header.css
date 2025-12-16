@@ -1,23 +1,57 @@
 .header-container {
   display: flex;
-    background-color: green;
-    padding: 10px;
-    align-items: center;
-    justify-content: space-between;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  padding: 14px 24px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+  animation: headerSlide 0.5s ease;
+}
+
+@keyframes headerSlide {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
   }
-  
-  .header-icon {
-    width: 20px;
-    height: auto;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
+}
+
+.header-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+}
 
 .loginB {
   display: flex;
-  justify-content: flex-end;
   align-items: center;
+  gap: 10px;
+  color: white;
+  font-weight: 600;
 }
 
 .login {
   color: white;
   text-decoration: none;
+}
+
+.login:hover {
+  text-decoration: underline;
+}
+
+.loginB button {
+  border: none;
+  background: linear-gradient(90deg, #ff4d4f, #ff7875);
+  color: white;
+  padding: 6px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.loginB button:hover {
+  transform: scale(1.05);
 }

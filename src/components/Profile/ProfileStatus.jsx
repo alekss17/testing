@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import '../../Styles/Myposts.css'
 
-const ProfileStatus = ({profileStatus, userId, meId, UpdateProfileStats}) => {
+const ProfileStatus = ({profileStatus, isOwner, UpdateProfileStats}) => {
     const [editMode, setEditMode] = useState(false)
     const [status, setStatus] = useState(profileStatus)
 
@@ -10,9 +10,6 @@ const ProfileStatus = ({profileStatus, userId, meId, UpdateProfileStats}) => {
     }, [profileStatus])
 
     const ActivateEditMode = () => {
-        if (userId !== meId) {
-            return;
-        }
             setEditMode(true)
     }
     
@@ -27,9 +24,9 @@ const ProfileStatus = ({profileStatus, userId, meId, UpdateProfileStats}) => {
     return (
         <>
         {!editMode && 
-            <div>
+            <div className="Status">
 
-            <p onDoubleClick={ActivateEditMode} className="ProfileStatus">{profileStatus || '---------'}</p>
+            <p className="ProfileStatus">{profileStatus || '---------'}  </p> {isOwner === true ? <button onClick={ActivateEditMode} >Write Status</button> : null}
             </div>
         }
         {editMode &&

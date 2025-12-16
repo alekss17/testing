@@ -13,7 +13,7 @@ const AddDialogForm = (props) => {
                 <Field className="TextAreaDialogs" name={"onDialogBody"}
                  validate={validate}
                   component={TextArea} placeholder="type message"
-                  asTag={"textarea"} />
+                  astag={"textarea"} />
                 <button className="GetPostButton" type={"sumbit"} >добавить</button>
             </Form>
         </Formik>

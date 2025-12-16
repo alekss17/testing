@@ -1,54 +1,34 @@
 .profileLargePhoto {
     width: 200px;
-    height: 200px
-}
-.GetPostButton {
-    background-color: rgb(10, 24, 173);
-    border: 0;
-    border-radius: 15px;
-    width: 150px;
-    height: 30px;
-    cursor: pointer;
-}
-
-.GetPostButton:hover {
-    background-color: rgb(28, 45, 73);
-    transition: 0.2s;
-}
-
-.GetPostButton:active {
-    background-color: #0000ff;
-    transition: 0.4ms;
-}
-
-.img-gora {
-    width: 700px;
-    height: 260px;
+    height: 200px;
+    border-radius: 16px;
+    object-fit: cover;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.15);
   }
+  
+  .PostsAddHome {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .TextAreaAddPost {
+    width: 300px;
+    height: 60px;
+    border-radius: 10px;
+    padding: 10px;
+    border: 1px solid #ccd4e0;
+  }
+  
+  .ProfileStatus {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    cursor: pointer;
+  }  
 
-.TextAreaAddPost {
-    background: linear-gradient(to bottom right, #dfdfb2, #fffa78);
-    color: #232323;
-    border: 0;
-    padding-top: 15px;
-    text-align: center;
-    margin-bottom: 10px;
-}
-
-.TextAreaAddPost:active {
-    border: 0;
-}
-
-.PostsAddHome {
+  .Status {
     display: flex;
     align-items: center;
-    gap: 10px;
-}
-
-.AddButtonPost {
-    align-items: center;
-}
-
-.ProfileStatus {
-    margin-bottom: 70px;
-}
+    gap: 20px;
+  }

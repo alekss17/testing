@@ -3,9 +3,10 @@ import MypostsContainer from '../Myposts/MypostsContainer';
 import ProfileInfo from './ProfileInfo';
 
 const Profile = (props) => {
+  
   return (
     <>
-      <ProfileInfo {...props} />
+      <ProfileInfo isOwner={props.isOwner} {...props} />
       <MypostsContainer />
     </>
   );

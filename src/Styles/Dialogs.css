@@ -1,56 +1,132 @@
-.GetPostButton {
-    background-color: rgb(10, 24, 173);
-    border: 0;
-    border-radius: 15px;
-    width: 150px;
-    height: 30px;
-    cursor: pointer;
+.dialog {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 20px;
+  animation: fadeIn 0.3s ease;
 }
 
-.GetPostButton:hover {
-    background-color: rgb(28, 45, 73);
-    transition: 0.2s;
+/* ===== LEFT DIALOG LIST ===== */
+.Del {
+  background: linear-gradient(180deg, #ffffff, #f1f4f9);
+  border-radius: 16px;
+  padding: 14px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
 }
 
-.GetPostButton:active {
-    background-color: #0000ff;
-}
-
-.TextAreaDialogs {
-    background: linear-gradient(to bottom right, #dfdfb2, #fffa78);
-    color: #232323;
-    border: 0;
-    padding-top: 15px;
-    text-align: center;
-    margin-right: 10px;
+.Del div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .Dialog-faces {
-    width: 20px;
-    height: 20px;
-    border-radius: 20px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
 }
 
-  .mesD {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .Del {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 27px;
-    margin-top: 10px;
-  }
-
-.dopRef {
-    display: flex;
-    align-items: center;
+.NAv {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  padding: 6px 10px;
+  border-radius: 10px;
+  transition: 0.2s;
 }
 
-.dialog {
+.NAv:hover {
+  background: #eef2ff;
+}
+
+.NAv.active {
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  color: white;
+}
+
+/* ===== CHAT AREA ===== */
+.mesD {
+  background: linear-gradient(180deg, #ffffff, #f3f6fb);
+  border-radius: 16px;
+  padding: 18px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.1);
   display: flex;
-  flex-wrap: wrap;
-  margin-right: 10px;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Active dialog name (fake author) */
+.mesD::before {
+  content: "Chat";
+  font-weight: 700;
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #444;
+}
+
+/* ===== MESSAGE BUBBLE ===== */
+.mesD p {
+  align-self: flex-start;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  color: white;
+  padding: 10px 14px;
+  border-radius: 14px;
+  max-width: 70%;
+  font-size: 14px;
+  animation: msgIn 0.25s ease;
+}
+
+/* ===== INPUT ===== */
+.dopRef {
+  grid-column: 2;
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.TextAreaDialogs {
+  flex: 1;
+  height: 50px;
+  border-radius: 12px;
+  padding: 10px;
+  border: 1px solid #ccd4e0;
+}
+
+.GetPostButton {
+  background: linear-gradient(90deg, #2f54eb, #597ef7);
+  color: white;
+  border-radius: 12px;
+  padding: 0 20px;
+  height: 50px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.GetPostButton:hover {
+  transform: translateY(-2px);
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes msgIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 800px) {
+  .dialog {
+    grid-template-columns: 1fr;
+  }
+
+  .dopRef {
+    grid-column: 1;
+  }
 }

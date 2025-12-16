@@ -2,10 +2,10 @@ import React from "react"
 import { Field } from "formik";
 import '../../../Styles/formControl.css'
 
-const TextArea = ({ field: {name}, field, form: { touched, errors },  asTag = "textarea", ...props }) => {
+const TextArea = ({ field: {name}, field, form: { touched, errors },  astag = "textarea", ...props }) => {
     const error = touched[name] && errors[name];
 
-    const Tag = asTag
+    const Tag = astag
     return (
       <div className={"formControl" + (error ? " error" : "")}>
         <Tag {...field} className="TextArea" {...props} />
@@ -14,7 +14,7 @@ const TextArea = ({ field: {name}, field, form: { touched, errors },  asTag = "t
     )
 }  
 
-export const createField = (placeholder, name, validate, component, asTag, type = null, text = "" ) => {
+export const createField = (placeholder, name, validate, component, astag = "textarea", type = null, text = "" ) => {
   return (
   <div>
       <Field
@@ -22,7 +22,7 @@ export const createField = (placeholder, name, validate, component, asTag, type 
         name={name}
         validate={validate}
         component={component}
-        asTag={asTag}
+        astag={astag}
         type={type}
       /> {text}
 </div>

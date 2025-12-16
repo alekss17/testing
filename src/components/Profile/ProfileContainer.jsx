@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import '../../Styles/Home.css';
 import { connect } from 'react-redux';
 import Profile from './Profile';
-import { GetProfile, GetProfilStatus, UpdateProfileStats } from '../../redux/ProfilePageReducer';
+import { GetProfile, GetProfilStatus, UpdateProfileStats, savePhoto } from '../../redux/ProfilePageReducer';
 import { useParams } from 'react-router-dom';
 import { compose } from 'redux';
 import AuthRedirectComponent from '../../hoc/WithAuthNavigate';
@@ -24,9 +24,16 @@ class ProfileContainer extends Component {
     this.props.GetProfilStatus(this.props.userId);
   }
 
+  isOwner() {
+    if (this.props.meId === this.props.userId) {
+      return true
+    }
+  }
+
   render() {
     return (
       <Profile 
+      isOwner={this.isOwner()}
         meId={this.props.meId} 
         userId={this.props.userId} 
         {...this.props}
@@ -41,19 +48,19 @@ const mapStateToProps = (state) => ({
   isAuth: state.auth.isAuth,
   isAuthChecking: state.auth.isAuthChecking,
   meId: state.auth.userId,
-  AutorizedUserId: state.auth.userId
+  ProfileLoading: state.ProfileReducer.ProfileLoading
 });
 
 // Сначала оборачиваем классовый компонент через compose
 const ConnectedProfileContainer = compose(
-  connect(mapStateToProps, { GetProfile, GetProfilStatus, UpdateProfileStats }),
+  connect(mapStateToProps, { GetProfile, GetProfilStatus, UpdateProfileStats, savePhoto }),
   AuthRedirectComponent
 )(ProfileContainer);
 
 // Затем создаём обёртку для useParams
 const ProfileContainerWrapper = (props) => {
   const { userId } = useParams();
-  const finalUserId = userId || props.AutorizedUserId;
+  const finalUserId = userId || props.meId;
   
   return <ConnectedProfileContainer {...props} userId={finalUserId} />;
 };
@@ -61,6 +68,6 @@ const ProfileContainerWrapper = (props) => {
 // Подключаем redux к обёртке для доступа к AutorizedUserId
 export default connect(
   (state) => ({
-    AutorizedUserId: state.auth.userId
+    meId: state.auth.userId
   })
 )(ProfileContainerWrapper);

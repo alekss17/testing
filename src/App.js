@@ -58,7 +58,6 @@ function App(props) {
 
             <Route path="/login" element={<Login />} />
 
-            <Route path="*" element={<div>404 Not Found</div>} />
           </Routes>
         </div>
       </div>

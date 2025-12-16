@@ -11,7 +11,7 @@ const AddMessageForm = (props) => {
     <Form className='PostsAddHome' >
     <div>
     <Field className='TextAreaAddPost'
-     validate={validate} name={"newMessageBody"} component={TextArea} asTag={"textarea"} />
+     validate={validate} name={"newMessageBody"} component={TextArea} astag={"textarea"} />
     </div>
     <div className='AddButtonPost'>
     <button type="submit" className='GetPostButton'>Send Message</button>
