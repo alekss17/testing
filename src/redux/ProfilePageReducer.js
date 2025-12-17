@@ -1,4 +1,5 @@
 import { ProfileApi } from '../DAL/api';
+import { v4 as uuidv4 } from 'uuid';
 
 const ADDPOST = 'ProfilePage/ADD-POST';
 const SETUSERPROFILE = 'ProfilePage/SET_USER_PROFILE';
@@ -8,9 +9,9 @@ const SavePhoto = 'ProfilePage/SAVE_PHOTO';
 const ToggleIsLProfile = 'ProfilePage/Toggle';
 
 const savedPosts = JSON.parse(localStorage.getItem('postData')) || [
-  { id: 1, message: "Hi, how are you", likescount: 0 },
-  { id: 2, message: "Hi", likescount: 0 },
-  { id: 3, message: "Hohoho", likescount: 0 }
+  { id: uuidv4(), message: "Hi, how are you", likescount: 0 },
+  { id: uuidv4(), message: "Hi", likescount: 0 },
+  { id: uuidv4(), message: "Hohoho", likescount: 0 }
 ];
 
 let initialState = {
@@ -25,7 +26,7 @@ const ProfilePage = (state = initialState, action) => {
 
     case ADDPOST: {
       const newPost = {
-        id: state.postData.length ? state.postData[state.postData.length - 1].id + 1 : 1,
+        id: uuidv4,
         message: action.newMessageBody,
         likescount: 0
       };
