@@ -13,7 +13,7 @@ const savedDialogs = JSON.parse(localStorage.getItem('dialogs')) || [
 ];
 
 const savedMessages = JSON.parse(localStorage.getItem('Messages')) || [
-  { id: uuidv4(), messages: 'hi', userId: 1 }
+  { id: uuidv4(), messages: 'hi', userId: uuidv4() }
 ];
 
 let initialState = {

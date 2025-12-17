@@ -26,7 +26,7 @@ const ProfilePage = (state = initialState, action) => {
 
     case ADDPOST: {
       const newPost = {
-        id: uuidv4,
+        id: uuidv4(),
         message: action.newMessageBody,
         likescount: 0
       };
