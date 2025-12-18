@@ -7,6 +7,7 @@ const SETPROFILESTATUS = 'ProfilePage/SET_PROFILE_STATUS';
 const DELETEDPOST = 'ProfilePage/DELETE_POST';
 const SavePhoto = 'ProfilePage/SAVE_PHOTO';
 const ToggleIsLProfile = 'ProfilePage/Toggle';
+const ToogleProfileDataFormError = 'ProfilePage/ProfileDataFormError'
 
 const savedPosts = JSON.parse(localStorage.getItem('postData')) || [
   { id: uuidv4(), message: "Hi, how are you", likescount: 0 },
@@ -18,7 +19,8 @@ let initialState = {
   postData: savedPosts,
   profile: null,
   ProfileStatus: "",
-  ProfileLoading: false
+  ProfileLoading: false,
+  ProfileDataFormError: null
 };
 
 const ProfilePage = (state = initialState, action) => {
@@ -54,7 +56,10 @@ const ProfilePage = (state = initialState, action) => {
 
     case ToggleIsLProfile:
       return { ...state, ProfileLoading: action.bool };
-
+      case ToogleProfileDataFormError:
+        return {
+          ...state, ProfileDataFormError: action.err
+        }
     default:
       return state;
   }
@@ -66,6 +71,7 @@ export const SetProfileStatus = (Status) => ({ type: SETPROFILESTATUS, Status })
 const deletePost = (PostId) => ({ type: DELETEDPOST, PostId });
 export const SavePhotoSucess = (photo) => ({ type: SavePhoto, photo });
 export const ToggleIsLoadingProfile = (bool) => ({ type: ToggleIsLProfile, bool });
+export const ProfileDataFormErrorAC = (err) => ({type: ToogleProfileDataFormError, err})
 
 export const DeletePost = (ID) => (dispatch) => {
   dispatch(deletePost(ID))
@@ -101,6 +107,29 @@ export const savePhoto = (file) => async (dispatch) => {
     dispatch(SavePhotoSucess(data.data.photos))
   }
 }
+
+export const saveProfile = (profile) => async (dispatch, getState) => {
+  const userId = getState().auth.userId
+  const data = await ProfileApi.saveProfile(profile)
+
+  if (data.resultCode === 0) {
+    dispatch(GetProfile(userId))
+    return null
+  }
+
+  const errors = { contacts: {} }
+
+  data.messages.forEach(msg => {
+    if (msg.includes("Contacts->")) {
+      const key = msg.split("Contacts->")[1].replace(")", "").toLowerCase()
+      errors.contacts[key] = msg
+    }
+  })
+
+  return errors
+}
+
+
 
 
 export default ProfilePage

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import '../../Styles/Home.css';
 import { connect } from 'react-redux';
 import Profile from './Profile';
-import { GetProfile, GetProfilStatus, UpdateProfileStats, savePhoto } from '../../redux/ProfilePageReducer';
+import { GetProfile, GetProfilStatus, UpdateProfileStats, savePhoto, saveProfile } from '../../redux/ProfilePageReducer';
 import { compose } from 'redux';
 import AuthRedirectComponent from '../../hoc/WithAuthNavigate';
 import { useParams } from 'react-router-dom';
@@ -49,11 +49,11 @@ const mapStateToProps = (state) => ({
   isAuth: state.auth.isAuth,
   isAuthChecking: state.auth.isAuthChecking,
   meId: state.auth.userId,
-  ProfileLoading: state.ProfileReducer.ProfileLoading
+  ProfileLoading: state.ProfileReducer.ProfileLoading,
 });
 
 const ConnectedProfileContainer = compose(
-  connect(mapStateToProps, { GetProfile, GetProfilStatus, UpdateProfileStats, savePhoto }),
+  connect(mapStateToProps, { GetProfile, GetProfilStatus, UpdateProfileStats, savePhoto, saveProfile }),
   AuthRedirectComponent
 )(ProfileContainer);
 

@@ -1,0 +1,16 @@
+.LookingForAJob {
+    display: flex;
+    align-items: center;
+}
+
+.FullName {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.JobDescription {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
