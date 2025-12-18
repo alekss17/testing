@@ -13,40 +13,47 @@ const isEmpty = (value) =>
   (Array.isArray(value) && value.length === 0);
 
 
-const LoginForm = ({formError, Submit}) => {
+const LoginForm = ({ formError, Submit, captchaUrl }) => {
 
   const validate = value => required(value) || MaxLenght40(value);
 
   return (
-<Formik
-  initialValues={{ email: "", password: "", rememberMe: false }}
-  enableReinitialize={true}
-  initialStatus={formError || null}
-  onSubmit={(values, { setSubmitting, setStatus }) => {
-    setStatus(null);  
-    Submit(values);
-    setSubmitting(false);
-  }}
->
-    { ({status}) => (
+    <Formik
+      initialValues={{ email: "", password: "", rememberMe: false, captcha: "" }}
+      enableReinitialize={true}
+      initialStatus={formError || null}
+      onSubmit={(values, { setSubmitting, setStatus }) => {
+        setStatus(null);
+        Submit(values);
+        setSubmitting(false);
+      }}
+    >
+      {({ status }) => (
         <Form>
 
-         {createField("email", "email", validate, TextArea, "input")}
-         {createField("Password", "password", validate, TextArea, "input", "password" )}
-         {createField("", "rememberMe", null, null, "", "checkbox", "remember me")}
+          {createField("email", "email", validate, TextArea, "input")}
+          {createField("Password", "password", validate, TextArea, "input", "password")}
+          {createField("", "rememberMe", null, null, "", "checkbox", "remember me")}
 
- { !isEmpty(status) && 
-  <div className="form-summary-error">
-    {Array.isArray(status) ? status.join(", ") : status}
-  </div>
-}
+          {!isEmpty(status) &&
+            <div className="form-summary-error">
+              {Array.isArray(status) ? status.join(", ") : status}
+            </div>
+          }
+
+          {captchaUrl &&
+            <div>
+              <img src={captchaUrl} />
+              {createField("Captcha", "captcha", validate, TextArea, "input")}
+            </div>
+          }
 
           <div>
             <button type="submit">Login</button>
           </div>
 
         </Form>
-)}
+      )}
     </Formik>
   );
 };

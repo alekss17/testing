@@ -1,8 +1,10 @@
 import { AuthApi } from '../DAL/api'
+import { securityApi } from '../DAL/api'
 
 const SET_USER_DATA = 'authReducer/SET_USER_DATA'
 const IS_AUTH_CHECKING = 'authReducer/IS_AUTH_CHECKING'
 const SET_FORM_ERROR = 'authReducer/SET_FORM_ERROR'
+const SET_CAPTCHA_URL = 'authReducer/SET_CAPTCHA_URL'
 
 const initialState = {
     email: null,
@@ -11,7 +13,8 @@ const initialState = {
     isAuth: false,
     isAuthChecking: true,
     formError: null,
-    captcha: null
+    captchaUrl: null, // if null then captcha is not required
+    dataResultCode: null
 }
 
 const authReducer = (state = initialState, action) => {
@@ -25,6 +28,8 @@ const authReducer = (state = initialState, action) => {
         case SET_FORM_ERROR:
             return { ...state, formError: action.error }
 
+        case SET_CAPTCHA_URL:
+            return { ...state, captchaUrl: action.captchaUrl }
         default:
             return state
     }
@@ -45,6 +50,10 @@ export const SetFormError = (error) => ({
     type: SET_FORM_ERROR,
     error
 })
+const SetCaptcha = (captchaUrl) => ({
+    type: SET_CAPTCHA_URL,
+    captchaUrl
+})
 
 export const GetMe = () => async (dispatch) => {
     dispatch(isAuthChecking(true))
@@ -63,22 +72,29 @@ export const GetMe = () => async (dispatch) => {
     dispatch(isAuthChecking(false))
 }
 
-export const login = (email, password, rememberMe = false) => async (dispatch) => {
+export const login = (email, password, rememberMe = false, captcha) => async (dispatch) => {
     dispatch(isAuthChecking(true))
 
-    const data = await AuthApi.Login(email, password, rememberMe)
+    const data = await AuthApi.Login(email, password, rememberMe, captcha)
 
     if (data.resultCode === 0) {
         localStorage.setItem('token', data.data.token)
         dispatch(GetMe())
         dispatch(SetFormError(null))
-    } else if (data.resultCode === 10) {
-        const captcha = AuthApi.getCaptcha()
     }
     else {
+        if (data.resultCode === 10) {
+            dispatch(getCaptchaUrl())
+        }
         dispatch(SetFormError(data.messages[0] || 'Login error'))
         dispatch(isAuthChecking(false))
     }
+}
+
+export const getCaptchaUrl = () => async (dispatch) => {
+    const data = await securityApi.getCaptcha()
+    const captchaUrl = data.url
+    dispatch(SetCaptcha(captchaUrl))
 }
 
 export const logout = () => async (dispatch) => {

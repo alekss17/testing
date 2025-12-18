@@ -21,3 +21,9 @@ export const formErrorSelector = (state) => {
         state.auth.formError
     )
 }
+
+export const getCaptcha = (state) => {
+    return (
+        state.auth.captchaUrl
+    )
+}
