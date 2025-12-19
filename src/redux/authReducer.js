@@ -73,6 +73,7 @@ export const GetMe = () => async (dispatch) => {
 }
 
 export const login = (email, password, rememberMe = false, captcha) => async (dispatch) => {
+    try {
     dispatch(isAuthChecking(true))
 
     const data = await AuthApi.Login(email, password, rememberMe, captcha)
@@ -89,15 +90,23 @@ export const login = (email, password, rememberMe = false, captcha) => async (di
         dispatch(SetFormError(data.messages[0] || 'Login error'))
         dispatch(isAuthChecking(false))
     }
+} catch(error) {
+        alert(error.message)
+      }
 }
 
 export const getCaptchaUrl = () => async (dispatch) => {
+    try {
     const data = await securityApi.getCaptcha()
     const captchaUrl = data.url
     dispatch(SetCaptcha(captchaUrl))
+} catch(error) {
+    alert(error.message)
+  }
 }
 
 export const logout = () => async (dispatch) => {
+    try {
     dispatch(isAuthChecking(true))
 
     const data = await AuthApi.Logout()
@@ -109,6 +118,9 @@ export const logout = () => async (dispatch) => {
     }
 
     dispatch(isAuthChecking(false))
+} catch(error) {
+    alert(error.message)
+  }
 }
 
 export default authReducer

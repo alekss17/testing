@@ -77,6 +77,7 @@ export const DeletePost = (ID) => (dispatch) => {
   dispatch(deletePost(ID))
 }
 export const GetProfile = (userId) => async (dispatch) => {
+  try {
   dispatch(ToggleIsLoadingProfile(false))
 
   let data = await ProfileApi.GetProfile(userId)
@@ -85,30 +86,47 @@ export const GetProfile = (userId) => async (dispatch) => {
   dispatch(SetUserProfile(userProfile));
 
   dispatch(ToggleIsLoadingProfile(true))
+  } catch(error) {
+    alert(error.message)
+  }
 }
 
 export const GetProfilStatus = (userId) => async (dispatch) => {
+  try {
   let data = await ProfileApi.GetProfileStatus(userId)
 
   const Status = data;
   dispatch(SetProfileStatus(Status))
+  } catch(error) {
+    alert(error.message)
+  }
 }
 
 export const UpdateProfileStats = (status) => async (dispatch) => {
+  try {
   let data = await ProfileApi.UpdateProfileStatus(status)
   if (data.resultCode === 0) {
     dispatch(SetProfileStatus(status))
   }
+  } catch(error) {
+    alert(error.message)
+  }
 }
+
 export const savePhoto = (file) => async (dispatch) => {
+  try {
   let data = await ProfileApi.savePhoto(file)
 
   if (data.resultCode === 0) {
     dispatch(SavePhotoSucess(data.data.photos))
   }
+} catch(error) {
+  alert(error.message)
+}
 }
 
 export const saveProfile = (profile) => async (dispatch, getState) => {
+  try {
   const userId = getState().auth.userId
   const data = await ProfileApi.saveProfile(profile)
 
@@ -127,6 +145,9 @@ export const saveProfile = (profile) => async (dispatch, getState) => {
   })
 
   return errors
+} catch(error) {
+  alert(error.message)
+}
 }
 
 

@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
-import { InitializeApp } from './redux/appReducer';
+import { Routes, Route, Navigate, BrowserRouter } from 'react-router-dom';
+import { InitializeApp, ToogleErrorTH } from './redux/appReducer';
 import { connect } from 'react-redux';
-import { HashRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { AppInitializedS } from './redux/selectors/appSelector';
+import { AppInitialized, GlobalErr } from './redux/selectors/appSelector';
 
 import './Styles/App.css';
 
@@ -28,9 +27,24 @@ const UsersContainer = React.lazy(() => import('./components/Users/UsersContaine
 
 
 function App(props) {
+  const catchAllUnhandleErrors = (event) => {
+    const message =
+      event.reason?.response?.data?.message ||
+      event.reason?.message ||
+      "Unhandled promise rejection";
+  
+    props.ToogleErrorTH(message);
+  };
+
 
   useEffect(() => {
     props.InitializeApp()
+
+    window.addEventListener("unhandledrejection", catchAllUnhandleErrors)
+
+    return () => {
+      window.removeEventListener("unhandledrejection", catchAllUnhandleErrors)
+    }
   }, [])
 
   if (!props.initialized) {
@@ -39,6 +53,9 @@ function App(props) {
 
   return (
     <div className="app-wrapper">
+      <div className='ContainerGlobalEror'>
+        <h1 className='GlobalError'>{props.err}</h1>
+      </div>
       <HeaderContainer />
       <div className="main">
         <NavBar />
@@ -46,24 +63,25 @@ function App(props) {
         <div className="content">
           <Routes>
 
-  <Route path="/dialogs" element={<Dialogs />}>
-    <Route path=":userId" element={<ChatUser />} />
-  </Route>
-
-            <Route path="/" element={<Navigate to="/profile" />} />
+            <Route path="/dialogs" element={<Dialogs />}>
+              <Route path=":userId" element={<ChatUser />} />
+            </Route>
 
             <Route path="/profile/:userId?" element={<HelperSuspense Component={ProfileContainer} />} />
 
-            <Route path="/myposts" element={<HelperSuspense Component={MypostsContainer} /> }/>
+            <Route path="/myposts" element={<HelperSuspense Component={MypostsContainer} />} />
 
             <Route path="/music" element={<Music />} />
             <Route path="/settings" element={<Settings />} />
             <Route path="/test" element={<Test />} />
 
-            <Route path="/users" element={<HelperSuspense Component={UsersContainer} />}/>
+            <Route path="/users" element={<HelperSuspense Component={UsersContainer} />} />
 
             <Route path="/login" element={<Login />} />
 
+            <Route exact path="/" element={<Navigate to="/profile" />} />
+
+            <Route path='*' element={<div>404 NOT FOUND</div>} />
           </Routes>
         </div>
       </div>
@@ -73,18 +91,19 @@ function App(props) {
 
 const mapStateToProps = (state) => {
   return {
-    initialized: AppInitializedS(state)
+    initialized: AppInitialized(state),
+    err: GlobalErr(state)
   }
 }
 
-let AppContainer = connect(mapStateToProps, { InitializeApp })(App);
+let AppContainer = connect(mapStateToProps, { InitializeApp, ToogleErrorTH })(App);
 
 let SamurajJSApp = () => {
-  return <HashRouter >
+  return <BrowserRouter >
     <Provider store={store}>
       <AppContainer />
     </Provider>
-  </HashRouter>
+  </BrowserRouter>
 }
 
 export default SamurajJSApp;

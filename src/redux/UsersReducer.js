@@ -23,13 +23,13 @@ const UserPage = (state = initialState, action) => {
         case FOLLOW:
             return {
                 ...state,
-                Users: UpdateObjectInArray(state.Users, action.id, "id", {followed: true})
+                Users: UpdateObjectInArray(state.Users, action.id, "id", { followed: true })
             }
 
         case UN_FOLLOW:
             return {
                 ...state,
-                Users: UpdateObjectInArray(state.Users, action.id, "id", {followed: false})
+                Users: UpdateObjectInArray(state.Users, action.id, "id", { followed: false })
             }
 
         case SET_USERS:
@@ -42,16 +42,16 @@ const UserPage = (state = initialState, action) => {
             return { ...state, TotalUserCount: action.total }
 
         case TOOGLE_IS_FATCHING:
-                return {
-                    ...state,
-                    isFatching: action.isFatching
-                }
+            return {
+                ...state,
+                isFatching: action.isFatching
+            }
         case TOOGLE_IS_FOLLOWING:
             return {
                 ...state,
-                FollowingInProgress: action.isFollowing 
-                ? [...state.FollowingInProgress, action.UserId]
-                : state.FollowingInProgress.filter(id => id !== action.UserId)
+                FollowingInProgress: action.isFollowing
+                    ? [...state.FollowingInProgress, action.UserId]
+                    : state.FollowingInProgress.filter(id => id !== action.UserId)
             }
         default:
             return state
@@ -63,35 +63,55 @@ export const AcceptUnFollow = (id) => ({ type: UN_FOLLOW, id });
 export const SetUsers = (users) => ({ type: SET_USERS, users });
 export const SetCurrentPage = (p) => ({ type: SET_CURRENT_PAGE, currentPage: p });
 export const SetTotalUserCount = (total) => ({ type: SET_TOTAL_COUNT, total });
-export const ToggleIsFatching = (isFatching) => ({ type: TOOGLE_IS_FATCHING,  isFatching});
-export const ToggleIsFollowing = (isFollowing, UserId) => ({ type: TOOGLE_IS_FOLLOWING,  isFollowing, UserId});
+export const ToggleIsFatching = (isFatching) => ({ type: TOOGLE_IS_FATCHING, isFatching });
+export const ToggleIsFollowing = (isFollowing, UserId) => ({ type: TOOGLE_IS_FOLLOWING, isFollowing, UserId });
 
 export const GetUsers = (currentPage, PageSize) => {
+    try {
         return async (dispatch) => {
-    dispatch(ToggleIsFatching(true))
+            dispatch(ToggleIsFatching(true))
 
-    let data = await UsersApi.GetUsers(currentPage, PageSize)
+            let data = await UsersApi.GetUsers(currentPage, PageSize)
 
-        dispatch(SetUsers(data.items))
-        dispatch(SetCurrentPage(currentPage))
-        dispatch(SetTotalUserCount(data.totalCount))
-        dispatch(ToggleIsFatching(false))
-  }
+            dispatch(SetUsers(data.items))
+            dispatch(SetCurrentPage(currentPage))
+            dispatch(SetTotalUserCount(data.totalCount))
+            dispatch(ToggleIsFatching(false))
+        }
+    } catch (error) {
+        alert(error.message)
+    }
 }
 
 const FollowUnFollowFlow = async (dispatch, UserId, apiMethod, actionCreator) => {
-    dispatch(ToggleIsFollowing(true, UserId))
+    try {
+        dispatch(ToggleIsFollowing(true, UserId))
 
-    let data = await apiMethod(UserId)
+        let data = await apiMethod(UserId)
 
-         if (data.resultCode === 0 ) {
-             dispatch(actionCreator(UserId))
-         }
-         dispatch(ToggleIsFollowing(false, UserId))
+        if (data.resultCode === 0) {
+            dispatch(actionCreator(UserId))
+        }
+        dispatch(ToggleIsFollowing(false, UserId))
+    } catch (error) {
+        alert(error.message)
+    }
 }
 
-export const UnFollow = (UserId) => async (dispatch) => { FollowUnFollowFlow(dispatch, UserId, UsersApi.UnFollow.bind(UsersApi), AcceptUnFollow) }
+export const UnFollow = (UserId) => async (dispatch) => {
+    try {
+        FollowUnFollowFlow(dispatch, UserId, UsersApi.UnFollow.bind(UsersApi), AcceptUnFollow)
+    } catch (error) {
+        alert(error.message)
+    }
+}
 
-export const Follow = (UserId) => async (dispatch) => { FollowUnFollowFlow(dispatch, UserId, UsersApi.Follow.bind(UsersApi), AcceptFollow) }
+export const Follow = (UserId) => async (dispatch) => {
+    try {
+        FollowUnFollowFlow(dispatch, UserId, UsersApi.Follow.bind(UsersApi), AcceptFollow)
+    } catch (error) {
+        alert(error.message)
+    }
+}
 
 export default UserPage;
