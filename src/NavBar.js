@@ -1,15 +1,26 @@
 import { Link } from 'react-router-dom';
 import './Styles/App.css';
+import { Button } from 'antd';
 
 const NavBar = () => {
   return (
     <div>
         <div className='Routes'>
-      <Link className='Home' to="/profile">Profile</Link>
-      <Link className='Home' to="/dialogs">Dialogs</Link>
-      <Link className='Home' to="/music">Music</Link>
-      <Link className='Home' to="/settings">Settings</Link>
-      <Link className='Home' to="/users">Users</Link>
+      <Button type='link'>
+      <Link type='link' className='Home' to="/profile">Profile</Link>
+      </Button>
+      <Button type='link'>
+      <Link type='link' className='Home' to="/dialogs">Dialogs</Link>
+      </Button>
+      <Button type='link'>
+      <Link type='link' className='Home' to="/music">Music</Link>
+      </Button>
+      <Button type='link'>
+      <Link type='link' className='Home' to="/settings">Settings</Link>
+      </Button>
+      <Button type='link'>
+      <Link type='link' className='Home' to="/users">Users</Link>
+      </Button>
       </div>
     </div>
   );

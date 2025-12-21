@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
-import { Routes, Route, Navigate, BrowserRouter } from 'react-router-dom';
+import { Routes, Route, Navigate, HashRouter } from 'react-router-dom';
 import { InitializeApp, ToogleErrorTH } from './redux/appReducer';
 import { connect } from 'react-redux';
 import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
 import { AppInitialized, GlobalErr } from './redux/selectors/appSelector';
 
 import './Styles/App.css';
@@ -12,19 +13,17 @@ import HeaderContainer from './components/Header/HeaderContainer';
 import Test from './components/tests';
 import Login from './components/Login/login';
 import Preloader from './components/common/Preloader/Prelooader';
-import store from './redux/redux-store';
-import ChatUser from './components/Dialogs/ChatUser'
+import store, { persistor } from './redux/redux-store';
+import ChatUser from './components/Dialogs/ChatUser';
 import Dialogs from './components/Dialogs/DialogsContainer';
 
 import Music from './components/Music/Music';
 import Settings from './components/Settings/Settings';
 import HelperSuspense from './components/common/Preloader/HelperSuspense';
 
-const MypostsContainer = React.lazy(() => import('./components/Myposts/MypostsContainer'));
+const MypostsContainer = React.lazy(() => import('./components/Myposts/MypostsContainer.jsx'));
 const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'));
 const UsersContainer = React.lazy(() => import('./components/Users/UsersContainer'));
-
-
 
 function App(props) {
   const catchAllUnhandleErrors = (event) => {
@@ -36,19 +35,18 @@ function App(props) {
     props.ToogleErrorTH(message);
   };
 
-
   useEffect(() => {
-    props.InitializeApp()
+    props.InitializeApp();
 
-    window.addEventListener("unhandledrejection", catchAllUnhandleErrors)
+    window.addEventListener("unhandledrejection", catchAllUnhandleErrors);
 
     return () => {
-      window.removeEventListener("unhandledrejection", catchAllUnhandleErrors)
-    }
-  }, [])
+      window.removeEventListener("unhandledrejection", catchAllUnhandleErrors);
+    };
+  }, []);
 
   if (!props.initialized) {
-    return <Preloader />
+    return <Preloader />;
   }
 
   return (
@@ -62,7 +60,6 @@ function App(props) {
 
         <div className="content">
           <Routes>
-
             <Route path="/dialogs" element={<Dialogs />}>
               <Route path=":userId" element={<ChatUser />} />
             </Route>
@@ -80,8 +77,6 @@ function App(props) {
             <Route path="/login" element={<Login />} />
 
             <Route exact path="/" element={<Navigate to="/profile" />} />
-
-            <Route path='*' element={<div>404 NOT FOUND</div>} />
           </Routes>
         </div>
       </div>
@@ -93,17 +88,21 @@ const mapStateToProps = (state) => {
   return {
     initialized: AppInitialized(state),
     err: GlobalErr(state)
-  }
-}
+  };
+};
 
 let AppContainer = connect(mapStateToProps, { InitializeApp, ToogleErrorTH })(App);
 
 let SamurajJSApp = () => {
-  return <BrowserRouter >
-    <Provider store={store}>
-      <AppContainer />
-    </Provider>
-  </BrowserRouter>
-}
+  return (
+    <HashRouter>
+      <Provider store={store}>
+        <PersistGate loading={<Preloader />} persistor={persistor}>
+          <AppContainer />
+        </PersistGate>
+      </Provider>
+    </HashRouter>
+  );
+};
 
 export default SamurajJSApp;

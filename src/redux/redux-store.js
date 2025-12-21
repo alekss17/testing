@@ -1,4 +1,6 @@
-import {combineReducers, configureStore } from '@reduxjs/toolkit';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 import DialogsPageR from './DialogsPageReducer';
 import ProfilePage from './ProfilePageReducer';
 import slideBarR from './SideBarReducer';
@@ -6,17 +8,44 @@ import UserPage from './UsersReducer';
 import authReducer from './authReducer';
 import appReducer from './appReducer';
 
-export let reducers = combineReducers({
-    DialogsReducer: DialogsPageR,
-    ProfileReducer: ProfilePage,
-    slideBarReducer: slideBarR,
-    UserPageReducer: UserPage,
-    auth: authReducer,
-    app: appReducer
-})
+const profilePersistConfig = {
+  key: 'profile',
+  storage,
+  whitelist: ['postData']
+};
 
-let store = configureStore({reducer: reducers})
+const dialogsPersistConfig = {
+  key: 'dialogs',
+  storage,
+  whitelist: ['Messages', 'dialogs']
+};
 
-window.store = store
+const authPersistConfig = {
+  key: 'auth',
+  storage,
+  whitelist: ['userId', 'login', 'isAuth']
+};
 
+const rootReducer = combineReducers({
+  DialogsReducer: persistReducer(dialogsPersistConfig, DialogsPageR),
+  ProfileReducer: persistReducer(profilePersistConfig, ProfilePage),
+  slideBarReducer: slideBarR,
+  UserPageReducer: UserPage,
+  auth: persistReducer(authPersistConfig, authReducer),
+  app: appReducer
+});
+
+const store = configureStore({
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: ['persist/PERSIST', 'persist/REHYDRATE']
+      }
+    })
+});
+
+window.store = store;
+
+export const persistor = persistStore(store);
 export default store;

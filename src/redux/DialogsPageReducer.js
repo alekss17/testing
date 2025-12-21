@@ -3,22 +3,19 @@ import { v4 as uuidv4 } from 'uuid';
 const addMessage = 'DialogsReducer/addMessage';
 const Delete = 'DialogsReducer/DeleteMessage';
 
-const savedDialogs = JSON.parse(localStorage.getItem('dialogs')) || [
-  { id: 1, name: 'Dimych - ' },
-  { id: 2, name: 'Andrey - ' },
-  { id: 3, name: 'Sveta - ' },
-  { id: 4, name: 'Sasha - ' },
-  { id: 5, name: 'Valera - ' },
-  { id: 6, name: 'Viktor - ' }
-];
-
-const savedMessages = JSON.parse(localStorage.getItem('Messages')) || [
-  { id: uuidv4(), messages: 'hi', userId: uuidv4() }
-];
-
+// УБРАЛИ localStorage отсюда
 let initialState = {
-  dialogs: savedDialogs,
-  Messages: savedMessages
+  dialogs: [
+    { id: 1, name: 'Dimych - ' },
+    { id: 2, name: 'Andrey - ' },
+    { id: 3, name: 'Sveta - ' },
+    { id: 4, name: 'Sasha - ' },
+    { id: 5, name: 'Valera - ' },
+    { id: 6, name: 'Viktor - ' }
+  ],
+  Messages: [
+    { id: uuidv4(), messages: 'hi', userId: uuidv4() }
+  ]
 };
 
 const DialogsPageR = (state = initialState, action) => {
@@ -31,7 +28,7 @@ const DialogsPageR = (state = initialState, action) => {
       };
 
       const updatedMessages = [...state.Messages, newMessage];
-      localStorage.setItem('Messages', JSON.stringify(updatedMessages));
+      // УБРАЛИ localStorage.setItem отсюда
 
       return { ...state, Messages: updatedMessages };
     }
@@ -41,7 +38,7 @@ const DialogsPageR = (state = initialState, action) => {
         m => m.id !== action.MessageId
       );
 
-      localStorage.setItem('Messages', JSON.stringify(updatedMessages));
+      // УБРАЛИ localStorage.setItem отсюда
       return { ...state, Messages: updatedMessages };
     }
 

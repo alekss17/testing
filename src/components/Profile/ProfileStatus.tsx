@@ -1,12 +1,19 @@
 import React, { useEffect, useState } from "react";
 import '../../Styles/Myposts.css'
 
-const ProfileStatus = ({profileStatus, isOwner, UpdateProfileStats}) => {
-    const [editMode, setEditMode] = useState(false)
-    const [status, setStatus] = useState(profileStatus)
+
+interface ComponentProps {
+    profileStatus: string;
+    isOwner: boolean;
+    UpdateProfileStats: (status: string) => void;
+}
+
+const ProfileStatus = ({profileStatus, isOwner, UpdateProfileStats}: ComponentProps) => {
+    const [editMode, setEditMode] = useState<boolean>(false)
+    const [status, setStatus] = useState<string>(profileStatus)
 
     useEffect(() => {
-        setStatus(profileStatus)
+        setStatus(profileStatus ?? '')
     }, [profileStatus])
 
     const ActivateEditMode = () => {
@@ -18,7 +25,7 @@ const ProfileStatus = ({profileStatus, isOwner, UpdateProfileStats}) => {
         UpdateProfileStats(status)
     }
 
-    const OnStatusChange = (e) => {
+    const OnStatusChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setStatus(e.currentTarget.value)
     }
     return (

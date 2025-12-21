@@ -1,6 +1,6 @@
 import '../../Styles/Home.css';
 import MypostsContainer from '../Myposts/MypostsContainer';
-import ProfileInfo from './ProfileInfo';
+import ProfileInfo from './ProfileInfo.tsx';
 
 const Profile = (props) => {
   

@@ -7,16 +7,14 @@ const SETPROFILESTATUS = 'ProfilePage/SET_PROFILE_STATUS';
 const DELETEDPOST = 'ProfilePage/DELETE_POST';
 const SavePhoto = 'ProfilePage/SAVE_PHOTO';
 const ToggleIsLProfile = 'ProfilePage/Toggle';
-const ToogleProfileDataFormError = 'ProfilePage/ProfileDataFormError'
-
-const savedPosts = JSON.parse(localStorage.getItem('postData')) || [
-  { id: uuidv4(), message: "Hi, how are you", likescount: 0 },
-  { id: uuidv4(), message: "Hi", likescount: 0 },
-  { id: uuidv4(), message: "Hohoho", likescount: 0 }
-];
+const ToogleProfileDataFormError = 'ProfilePage/ProfileDataFormError';
 
 let initialState = {
-  postData: savedPosts,
+  postData: [
+    { id: uuidv4(), message: "Hi, how are you", likescount: 0 },
+    { id: uuidv4(), message: "Hi", likescount: 0 },
+    { id: uuidv4(), message: "Hohoho", likescount: 0 }
+  ],
   profile: null,
   ProfileStatus: "",
   ProfileLoading: false,
@@ -34,14 +32,11 @@ const ProfilePage = (state = initialState, action) => {
       };
       const updatedPosts = [...state.postData, newPost];
       
-      localStorage.setItem('postData', JSON.stringify(updatedPosts));
-
       return { ...state, postData: updatedPosts };
     }
 
     case DELETEDPOST: {
       const updatedPosts = state.postData.filter(p => p.id !== action.PostId);
-      localStorage.setItem('postData', JSON.stringify(updatedPosts));
       return { ...state, postData: updatedPosts };
     }
 
@@ -56,10 +51,12 @@ const ProfilePage = (state = initialState, action) => {
 
     case ToggleIsLProfile:
       return { ...state, ProfileLoading: action.bool };
-      case ToogleProfileDataFormError:
-        return {
-          ...state, ProfileDataFormError: action.err
-        }
+      
+    case ToogleProfileDataFormError:
+      return {
+        ...state, ProfileDataFormError: action.err
+      };
+      
     default:
       return state;
   }
@@ -71,86 +68,84 @@ export const SetProfileStatus = (Status) => ({ type: SETPROFILESTATUS, Status })
 const deletePost = (PostId) => ({ type: DELETEDPOST, PostId });
 export const SavePhotoSucess = (photo) => ({ type: SavePhoto, photo });
 export const ToggleIsLoadingProfile = (bool) => ({ type: ToggleIsLProfile, bool });
-export const ProfileDataFormErrorAC = (err) => ({type: ToogleProfileDataFormError, err})
+export const ProfileDataFormErrorAC = (err) => ({type: ToogleProfileDataFormError, err});
 
 export const DeletePost = (ID) => (dispatch) => {
-  dispatch(deletePost(ID))
+  dispatch(deletePost(ID));
 }
+
 export const GetProfile = (userId) => async (dispatch) => {
   try {
-  dispatch(ToggleIsLoadingProfile(false))
+    dispatch(ToggleIsLoadingProfile(false));
 
-  let data = await ProfileApi.GetProfile(userId)
+    let data = await ProfileApi.GetProfile(userId);
 
-  const userProfile = data;
-  dispatch(SetUserProfile(userProfile));
+    const userProfile = data;
+    dispatch(SetUserProfile(userProfile));
 
-  dispatch(ToggleIsLoadingProfile(true))
+    dispatch(ToggleIsLoadingProfile(true));
   } catch(error) {
-    alert(error.message)
+    alert(error.message);
   }
 }
 
 export const GetProfilStatus = (userId) => async (dispatch) => {
   try {
-  let data = await ProfileApi.GetProfileStatus(userId)
+    let data = await ProfileApi.GetProfileStatus(userId);
 
-  const Status = data;
-  dispatch(SetProfileStatus(Status))
+    const Status = data;
+    dispatch(SetProfileStatus(Status));
   } catch(error) {
-    alert(error.message)
+    alert(error.message);
   }
 }
 
 export const UpdateProfileStats = (status) => async (dispatch) => {
   try {
-  let data = await ProfileApi.UpdateProfileStatus(status)
-  if (data.resultCode === 0) {
-    dispatch(SetProfileStatus(status))
-  }
+    let data = await ProfileApi.UpdateProfileStatus(status);
+    if (data.resultCode === 0) {
+      dispatch(SetProfileStatus(status));
+    }
   } catch(error) {
-    alert(error.message)
+    alert(error.message);
   }
 }
 
 export const savePhoto = (file) => async (dispatch) => {
   try {
-  let data = await ProfileApi.savePhoto(file)
+    let data = await ProfileApi.savePhoto(file);
 
-  if (data.resultCode === 0) {
-    dispatch(SavePhotoSucess(data.data.photos))
+    if (data.resultCode === 0) {
+      dispatch(SavePhotoSucess(data.data.photos));
+    }
+  } catch(error) {
+    alert(error.message);
   }
-} catch(error) {
-  alert(error.message)
-}
 }
 
 export const saveProfile = (profile) => async (dispatch, getState) => {
   try {
-  const userId = getState().auth.userId
-  const data = await ProfileApi.saveProfile(profile)
+    const userId = getState().auth.userId;
+    const data = await ProfileApi.saveProfile(profile);
 
-  if (data.resultCode === 0) {
-    dispatch(GetProfile(userId))
-    return null
-  }
-
-  const errors = { contacts: {} }
-
-  data.messages.forEach(msg => {
-    if (msg.includes("Contacts->")) {
-      const key = msg.split("Contacts->")[1].replace(")", "").toLowerCase()
-      errors.contacts[key] = msg
+    if (data.resultCode === 0) {
+      dispatch(GetProfile(userId));
+      return null;
     }
-  })
 
-  return errors
-} catch(error) {
-  alert(error.message)
+    const errors = { contacts: {} };
+
+    data.messages.forEach(msg => {
+      if (msg.includes("Contacts->")) {
+        const key = msg.split("Contacts->")[1].replace(")", "").toLowerCase();
+        errors.contacts[key] = msg;
+      }
+    });
+
+    return errors;
+  } catch(error) {
+    alert(error.message);
+  }
 }
-}
 
-
-
-
-export default ProfilePage
+export default ProfilePage;

@@ -7,6 +7,7 @@
     "@reduxjs/toolkit": "^2.9.2",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "antd": "^6.1.1",
     "axios": "^1.13.2",
     "formik": "^2.4.9",
     "react": "^18.2.0",
@@ -15,6 +16,7 @@
     "react-router-dom": "^6.30.2",
     "react-scripts": "5.0.1",
     "redux": "^4.2.1",
+    "redux-persist": "^6.0.0",
     "redux-thunk": "^2.4.2",
     "reselect": "^5.1.1",
     "uuid": "^13.0.0",
@@ -26,10 +28,13 @@
     "@babel/preset-react": "^7.28.5",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.0",
+    "@typescript-eslint/eslint-plugin": "^5.62.0",
+    "@typescript-eslint/parser": "^5.62.0",
     "babel-jest": "^30.2.0",
     "gh-pages": "^4.0.0",
     "identity-obj-proxy": "^3.0.0",
-    "react-test-renderer": "^18.2.0"
+    "react-test-renderer": "^18.2.0",
+    "typescript": "^4.9.5"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -44,9 +49,26 @@
       "react-app",
       "react-app/jest"
     ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+      "ecmaVersion": 2020,
+      "sourceType": "module",
+      "ecmaFeatures": {
+        "jsx": true
+      }
+    },
     "rules": {
       "react/react-in-jsx-scope": "off"
-    }
+    },
+    "overrides": [
+      {
+        "files": [
+          "*.ts",
+          "*.tsx"
+        ],
+        "parser": "@typescript-eslint/parser"
+      }
+    ]
   },
   "browserslist": {
     "production": [
