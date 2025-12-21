@@ -1,9 +1,8 @@
 import { v4 as uuidv4 } from 'uuid';
 
-const addMessage = 'DialogsReducer/addMessage';
-const Delete = 'DialogsReducer/DeleteMessage';
+const addMessage = 'DialogsReducer/addMessage' as const;
+const Delete = 'DialogsReducer/DeleteMessage' as const;
 
-// УБРАЛИ localStorage отсюда
 let initialState = {
   dialogs: [
     { id: 1, name: 'Dimych - ' },
@@ -18,18 +17,35 @@ let initialState = {
   ]
 };
 
-const DialogsPageR = (state = initialState, action) => {
+export type InitialStateType = typeof initialState;
+
+export const onAddMessage = (onDialogBody: string, userId: string) => ({
+  type: addMessage,
+  onDialogBody,
+  userId
+});
+
+const DeleteMessage = (MessageId: string) => ({
+  type: Delete,
+  MessageId
+});
+
+type ActionType =
+  | ReturnType<typeof onAddMessage>
+  | ReturnType<typeof DeleteMessage>;
+
+
+
+const DialogsPageR = (state: InitialStateType = initialState, action: ActionType): InitialStateType => {
   switch (action.type) {
     case addMessage: {
       const newMessage = {
-        id: uuidv4(), 
+        id: uuidv4(),
         messages: action.onDialogBody,
         userId: action.userId
       };
 
       const updatedMessages = [...state.Messages, newMessage];
-      // УБРАЛИ localStorage.setItem отсюда
-
       return { ...state, Messages: updatedMessages };
     }
 
@@ -37,8 +53,6 @@ const DialogsPageR = (state = initialState, action) => {
       const updatedMessages = state.Messages.filter(
         m => m.id !== action.MessageId
       );
-
-      // УБРАЛИ localStorage.setItem отсюда
       return { ...state, Messages: updatedMessages };
     }
 
@@ -47,18 +61,7 @@ const DialogsPageR = (state = initialState, action) => {
   }
 };
 
-export const onAddMessage = (onDialogBody, userId) => ({
-  type: addMessage,
-  onDialogBody,
-  userId
-});
-
-const DeleteMessage = (MessageId) => ({
-  type: Delete,
-  MessageId
-});
-
-export const DeleteMessageTH = (Id) => (dispatch) => {
+export const DeleteMessageTH = (Id: string) => (dispatch: any) => {
   dispatch(DeleteMessage(Id));
 };
 

@@ -27,9 +27,12 @@ const UsersContainer = React.lazy(() => import('./components/Users/UsersContaine
 
 function App(props) {
   const catchAllUnhandleErrors = (event) => {
+    const reason = event.reason;
+    
     const message =
-      event.reason?.response?.data?.message ||
-      event.reason?.message ||
+      reason?.response?.data?.message ||
+      reason?.message ||
+      (typeof reason === 'string' ? reason : null) ||
       "Unhandled promise rejection";
   
     props.ToogleErrorTH(message);

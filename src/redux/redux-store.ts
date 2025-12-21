@@ -3,7 +3,6 @@ import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import DialogsPageR from './DialogsPageReducer';
 import ProfilePage from './ProfilePageReducer';
-import slideBarR from './SideBarReducer';
 import UserPage from './UsersReducer';
 import authReducer from './authReducer';
 import appReducer from './appReducer';
@@ -29,7 +28,6 @@ const authPersistConfig = {
 const rootReducer = combineReducers({
   DialogsReducer: persistReducer(dialogsPersistConfig, DialogsPageR),
   ProfileReducer: persistReducer(profilePersistConfig, ProfilePage),
-  slideBarReducer: slideBarR,
   UserPageReducer: UserPage,
   auth: persistReducer(authPersistConfig, authReducer),
   app: appReducer
@@ -45,7 +43,10 @@ const store = configureStore({
     })
 });
 
-window.store = store;
+
+export type AppDispatch = typeof store.dispatch
+export type RootState = ReturnType<typeof store.getState>
+
 
 export const persistor = persistStore(store);
 export default store;

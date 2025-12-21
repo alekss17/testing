@@ -1,4 +1,5 @@
 import axios from "axios";
+import { UserProfile } from "../components/Profile/ProfileInfo";
 
 export const instance = axios.create({
     withCredentials: true,
@@ -19,19 +20,19 @@ instance.interceptors.request.use((config) => {
 })
 
 export const UsersApi = {
-    GetUsers(currentPage = 1, pageSize = 5) {
+    GetUsers(currentPage: number = 1, pageSize: number = 5) {
         return instance
             .get(`users?page=${currentPage}&count=${pageSize}`)
             .then(res => res.data)
     },
 
-    Follow(userId) {
+    Follow(userId: number) {
         return instance
             .post(`follow/${userId}`)
             .then(res => res.data)
     },
 
-    UnFollow(userId) {
+    UnFollow(userId: number) {
         return instance
             .delete(`follow/${userId}`)
             .then(res => res.data)
@@ -39,25 +40,25 @@ export const UsersApi = {
 }
 
 export const ProfileApi = {
-    GetProfile(userId) {
+    GetProfile(userId: number | null) {
         return instance
             .get(`profile/${userId}`)
             .then(res => res.data)
     },
 
-    GetProfileStatus(userId) {
+    GetProfileStatus(userId: number) {
         return instance
             .get(`profile/status/${userId}`)
             .then(res => res.data)
     },
 
-    UpdateProfileStatus(status) {
+    UpdateProfileStatus(status: string) {
         return instance
             .put(`profile/status`, { status })
             .then(res => res.data)
     },
 
-    savePhoto(photoFile) {
+    savePhoto(photoFile: File) {
         const formData = new FormData()
         formData.append('image', photoFile)
 
@@ -67,7 +68,7 @@ export const ProfileApi = {
             })
             .then(res => res.data)
     },
-    saveProfile(profile) {
+    saveProfile(profile: UserProfile) {
         return (
             instance.put('profile', profile)
             .then(res => res.data)
@@ -82,7 +83,7 @@ export const AuthApi = {
             .then(res => res.data)
     },
 
-    Login(email, password, rememberMe = false, captcha = null) {
+    Login(email: string | null, password: string | null, rememberMe: boolean = false, captcha: string | null = null) {
         return instance
             .post('auth/login', { email, password, rememberMe, captcha })
             .then(res => res.data)
