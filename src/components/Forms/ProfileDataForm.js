@@ -2,6 +2,7 @@ import React from "react"
 import { Formik, Form } from "formik"
 import TextArea, { createField } from "../common/FormsControl/FormsControl"
 import '../../Styles/ProfileDataF.css'
+import { Button } from "antd"
 
 const ProfileDataForm = ({ profile, handleSubmit, onLeaveSubmit }) => {
   return (
@@ -26,9 +27,8 @@ const ProfileDataForm = ({ profile, handleSubmit, onLeaveSubmit }) => {
     >
       {() => (
         <Form>
-
-          <button type="submit">Save</button>
-          <button onClick={onLeaveSubmit} >Leave</button>
+          <button className="Save" type="submit">Save</button>
+          <Button  type="primary" onClick={onLeaveSubmit} >Leave</Button>
 
           <div>
             <p>fullName:</p>

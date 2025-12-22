@@ -14,3 +14,12 @@
     align-items: center;
     gap: 5px;
 }
+
+.Save {
+    border-radius: 6px;
+    background-color: blue;
+    width: 70px;
+    height: 34px;
+    border: none;
+    cursor: pointer;
+}

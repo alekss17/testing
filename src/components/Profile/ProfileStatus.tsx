@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Button } from "antd";
 import '../../Styles/Myposts.css'
 
 
@@ -33,7 +34,7 @@ const ProfileStatus = ({profileStatus, isOwner, UpdateProfileStats}: ComponentPr
         {!editMode && 
             <div className="Status">
 
-            <p className="ProfileStatus">{profileStatus || '---------'}  </p> {isOwner === true ? <button onClick={ActivateEditMode} >Write Status</button> : null}
+            <p className="ProfileStatus">{profileStatus || '---------'}  </p> {isOwner === true ? <Button type="primary"onClick={ActivateEditMode} >Write Status</Button> : null}
             </div>
         }
         {editMode &&

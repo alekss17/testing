@@ -1,12 +1,12 @@
 import '../../Styles/Home.css';
 import MypostsContainer from '../Myposts/MypostsContainer';
-import ProfileInfo from './ProfileInfo.tsx';
+import ProfileInfo from './ProfileInfo';
+import { ProfileTypeProps } from '../../types/Types';
 
-const Profile = (props) => {
-  
+const Profile = (props: ProfileTypeProps) => {
   return (
     <>
-      <ProfileInfo isOwner={props.isOwner} {...props} />
+      <ProfileInfo {...props} />
       <MypostsContainer />
     </>
   );

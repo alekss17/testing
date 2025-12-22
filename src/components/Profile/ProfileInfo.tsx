@@ -5,53 +5,15 @@ import ProfileStatus from './ProfileStatus'
 import UserImg from '../../assets/images/user.jpg'
 import { useState } from 'react';
 import ProfileDataForm from '../Forms/ProfileDataForm';
+import { Button, Upload } from 'antd';
+import type { UploadProps } from 'antd';
+import { UploadOutlined } from '@ant-design/icons';
+import { ProfileTypeProps, UserProfile, Contacts } from '../../types/Types';
 
-interface Contacts {
-    facebook: string | null;
-    website: string | null;
-    vk: string | null;
-    twitter: string | null;
-    instagram: string | null;
-    youtube: string | null;
-    github: string | null;
-    mainLink: string | null;
-}
-
-interface Photos {
-    small: string | null;
-    large: string | null;
-}
-
-export interface UserProfile {
-    aboutMe: string | null;
-    contacts: Contacts;
-    lookingForAJob: boolean;
-    lookingForAJobDescription: string | null;
-    fullName: string;
-    userId: number;
-    photos: Photos;
-}    
-
-interface ComponentProps {
-    profile: UserProfile
-    profileStatus: string;
-    UpdateProfileStats: (status: string) => void;
-    isOwner: boolean;
-    savePhoto: (file: File) => void;
-    ProfileLoading: boolean;
-    saveProfile: (profile: UserProfile) => Promise<any>
-}
-
-const ProfileInfo = ({ profile, profileStatus, UpdateProfileStats, isOwner, savePhoto, ProfileLoading, saveProfile }: ComponentProps) => {
+const ProfileInfo = ({ profile, profileStatus, UpdateProfileStats, isOwner, savePhoto, ProfileLoading, saveProfile }: ProfileTypeProps) => {
     const [editMode, setEditMode] = useState<boolean>(false)
 
-    if (!ProfileLoading) return <Preloader />
-
-    const onMainPhotoSelected = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files?.[0]) {
-            savePhoto(e.target.files[0]);
-        }
-    }
+    if (!ProfileLoading || !profile) return <Preloader />
 
     const handleSubmit = async (values: UserProfile) => {
         const errors = await saveProfile(values)
@@ -64,11 +26,28 @@ const ProfileInfo = ({ profile, profileStatus, UpdateProfileStats, isOwner, save
     }
     const onLeaveSubmit = () => setEditMode(false)
 
+    const uploadProps: UploadProps = {
+        accept: 'image/*',
+        showUploadList: false,
+        beforeUpload: (file) => {
+            savePhoto(file);
+            return false;
+        },
+    };
+    
     return (
         <>
             <img src={profile.photos?.large || UserImg} alt="Profile" />
 
-            {isOwner && <input type="file" onChange={onMainPhotoSelected} />}
+            {isOwner && (
+                <div>
+                    <Upload {...uploadProps}>
+                        <Button icon={<UploadOutlined />}>
+                            Upload image
+                        </Button>
+                    </Upload>
+                </div>
+            )}
 
             <ProfileStatus
                 isOwner={isOwner}
@@ -102,7 +81,7 @@ interface ProfileDataProps {
 const ProfileData = ({ profile, owner, goToEditMode }: ProfileDataProps) => {
     return (
         <>
-            {owner && <button onClick={goToEditMode}>edit</button>}
+            {owner && <Button type='primary' onClick={goToEditMode}>edit</Button>}
             <div>
                 {profile.aboutMe &&
                     <p>About Me: {profile.aboutMe}</p>

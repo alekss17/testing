@@ -4,9 +4,23 @@ import { connect } from "react-redux";
 import { login } from "../../redux/authReducer";
 import { Navigate } from "react-router-dom";
 import { formErrorSelector, getCaptcha, loginSelector } from "../../redux/selectors/authSelector";
+import { RootState } from "../../redux/redux-store";
 
-const Login = (props) => {
-    const Submit = (formData) => {
+interface LoginType {
+    isAuth: boolean;
+    formError: string | null;
+    captchaUrl: string | null;
+    login: (email: string, password: string, rememberMe: boolean, captcha: string) => void
+}
+
+export type formDataType = {
+    email: string;
+    password: string;
+    rememberMe: boolean;
+    captcha: string;
+}
+const Login = (props: LoginType) => {
+    const Submit = (formData: formDataType) => {
         props.login(formData.email, formData.password, formData.rememberMe, formData.captcha)
     }
 
@@ -22,7 +36,7 @@ const Login = (props) => {
     )
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: RootState) => {
     return {
     isAuth: loginSelector(state),
     formError: formErrorSelector(state),

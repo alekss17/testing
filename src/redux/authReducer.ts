@@ -11,11 +11,10 @@ const initialState = {
     email: null as string | null,
     login: null as string | null,
     userId: null as number | null,
-    isAuth: false as boolean | null,
-    isAuthChecking: true as boolean | null,
+    isAuth: false as boolean,
+    isAuthChecking: true as boolean,
     formError: null as string | null,
     captchaUrl: null as string | null, // if null then captcha is not required
-    dataResultCode: null as number | null
 }
 
 type initialStateType = typeof initialState
@@ -23,21 +22,21 @@ type initialStateType = typeof initialState
 export const SetAuthUserData = (email: string | null, login: string | null, userId: number | null, isAuth: boolean) => ({
     type: SET_USER_DATA,
     payload: { email, login, userId, isAuth }
-})
+} as const)
 
 export const isAuthChecking = (value: boolean) => ({
     type: IS_AUTH_CHECKING,
     value
-})
+} as const)
 
 export const SetFormError = (error: string | null) => ({
     type: SET_FORM_ERROR,
     error
-})
+} as const)
 const SetCaptcha = (captchaUrl: string) => ({
     type: SET_CAPTCHA_URL,
     captchaUrl
-})
+} as const)
 
 type ActionType = 
 | ReturnType<typeof SetAuthUserData>
@@ -84,8 +83,6 @@ export const GetMe = () => async (dispatch: AppDispatch) => {
 
 export const login = (email: string, password: string, rememberMe: boolean = false, captcha: string) => async (dispatch: AppDispatch) => {
     try {
-    dispatch(isAuthChecking(true))
-
     const data = await AuthApi.Login(email, password, rememberMe, captcha)
 
     if (data.resultCode === 0) {
@@ -98,7 +95,6 @@ export const login = (email: string, password: string, rememberMe: boolean = fal
             dispatch(getCaptchaUrl())
         }
         dispatch(SetFormError(data.messages[0] || 'Login error'))
-        dispatch(isAuthChecking(false))
     }
 } catch(error: unknown) {
     if (error instanceof Error) {

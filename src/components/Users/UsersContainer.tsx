@@ -7,8 +7,28 @@ import { FollowingInProgress, GetCurrentPage, GetFatching, GetPageSize, GetTotal
 import { GetIsAuth, GetisAuthChecking } from '../../redux/selectors/authSelector';
 import { compose } from 'redux';
 import AuthRedirectComponent from '../../hoc/WithAuthNavigate';
+import { RootState } from '../../redux/redux-store';
+import { UsersType } from '../../types/Types';
 
-class UsersApiContainer extends React.Component {
+interface UserApiContainerProps {
+    currentPage: number;
+    PageSize: number;
+    Users: UsersType[];
+    TotalUserCount: number;
+    isFatching: boolean;
+    FollowingInProgress: number[];
+    isAuth: boolean;
+    isAuthChecking: boolean;
+
+    GetUsers: (currentPage: number, PageSize: number) => void;
+    AcceptFollow: (id: number) => void;
+    AcceptUnFollow: (id: number) => void;
+    Follow: (UserId: number) => void;
+    UnFollow: (UserId: number) => void;
+    ToggleIsFollowing: (isFollowing: boolean, UserId: number) => void
+}
+
+class UsersApiContainer extends React.Component<UserApiContainerProps> {
 
     componentDidMount() {
         const {currentPage, PageSize, GetUsers} = this.props;
@@ -16,8 +36,8 @@ class UsersApiContainer extends React.Component {
         GetUsers(currentPage, PageSize);
     }
 
-    OnePageChanged = (p) => {
-        const {PageSize} = this.props;
+    OnePageChanged = (p: number) => {
+        const PageSize = this.props.PageSize;
 
         this.props.GetUsers(p, PageSize);
     }
@@ -33,7 +53,7 @@ class UsersApiContainer extends React.Component {
     }
 }
 
-let MapStateToProps = (state) => {
+let MapStateToProps = (state: RootState) => {
     return {
         Users: GetUsersSuper(state),
         TotalUserCount: GetTotalUserCount(state),
@@ -46,7 +66,7 @@ let MapStateToProps = (state) => {
     }
 }
 
-export default compose(
+export default compose<React.ComponentType>(
     connect(MapStateToProps, { AcceptFollow, AcceptUnFollow, Follow, UnFollow, GetUsers, ToggleIsFollowing}),
     AuthRedirectComponent
 )(UsersApiContainer);

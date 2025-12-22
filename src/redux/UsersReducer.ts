@@ -1,4 +1,5 @@
 import { UsersApi } from "../DAL/api"
+import { UsersType } from "../types/Types"
 import { UpdateObjectInArray } from "../utils/object-helpers"
 import { AppDispatch } from "./redux-store"
 
@@ -9,18 +10,6 @@ const SET_CURRENT_PAGE = 'UsersReducer/SETCURRENTPAGE' as const
 const SET_TOTAL_COUNT = 'UsersReducer/SET_TOTAL_COUNT' as const
 const TOOGLE_IS_FATCHING = 'UsersReducer/TOGGLEISFATCHING' as const
 const TOOGLE_IS_FOLLOWING = 'UsersReducer/TOGGLEISFOLLOWING' as const
-
-type UsersType = {
-    name: string,
-    id: number,
-    uniqueUrlName: null | string,
-    photos: {
-      small: null | string, 
-      large: null | string  
-    },
-    status: null | string,
-    followed: boolean
-}
 
 let initialState = {
     Users: [] as UsersType[], 

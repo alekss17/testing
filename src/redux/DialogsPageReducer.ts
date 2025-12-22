@@ -3,18 +3,30 @@ import { v4 as uuidv4 } from 'uuid';
 const addMessage = 'DialogsReducer/addMessage' as const;
 const Delete = 'DialogsReducer/DeleteMessage' as const;
 
+
+type DialogType = {
+  id: string,
+  name: string
+}
+
+type MessagesType = {
+  id: string,
+  messages: string,
+  userId: string
+}
+
 let initialState = {
   dialogs: [
-    { id: 1, name: 'Dimych - ' },
-    { id: 2, name: 'Andrey - ' },
-    { id: 3, name: 'Sveta - ' },
-    { id: 4, name: 'Sasha - ' },
-    { id: 5, name: 'Valera - ' },
-    { id: 6, name: 'Viktor - ' }
-  ],
+    { id: uuidv4(), name: 'Dimych - ' },
+    { id: uuidv4(), name: 'Andrey - ' },
+    { id: uuidv4(), name: 'Sveta - ' },
+    { id: uuidv4(), name: 'Sasha - ' },
+    { id: uuidv4(), name: 'Valera - ' },
+    { id: uuidv4(), name: 'Viktor - ' }
+  ] as Array<DialogType>,
   Messages: [
     { id: uuidv4(), messages: 'hi', userId: uuidv4() }
-  ]
+  ] as Array<MessagesType>
 };
 
 export type InitialStateType = typeof initialState;

@@ -1,6 +1,6 @@
 import { ProfileApi } from '../DAL/api';
 import { v4 as uuidv4 } from 'uuid';
-import { UserProfile } from '../components/Profile/ProfileInfo';
+import { UserProfile } from '../types/Types';
 import { Dispatch } from 'redux';
 import { AppDispatch, RootState } from './redux-store';
 

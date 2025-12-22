@@ -26,8 +26,7 @@ const LoginForm = ({ formError, Submit, captchaUrl }) => {
         setStatus(null);
         Submit(values);
         setSubmitting(false);
-      }}
-    >
+      }} >
       {({ status }) => (
         <Form>
 
