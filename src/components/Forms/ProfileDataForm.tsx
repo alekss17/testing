@@ -3,8 +3,15 @@ import { Formik, Form } from "formik"
 import TextArea, { createField } from "../common/FormsControl/FormsControl"
 import '../../Styles/ProfileDataF.css'
 import { Button } from "antd"
+import { ProfileFormValue, UserProfile } from "../../types/Types"
 
-const ProfileDataForm = ({ profile, handleSubmit, onLeaveSubmit }) => {
+interface ProfileDataFormTypes {
+  profile: UserProfile
+  handleSubmit: (values: ProfileFormValue) => Promise<any>
+  onLeaveSubmit: () => void
+}
+
+const ProfileDataForm = ({ profile, handleSubmit, onLeaveSubmit }: ProfileDataFormTypes) => {
   return (
     <Formik
       enableReinitialize
@@ -15,7 +22,7 @@ const ProfileDataForm = ({ profile, handleSubmit, onLeaveSubmit }) => {
         lookingForAJobDescription: profile.lookingForAJobDescription,
         contacts: profile.contacts
       }}
-      onSubmit={async (values, { setErrors, setSubmitting }) => {
+      onSubmit={async (values: ProfileFormValue, { setErrors, setSubmitting }) => {
         const errors = await handleSubmit(values)
 
         if (errors) {
@@ -28,7 +35,7 @@ const ProfileDataForm = ({ profile, handleSubmit, onLeaveSubmit }) => {
       {() => (
         <Form>
           <button className="Save" type="submit">Save</button>
-          <Button  type="primary" onClick={onLeaveSubmit} >Leave</Button>
+          <Button type="primary" onClick={onLeaveSubmit}>Leave</Button>
 
           <div>
             <p>fullName:</p>

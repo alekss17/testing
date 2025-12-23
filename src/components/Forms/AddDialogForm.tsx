@@ -1,11 +1,16 @@
 import { Field, Form, Formik } from 'formik';
 import { required, MaxLenghtCreator } from '../../utils/validators/validators';
 import TextArea from '../common/FormsControl/FormsControl';
+import { DialogFormValues } from '../../types/Types';
 
 const MaxLength50 = MaxLenghtCreator(50)
 
-const AddDialogForm = (props) => {
-    const validate = value => required(value) || MaxLength50(value)
+interface addDialogForm {
+    onSubmit: (values: DialogFormValues) => void
+}
+
+const AddDialogForm = (props: addDialogForm) => {
+    const validate = (value: DialogFormValues) => required(value) || MaxLength50(value)
     return (
         <>
         <Formik initialValues={{ onDialogBody: "" }} onSubmit={props.onSubmit}>

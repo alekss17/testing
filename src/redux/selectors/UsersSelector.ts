@@ -1,6 +1,7 @@
 import { createSelector } from "reselect"
+import { RootState } from "../redux-store"
 
-export const getUsers = (state) => {
+export const getUsers = (state: RootState) => {
     return (
          state.UserPageReducer.Users
     )
@@ -10,35 +11,35 @@ export const GetUsersSuper = createSelector(getUsers, (Users) => {
 })
 
 
-export const GetTotalUserCount = (state) => {
+export const GetTotalUserCount = (state: RootState) => {
     return (
          state.UserPageReducer.TotalUserCount
     )
 }
 
 
-export const GetPageSize = (state) => {
+export const GetPageSize = (state: RootState) => {
     return (
          state.UserPageReducer.PageSize
     )
 }
 
 
-export const GetCurrentPage = (state) => {
+export const GetCurrentPage = (state: RootState) => {
     return (
          state.UserPageReducer.currentPage
     )
 }
 
 
-export const GetFatching = (state) => {
+export const GetFatching = (state: RootState) => {
     return (
          state.UserPageReducer.isFatching
     )
 }
 
 
-export const FollowingInProgress = (state) => {
+export const FollowingInProgress = (state: RootState) => {
     return (
          state.UserPageReducer.FollowingInProgress
     )

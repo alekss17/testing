@@ -1,11 +1,16 @@
 import { Field, Form, Formik } from 'formik';
 import { required, MaxLenghtCreator } from '../../utils/validators/validators';
 import TextArea from '../common/FormsControl/FormsControl';
+import { AddMessageFormValues } from '../../types/Types';
 
 const MaxLength100 = MaxLenghtCreator(100)
 
-const AddMessageForm = (props) => {
-  const validate = value => required(value) || MaxLength100(value)
+interface FormTypes {
+  onSubmit: (values: AddMessageFormValues) => void
+}
+
+const AddMessageForm = (props: FormTypes) => {
+  const validate = (value: AddMessageFormValues) => required(value) || MaxLength100(value)
     return (
     <Formik initialValues={{ newMessageBody: "" }} onSubmit={props.onSubmit}>
     <Form className='PostsAddHome' >

@@ -3,15 +3,13 @@ import { onAddMessage, DeleteMessageTH } from "../../redux/DialogsPageReducer";
 import Dialogs from "./Dialogs";
 import { compose } from "redux";
 import AuthRedirectComponent from "../../hoc/WithAuthNavigate";
-import { GetIsAuth, GetisAuthChecking } from "../../redux/selectors/authSelector";
 import { dialogsMessagesSelector, dialogsSelector } from "../../redux/selectors/DialogsSelector";
+import { RootState } from "../../redux/redux-store";
 
-let MapStateToProps = (state) => {
+let MapStateToProps = (state: RootState) => {
   return {
   dialogs: dialogsSelector(state),
   dialogsMessages: dialogsMessagesSelector(state),
-  isAuth: GetIsAuth(state),
-  isAuthChecking: GetisAuthChecking(state)
   }
 }
 

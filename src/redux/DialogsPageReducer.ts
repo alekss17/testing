@@ -1,51 +1,24 @@
 import { v4 as uuidv4 } from 'uuid';
+import { DialogType, MessagesType } from '../types/Types';
 
 const addMessage = 'DialogsReducer/addMessage' as const;
 const Delete = 'DialogsReducer/DeleteMessage' as const;
 
-
-type DialogType = {
-  id: string,
-  name: string
-}
-
-type MessagesType = {
-  id: string,
-  messages: string,
-  userId: string
-}
-
 let initialState = {
   dialogs: [
-    { id: uuidv4(), name: 'Dimych - ' },
-    { id: uuidv4(), name: 'Andrey - ' },
-    { id: uuidv4(), name: 'Sveta - ' },
-    { id: uuidv4(), name: 'Sasha - ' },
-    { id: uuidv4(), name: 'Valera - ' },
-    { id: uuidv4(), name: 'Viktor - ' }
+    { id: 1, name: 'Dimych - ' },
+    { id: 2, name: 'Andrey - ' },
+    { id: 3, name: 'Sveta - ' },
+    { id: 4, name: 'Sasha - ' },
+    { id: 5, name: 'Valera - ' },
+    { id: 6, name: 'Viktor - ' }
   ] as Array<DialogType>,
   Messages: [
-    { id: uuidv4(), messages: 'hi', userId: uuidv4() }
+    { id: uuidv4(), messages: 'hi', userId: 1 }
   ] as Array<MessagesType>
 };
 
 export type InitialStateType = typeof initialState;
-
-export const onAddMessage = (onDialogBody: string, userId: string) => ({
-  type: addMessage,
-  onDialogBody,
-  userId
-});
-
-const DeleteMessage = (MessageId: string) => ({
-  type: Delete,
-  MessageId
-});
-
-type ActionType =
-  | ReturnType<typeof onAddMessage>
-  | ReturnType<typeof DeleteMessage>;
-
 
 
 const DialogsPageR = (state: InitialStateType = initialState, action: ActionType): InitialStateType => {
@@ -72,6 +45,22 @@ const DialogsPageR = (state: InitialStateType = initialState, action: ActionType
       return state;
   }
 };
+
+export const onAddMessage = (onDialogBody: string, userId: number) => ({
+  type: addMessage,
+  onDialogBody,
+  userId
+});
+
+const DeleteMessage = (MessageId: string) => ({
+  type: Delete,
+  MessageId
+});
+
+type ActionType =
+  | ReturnType<typeof onAddMessage>
+  | ReturnType<typeof DeleteMessage>;
+
 
 export const DeleteMessageTH = (Id: string) => (dispatch: any) => {
   dispatch(DeleteMessage(Id));

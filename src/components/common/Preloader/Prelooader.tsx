@@ -1,6 +1,6 @@
-import preloader from '../../../assets/images/preloader.svg'
+import preloader from "../../../assets/images/preloader.svg"
 
-const Preloader = (props) => {
+const Preloader = () => {
     return (
         <div>
             <img src={preloader}/>

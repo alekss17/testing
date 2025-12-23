@@ -2,10 +2,7 @@ import React from 'react';
 import '../../Styles/Myposts.css'
 import Post from './Post';
 import AddMessageForm from '../Forms/AddMessageForm'
-
-interface AddMessageFormValues {
-  newMessageBody: string;
-}
+import { AddMessageFormValues } from '../../types/Types';
 
 interface postData {
   id: string;
@@ -15,7 +12,7 @@ interface postData {
 
 interface MypostsProps {
   postData: postData[];
-  DeletePost: () => void;
+  DeletePost: (PostId: string) => void;
   addPost: (newMessageBody: string) => void
 }
 

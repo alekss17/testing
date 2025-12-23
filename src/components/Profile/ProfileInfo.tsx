@@ -8,14 +8,14 @@ import ProfileDataForm from '../Forms/ProfileDataForm';
 import { Button, Upload } from 'antd';
 import type { UploadProps } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
-import { ProfileTypeProps, UserProfile, Contacts } from '../../types/Types';
+import { ProfileTypeProps, UserProfile, Contacts, ProfileFormValue } from '../../types/Types';
 
 const ProfileInfo = ({ profile, profileStatus, UpdateProfileStats, isOwner, savePhoto, ProfileLoading, saveProfile }: ProfileTypeProps) => {
     const [editMode, setEditMode] = useState<boolean>(false)
 
     if (!ProfileLoading || !profile) return <Preloader />
 
-    const handleSubmit = async (values: UserProfile) => {
+    const handleSubmit = async (values: ProfileFormValue) => {
         const errors = await saveProfile(values)
 
         if (!errors) {

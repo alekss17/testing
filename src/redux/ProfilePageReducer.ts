@@ -1,6 +1,6 @@
 import { ProfileApi } from '../DAL/api';
 import { v4 as uuidv4 } from 'uuid';
-import { UserProfile } from '../types/Types';
+import { ProfileFormValue, UserProfile } from '../types/Types';
 import { Dispatch } from 'redux';
 import { AppDispatch, RootState } from './redux-store';
 
@@ -24,26 +24,7 @@ let initialState = {
   ProfileDataFormError: null as string | null
 };
 
-
 type initialStateType = typeof initialState;
-
-export const addPostActionCreator = (newMessageBody: string) => ({ type: ADDPOST, newMessageBody }) as const;
-export const SetUserProfile = (profile: UserProfile) => ({ type: SETUSERPROFILE, profile });
-export const SetProfileStatus = (Status: string) => ({ type: SETPROFILESTATUS, Status });
-const deletePost = (PostId: string) => ({ type: DELETEDPOST, PostId });
-export const SavePhotoSucess = (photo: UserProfile['photos']) => ({ type: SavePhoto, photo });
-export const ToggleIsLoadingProfile = (bool: boolean) => ({ type: ToggleIsLProfile, bool });
-export const ProfileDataFormErrorAC = (err: string) => ({type: ToogleProfileDataFormError, err});
-
-type ActionType =
-  | ReturnType<typeof addPostActionCreator>
-  | ReturnType<typeof SetUserProfile>
-  | ReturnType<typeof SetProfileStatus>
-  | ReturnType<typeof deletePost>
-  | ReturnType<typeof SavePhotoSucess>
-  | ReturnType<typeof ToggleIsLoadingProfile>
-  | ReturnType<typeof ProfileDataFormErrorAC>;
-
 
 const ProfilePage = (state: initialStateType = initialState, action: ActionType): initialStateType => {
   switch (action.type) {
@@ -91,6 +72,24 @@ const ProfilePage = (state: initialStateType = initialState, action: ActionType)
       return state;
   }
 };
+
+export const addPostActionCreator = (newMessageBody: string) => ({ type: ADDPOST, newMessageBody }) as const;
+export const SetUserProfile = (profile: UserProfile) => ({ type: SETUSERPROFILE, profile });
+export const SetProfileStatus = (Status: string) => ({ type: SETPROFILESTATUS, Status });
+const deletePost = (PostId: string) => ({ type: DELETEDPOST, PostId });
+export const SavePhotoSucess = (photo: UserProfile['photos']) => ({ type: SavePhoto, photo });
+export const ToggleIsLoadingProfile = (bool: boolean) => ({ type: ToggleIsLProfile, bool });
+export const ProfileDataFormErrorAC = (err: string) => ({type: ToogleProfileDataFormError, err});
+
+type ActionType =
+  | ReturnType<typeof addPostActionCreator>
+  | ReturnType<typeof SetUserProfile>
+  | ReturnType<typeof SetProfileStatus>
+  | ReturnType<typeof deletePost>
+  | ReturnType<typeof SavePhotoSucess>
+  | ReturnType<typeof ToggleIsLoadingProfile>
+  | ReturnType<typeof ProfileDataFormErrorAC>;
+
 
 export const DeletePost = (ID: string) => (dispatch: Dispatch) => {
   dispatch(deletePost(ID));
@@ -161,13 +160,21 @@ export const savePhoto = (file: File) => async (dispatch: Dispatch) => {
   }
 }
 
-export const saveProfile = (profile: UserProfile) => async (dispatch: AppDispatch, getState: () => RootState) => {
+export const saveProfile = (profile: ProfileFormValue) => async (dispatch: AppDispatch, getState: () => RootState) => {
   try {
-    const userId: number | null =  await getState().auth.userId;
-    const data = await ProfileApi.saveProfile(profile);
+    const state = getState();
+    const userId: number | null = state.auth.userId;
+    const currentPhotos = state.ProfileReducer.profile?.photos || { small: null, large: null };
+    
+    const fullProfile: UserProfile = {
+      ...profile,
+      userId: userId!,
+      photos: currentPhotos
+    };
+    
+    const data = await ProfileApi.saveProfile(fullProfile);
 
     if (data.resultCode === 0) {
-
       dispatch(GetProfile(userId));
       return null;
     }
@@ -188,7 +195,7 @@ export const saveProfile = (profile: UserProfile) => async (dispatch: AppDispatc
     return errors;
   } catch(error: unknown) {
     if (error instanceof Error) {
-    alert(error.message);
+      alert(error.message);
     } else {
       alert(String(error))
     }

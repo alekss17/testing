@@ -3,19 +3,25 @@ import { Form, Formik } from "formik";
 import { required, MaxLenghtCreator } from "../../utils/validators/validators";
 import TextArea, { createField } from '../common/FormsControl/FormsControl';
 import '../../Styles/formControl.css'
+import { formDataType } from "../../types/Types";
 
 const MaxLenght40 = MaxLenghtCreator(40);
 
-const isEmpty = (value) =>
+const isEmpty = (value: formDataType) =>
   value === null ||
   value === undefined ||
-  value === "" ||
   (Array.isArray(value) && value.length === 0);
 
 
-const LoginForm = ({ formError, Submit, captchaUrl }) => {
+interface LoginFormType {
+  formError: string | null;
+  Submit: (formData: formDataType) => void;
+  captchaUrl: string | null;
+}
 
-  const validate = value => required(value) || MaxLenght40(value);
+const LoginForm = ({ formError, Submit, captchaUrl }: LoginFormType) => {
+
+  const validate = (value: formDataType) => required(value) || MaxLenght40(value);
 
   return (
     <Formik

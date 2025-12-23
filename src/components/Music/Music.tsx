@@ -1,6 +1,6 @@
 import '../../Styles/Music.css';
 
-const Music = (props) => {
+const Music = () => {
     return(
         <div>
             <p>Music</p>

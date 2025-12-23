@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { AppInitialized, GlobalErr } from './redux/selectors/appSelector';
+import { DeleteMessageTH } from './redux/DialogsPageReducer';
 
 import './Styles/App.css';
 
@@ -13,7 +14,7 @@ import HeaderContainer from './components/Header/HeaderContainer';
 import Test from './components/tests';
 import Login from './components/Login/login';
 import Preloader from './components/common/Preloader/Prelooader';
-import store, { persistor } from './redux/redux-store';
+import store, { persistor, RootState } from './redux/redux-store';
 import ChatUser from './components/Dialogs/ChatUser';
 import Dialogs from './components/Dialogs/DialogsContainer';
 
@@ -21,12 +22,19 @@ import Music from './components/Music/Music';
 import Settings from './components/Settings/Settings';
 import HelperSuspense from './components/common/Preloader/HelperSuspense';
 
-const MypostsContainer = React.lazy(() => import('./components/Myposts/MypostsContainer.jsx'));
+const MypostsContainer = React.lazy(() => import('./components/Myposts/MypostsContainer'));
 const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'));
 const UsersContainer = React.lazy(() => import('./components/Users/UsersContainer'));
 
-function App(props) {
-  const catchAllUnhandleErrors = (event) => {
+interface AppPropsType {
+  initialized: boolean
+  err: string | null
+  InitializeApp: () => void
+  ToogleErrorTH: (err: string | null) => void
+}
+
+function App(props: AppPropsType) {
+  const catchAllUnhandleErrors = (event: PromiseRejectionEvent) => {
     const reason = event.reason;
     
     const message =
@@ -64,7 +72,7 @@ function App(props) {
         <div className="content">
           <Routes>
             <Route path="/dialogs" element={<Dialogs />}>
-              <Route path=":userId" element={<ChatUser />} />
+              <Route path=":userId" element={<ChatUser DeleteMessage={DeleteMessageTH} />} />
             </Route>
 
             <Route path="/profile/:userId?" element={<HelperSuspense Component={ProfileContainer} />} />
@@ -79,7 +87,7 @@ function App(props) {
 
             <Route path="/login" element={<Login />} />
 
-            <Route exact path="/" element={<Navigate to="/profile" />} />
+            <Route path="/" element={<Navigate to="/profile" />} />
           </Routes>
         </div>
       </div>
@@ -87,7 +95,7 @@ function App(props) {
   );
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: RootState) => {
   return {
     initialized: AppInitialized(state),
     err: GlobalErr(state)

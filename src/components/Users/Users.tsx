@@ -18,7 +18,7 @@ interface UserTypeProps {
 const Users = React.memo(({currentPage, TotalUserCount, PageSize, Users, OnePageChanged, FollowingInProgress, Follow, UnFollow}: UserTypeProps) => {
     return (
         <div>
-            <Paginator currentPage={currentPage} TotalItemsCount={TotalUserCount} PageSize={PageSize} OnePageChanged={OnePageChanged} />
+            <Paginator currentPage={currentPage} TotalItemsCount={TotalUserCount} PageSize={PageSize} OnePageChanged={OnePageChanged} portionSize={10} />
             <p>(Click on user and select it)</p>
             {Users.map((u: UsersType) => <User User={u} FollowingInProgress={FollowingInProgress} Follow={Follow} UnFollow={UnFollow} key={u.id}/> )}
         </div>

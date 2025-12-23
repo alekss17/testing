@@ -19,6 +19,25 @@ const initialState = {
 
 type initialStateType = typeof initialState
 
+
+const authReducer = (state: initialStateType = initialState, action: ActionType): initialStateType => {
+    switch (action.type) {
+        case SET_USER_DATA:
+            return { ...state, ...action.payload }
+
+        case IS_AUTH_CHECKING:
+            return { ...state, isAuthChecking: action.value }
+
+        case SET_FORM_ERROR:
+            return { ...state, formError: action.error }
+
+        case SET_CAPTCHA_URL:
+            return { ...state, captchaUrl: action.captchaUrl }
+        default:
+            return state
+    }
+}
+
 export const SetAuthUserData = (email: string | null, login: string | null, userId: number | null, isAuth: boolean) => ({
     type: SET_USER_DATA,
     payload: { email, login, userId, isAuth }
@@ -43,25 +62,6 @@ type ActionType =
 | ReturnType<typeof isAuthChecking>
 | ReturnType<typeof SetFormError>
 | ReturnType<typeof SetCaptcha>
-
-
-const authReducer = (state: initialStateType = initialState, action: ActionType): initialStateType => {
-    switch (action.type) {
-        case SET_USER_DATA:
-            return { ...state, ...action.payload }
-
-        case IS_AUTH_CHECKING:
-            return { ...state, isAuthChecking: action.value }
-
-        case SET_FORM_ERROR:
-            return { ...state, formError: action.error }
-
-        case SET_CAPTCHA_URL:
-            return { ...state, captchaUrl: action.captchaUrl }
-        default:
-            return state
-    }
-}
 
 
 export const GetMe = () => async (dispatch: AppDispatch) => {

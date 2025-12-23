@@ -1,7 +1,8 @@
 import { NavLink } from 'react-router-dom';
 import '../../Styles/Header.css'
+import { HeaderPropsTypes } from '../../types/Types';
 
-const Header = (props) => {
+const Header = (props: HeaderPropsTypes) => {
   return (
     <header className="header-container">
       <img

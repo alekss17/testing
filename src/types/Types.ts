@@ -22,8 +22,15 @@ export interface UserProfile {
     fullName: string;
     userId: number;
     photos: Photos;
-}    
+}
 
+export interface ProfileFormValue {
+    fullName: string;
+    aboutMe: string | null;
+    lookingForAJob: boolean;
+    lookingForAJobDescription: string | null;
+    contacts: Contacts;
+}
 export interface ProfileTypeProps {
     profile: UserProfile | null;
     profileStatus: string;
@@ -31,7 +38,7 @@ export interface ProfileTypeProps {
     isOwner: boolean;
     savePhoto: (file: File) => void;
     ProfileLoading: boolean;
-    saveProfile: (profile: UserProfile) => Promise<any>
+    saveProfile: (profile: ProfileFormValue) => Promise<any>
 }
 
 export type UsersType = {
@@ -39,9 +46,40 @@ export type UsersType = {
     id: number,
     uniqueUrlName: null | string,
     photos: {
-      small: null | string, 
-      large: null | string  
+        small: null | string,
+        large: null | string
     },
     status: null | string,
     followed: boolean
+}
+
+export interface HeaderPropsTypes {
+    isAuth: boolean;
+    login: string | null;
+    logout: () => void;
+}
+export type MessagesType = {
+    id: string,
+    messages: string,
+    userId: string | number
+}
+
+export type DialogType = {
+    id: number,
+    name: string
+  }
+
+  export interface DialogFormValues {
+    onDialogBody: string;
+  }
+
+  export interface AddMessageFormValues {
+    newMessageBody: string;
+  }
+
+  export type formDataType = {
+    email: string;
+    password: string;
+    rememberMe: boolean;
+    captcha: string;
 }

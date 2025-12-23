@@ -1,9 +1,11 @@
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useCallback } from 'react';
 import Profile from './Profile';
 import { GetProfile, GetProfilStatus, UpdateProfileStats, savePhoto, saveProfile } from '../../redux/ProfilePageReducer';
 import { AppDispatch, RootState } from '../../redux/redux-store';
+import AuthRedirectComponent from '../../hoc/WithAuthNavigate';
+import { ProfileFormValue } from '../../types/Types';
 
 const ProfileContainer = () => {
   const { userId: urlUserId } = useParams();
@@ -24,17 +26,30 @@ const ProfileContainer = () => {
     }
   }, [userId, dispatch]);
   
+  // ✅ С useCallback для оптимизации
+  const handleSaveProfile = useCallback(async (profileData: ProfileFormValue): Promise<any> => {
+    return await dispatch(saveProfile(profileData));
+  }, [dispatch]);
+  
+  const handleUpdateProfileStats = useCallback((status: string) => {
+    dispatch(UpdateProfileStats(status));
+  }, [dispatch]);
+  
+  const handleSavePhoto = useCallback((file: File) => {
+    dispatch(savePhoto(file));
+  }, [dispatch]);
+  
   return (
     <Profile 
       isOwner={isOwner}
       profile={profile}
       profileStatus={profileStatus}
       ProfileLoading={ProfileLoading}
-      UpdateProfileStats={(status) => dispatch(UpdateProfileStats(status))}
-      savePhoto={(file) => dispatch(savePhoto(file))}
-      saveProfile={(profile) => dispatch(saveProfile(profile))}
+      UpdateProfileStats={handleUpdateProfileStats}
+      savePhoto={handleSavePhoto}
+      saveProfile={handleSaveProfile}
     />
   );
 };
 
-export default ProfileContainer;
+export default AuthRedirectComponent(ProfileContainer);

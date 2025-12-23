@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import LoginForm from "../Forms/LoginForm";
 import { connect } from "react-redux";
 import { login } from "../../redux/authReducer";
 import { Navigate } from "react-router-dom";
-import { formErrorSelector, getCaptcha, loginSelector } from "../../redux/selectors/authSelector";
+import { formErrorSelector, getCaptcha, GetIsAuth } from "../../redux/selectors/authSelector";
 import { RootState } from "../../redux/redux-store";
+import { formDataType } from "../../types/Types";
 
 interface LoginType {
     isAuth: boolean;
@@ -13,12 +14,6 @@ interface LoginType {
     login: (email: string, password: string, rememberMe: boolean, captcha: string) => void
 }
 
-export type formDataType = {
-    email: string;
-    password: string;
-    rememberMe: boolean;
-    captcha: string;
-}
 const Login = (props: LoginType) => {
     const Submit = (formData: formDataType) => {
         props.login(formData.email, formData.password, formData.rememberMe, formData.captcha)
@@ -38,7 +33,7 @@ const Login = (props: LoginType) => {
 
 const mapStateToProps = (state: RootState) => {
     return {
-    isAuth: loginSelector(state),
+    isAuth: GetIsAuth(state),
     formError: formErrorSelector(state),
     captchaUrl: getCaptcha(state)
 }}

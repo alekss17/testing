@@ -12,33 +12,15 @@ const TOOGLE_IS_FATCHING = 'UsersReducer/TOGGLEISFATCHING' as const
 const TOOGLE_IS_FOLLOWING = 'UsersReducer/TOGGLEISFOLLOWING' as const
 
 let initialState = {
-    Users: [] as UsersType[], 
+    Users: [] as UsersType[],
     TotalUserCount: 0,
     PageSize: 5,
     currentPage: 1,
     isFatching: false,
-    FollowingInProgress: [] as number[] 
+    FollowingInProgress: [] as number[]
 }
 
 type initialStateType = typeof initialState
-
-export const AcceptFollow = (id: number) => ({ type: FOLLOW, id } as const);
-export const AcceptUnFollow = (id: number) => ({ type: UN_FOLLOW, id } as const);
-export const SetUsers = (users: UsersType[]) => ({ type: SET_USERS, users } as const);
-export const SetCurrentPage = (p: number) => ({ type: SET_CURRENT_PAGE, currentPage: p } as const);
-export const SetTotalUserCount = (total: number) => ({ type: SET_TOTAL_COUNT, total } as const);
-export const ToggleIsFatching = (isFatching: boolean) => ({ type: TOOGLE_IS_FATCHING, isFatching } as const);
-export const ToggleIsFollowing = (isFollowing: boolean, UserId: number) => ({ type: TOOGLE_IS_FOLLOWING, isFollowing, UserId } as const);
-
-type ActionType = 
-| ReturnType<typeof AcceptFollow>
-| ReturnType<typeof AcceptUnFollow>
-| ReturnType<typeof SetUsers>
-| ReturnType<typeof SetCurrentPage>
-| ReturnType<typeof SetTotalUserCount>
-| ReturnType<typeof ToggleIsFatching>
-| ReturnType<typeof ToggleIsFollowing>
-
 
 const UserPage = (state: initialStateType = initialState, action: ActionType): initialStateType => {
     switch (action.type) {
@@ -80,6 +62,24 @@ const UserPage = (state: initialStateType = initialState, action: ActionType): i
     }
 }
 
+
+export const AcceptFollow = (id: number) => ({ type: FOLLOW, id } as const);
+export const AcceptUnFollow = (id: number) => ({ type: UN_FOLLOW, id } as const);
+export const SetUsers = (users: UsersType[]) => ({ type: SET_USERS, users } as const);
+export const SetCurrentPage = (p: number) => ({ type: SET_CURRENT_PAGE, currentPage: p } as const);
+export const SetTotalUserCount = (total: number) => ({ type: SET_TOTAL_COUNT, total } as const);
+export const ToggleIsFatching = (isFatching: boolean) => ({ type: TOOGLE_IS_FATCHING, isFatching } as const);
+export const ToggleIsFollowing = (isFollowing: boolean, UserId: number) => ({ type: TOOGLE_IS_FOLLOWING, isFollowing, UserId } as const);
+
+type ActionType =
+    | ReturnType<typeof AcceptFollow>
+    | ReturnType<typeof AcceptUnFollow>
+    | ReturnType<typeof SetUsers>
+    | ReturnType<typeof SetCurrentPage>
+    | ReturnType<typeof SetTotalUserCount>
+    | ReturnType<typeof ToggleIsFatching>
+    | ReturnType<typeof ToggleIsFollowing>
+
 type ApiResponseType = {
     resultCode: number
 }
@@ -97,7 +97,7 @@ export const GetUsers = (currentPage: number, PageSize: number) => {
             dispatch(SetCurrentPage(currentPage))
             dispatch(SetTotalUserCount(data.totalCount))
             dispatch(ToggleIsFatching(false))
-        } catch(error: unknown) {
+        } catch (error: unknown) {
             dispatch(ToggleIsFatching(false))
             if (error instanceof Error) {
                 alert(error.message);
@@ -109,9 +109,9 @@ export const GetUsers = (currentPage: number, PageSize: number) => {
 }
 
 const FollowUnFollowFlow = async (
-    dispatch: AppDispatch, 
-    UserId: number, 
-    apiMethod: ApiMethodType, 
+    dispatch: AppDispatch,
+    UserId: number,
+    apiMethod: ApiMethodType,
     actionCreator: (id: number) => ReturnType<typeof AcceptFollow> | ReturnType<typeof AcceptUnFollow>
 ) => {
     try {
@@ -123,7 +123,7 @@ const FollowUnFollowFlow = async (
             dispatch(actionCreator(UserId))
         }
         dispatch(ToggleIsFollowing(false, UserId))
-    } catch(error: unknown) {
+    } catch (error: unknown) {
         dispatch(ToggleIsFollowing(false, UserId))
         if (error instanceof Error) {
             alert(error.message);
