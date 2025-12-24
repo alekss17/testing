@@ -42,13 +42,11 @@ export const InitializeApp = () => async (dispatch: AppDispatch) => {
         if (token) {
             await dispatch(GetMe())
         } else {
-            // ВАЖНО: если токена нет, выключаем проверку авторизации
             dispatch(isAuthChecking(false))
         }
 
         dispatch(SetInitialized())
     } catch (error: unknown) {
-        // В случае ошибки тоже выключаем проверку
         dispatch(isAuthChecking(false))
         dispatch(SetInitialized())
         

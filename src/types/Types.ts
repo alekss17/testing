@@ -1,9 +1,9 @@
-interface Photos {
+export type Photos = {
     small: string | null;
     large: string | null;
 }
 
-export interface Contacts {
+export type Contacts = {
     facebook: string | null;
     website: string | null;
     vk: string | null;
@@ -14,7 +14,7 @@ export interface Contacts {
     mainLink: string | null;
 }
 
-export interface UserProfile {
+export type UserProfile = {
     aboutMe: string | null;
     contacts: Contacts;
     lookingForAJob: boolean;
@@ -24,14 +24,14 @@ export interface UserProfile {
     photos: Photos;
 }
 
-export interface ProfileFormValue {
+export type ProfileFormValue = {
     fullName: string;
     aboutMe: string | null;
     lookingForAJob: boolean;
     lookingForAJobDescription: string | null;
     contacts: Contacts;
 }
-export interface ProfileTypeProps {
+export type ProfileTypeProps = {
     profile: UserProfile | null;
     profileStatus: string;
     UpdateProfileStats: (status: string) => void;
@@ -53,7 +53,7 @@ export type UsersType = {
     followed: boolean
 }
 
-export interface HeaderPropsTypes {
+export type HeaderPropsTypes = {
     isAuth: boolean;
     login: string | null;
     logout: () => void;
@@ -69,11 +69,11 @@ export type DialogType = {
     name: string
   }
 
-  export interface DialogFormValues {
+  export type DialogFormValues = {
     onDialogBody: string;
   }
 
-  export interface AddMessageFormValues {
+  export type AddMessageFormValues = {
     newMessageBody: string;
   }
 
@@ -82,4 +82,13 @@ export type DialogType = {
     password: string;
     rememberMe: boolean;
     captcha: string;
+}
+
+export enum ResultCodeEnum {
+    Succes = 0, 
+    Error = 1,
+}
+
+export enum ResultCodeForCaptcha {
+    Captcha = 10
 }

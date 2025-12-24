@@ -39,28 +39,28 @@ const ProfileDataForm = ({ profile, handleSubmit, onLeaveSubmit }: ProfileDataFo
 
           <div>
             <p>fullName:</p>
-            {createField("Full Name", "fullName", null, TextArea, "input")}
+            {createField("Full Name", "fullName", undefined, TextArea, "input")}
           </div>
 
           <div>
             <p>About Me</p>
-            {createField("About Me", "aboutMe", null, TextArea, "input")}
+            {createField("About Me", "aboutMe", undefined, TextArea, "input")}
           </div>
 
           <div className="LookingForAJob">
             <p>lookingForAJob</p>
-            {createField("", "lookingForAJob", null, TextArea, "input", "checkbox")}
+            {createField("", "lookingForAJob", undefined, TextArea, "input", "checkbox")}
           </div>
 
           <div>
             <p>My skills</p>
-            {createField("My skills", "lookingForAJobDescription", null, TextArea)}
+            {createField("My skills", "lookingForAJobDescription", undefined, TextArea)}
           </div>
 
           <b>Contacts</b>
           {Object.keys(profile.contacts).map(key => (
             <div key={key}>
-              {createField(key, `contacts.${key}`, null, TextArea)}
+              {createField(key, `contacts.${key}`, undefined, TextArea)}
             </div>
           ))}
 

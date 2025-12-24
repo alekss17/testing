@@ -11,7 +11,7 @@ import './Styles/App.css';
 
 import NavBar from './NavBar';
 import HeaderContainer from './components/Header/HeaderContainer';
-import Test from './components/tests';
+import TestForProps from './components/tests';
 import Login from './components/Login/login';
 import Preloader from './components/common/Preloader/Prelooader';
 import store, { persistor, RootState } from './redux/redux-store';
@@ -81,7 +81,7 @@ function App(props: AppPropsType) {
 
             <Route path="/music" element={<Music />} />
             <Route path="/settings" element={<Settings />} />
-            <Route path="/test" element={<Test />} />
+            <Route path="/test" element={<TestForProps />} />
 
             <Route path="/users" element={<HelperSuspense Component={UsersContainer} />} />
 

@@ -1,5 +1,5 @@
 import { UsersApi } from "../DAL/api"
-import { UsersType } from "../types/Types"
+import { ResultCodeEnum, UsersType } from "../types/Types"
 import { UpdateObjectInArray } from "../utils/object-helpers"
 import { AppDispatch } from "./redux-store"
 
@@ -119,7 +119,7 @@ const FollowUnFollowFlow = async (
 
         let data = await apiMethod(UserId)
 
-        if (data.resultCode === 0) {
+        if (data.resultCode === ResultCodeEnum.Succes) {
             dispatch(actionCreator(UserId))
         }
         dispatch(ToggleIsFollowing(false, UserId))

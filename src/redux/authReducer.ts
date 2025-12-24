@@ -1,5 +1,6 @@
 import { AuthApi } from '../DAL/api'
 import { securityApi } from '../DAL/api'
+import { ResultCodeEnum, ResultCodeForCaptcha } from '../types/Types'
 import { AppDispatch } from './redux-store'
 
 const SET_USER_DATA = 'authReducer/SET_USER_DATA' as const
@@ -69,7 +70,7 @@ export const GetMe = () => async (dispatch: AppDispatch) => {
 
     const data = await AuthApi.GetMe()
 
-    if (data.resultCode === 0) {
+    if (data.resultCode === ResultCodeEnum.Succes) {
         dispatch(SetAuthUserData(
             data.data.email,
             data.data.login,
@@ -85,13 +86,13 @@ export const login = (email: string, password: string, rememberMe: boolean = fal
     try {
     const data = await AuthApi.Login(email, password, rememberMe, captcha)
 
-    if (data.resultCode === 0) {
+    if (data.resultCode === ResultCodeEnum.Succes) {
         localStorage.setItem('token', data.data.token)
         dispatch(GetMe())
         dispatch(SetFormError(null))
     }
     else {
-        if (data.resultCode === 10) {
+        if (data.resultCode === ResultCodeForCaptcha.Captcha) {
             dispatch(getCaptchaUrl())
         }
         dispatch(SetFormError(data.messages[0] || 'Login error'))
@@ -125,7 +126,7 @@ export const logout = () => async (dispatch: AppDispatch) => {
 
     const data = await AuthApi.Logout()
 
-    if (data.resultCode === 0) {
+    if (data.resultCode === ResultCodeEnum.Succes) {
         localStorage.removeItem('token')
         dispatch(SetAuthUserData(null, null, null, false))
         dispatch(SetFormError(null))

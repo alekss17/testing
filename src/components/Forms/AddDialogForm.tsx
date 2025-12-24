@@ -10,7 +10,7 @@ interface addDialogForm {
 }
 
 const AddDialogForm = (props: addDialogForm) => {
-    const validate = (value: DialogFormValues) => required(value) || MaxLength50(value)
+    const validate = (value: string) => required(value) || MaxLength50(value)
     return (
         <>
         <Formik initialValues={{ onDialogBody: "" }} onSubmit={props.onSubmit}>

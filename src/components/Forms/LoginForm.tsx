@@ -21,7 +21,7 @@ interface LoginFormType {
 
 const LoginForm = ({ formError, Submit, captchaUrl }: LoginFormType) => {
 
-  const validate = (value: formDataType) => required(value) || MaxLenght40(value);
+  const validate = (value: string) => required(value) || MaxLenght40(value);
 
   return (
     <Formik
@@ -38,7 +38,7 @@ const LoginForm = ({ formError, Submit, captchaUrl }: LoginFormType) => {
 
           {createField("email", "email", validate, TextArea, "input")}
           {createField("Password", "password", validate, TextArea, "input", "password")}
-          {createField("", "rememberMe", null, null, "", "checkbox", "remember me")}
+          {createField("", "rememberMe", undefined, null, "", "checkbox", "remember me")}
 
           {!isEmpty(status) &&
             <div className="form-summary-error">

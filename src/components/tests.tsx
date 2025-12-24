@@ -1,11 +1,24 @@
 import React from "react";
 
-const Test = () => {
+interface TestProps<T> {
+    age: T
+}
+
+function Test<TestProps>(age: TestProps): TestProps {
+    return age
+}
+
+const TestForProps = () => {
+
+     const value = Math.random() < 0.5
+    ? "hello world"
+    : Math.floor(Math.random() * 100);
+
     return (
-        <div>
-            <p>hi</p>
-        </div>
+        <>
+        Age or Hello World: {Test(value) }
+        </>
     )
 }
 
-export default Test;
+export default TestForProps;

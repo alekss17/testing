@@ -1,5 +1,5 @@
 import axios from "axios";
-import { UserProfile } from "../types/Types";
+import { Photos, UserProfile } from "../types/Types";
 
 export const instance = axios.create({
     withCredentials: true,
@@ -18,7 +18,6 @@ instance.interceptors.request.use((config) => {
 
     return config
 })
-
 export const UsersApi = {
     GetUsers(currentPage: number = 1, pageSize: number = 5) {
         return instance

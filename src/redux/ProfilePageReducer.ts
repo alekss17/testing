@@ -1,6 +1,6 @@
 import { ProfileApi } from '../DAL/api';
 import { v4 as uuidv4 } from 'uuid';
-import { ProfileFormValue, UserProfile } from '../types/Types';
+import { ProfileFormValue, ResultCodeEnum, UserProfile } from '../types/Types';
 import { Dispatch } from 'redux';
 import { AppDispatch, RootState } from './redux-store';
 
@@ -132,7 +132,7 @@ export const GetProfilStatus = (userId: number) => async (dispatch: Dispatch) =>
 export const UpdateProfileStats = (status: string) => async (dispatch: Dispatch) => {
   try {
     let data = await ProfileApi.UpdateProfileStatus(status);
-    if (data.resultCode === 0) {
+    if (data.resultCode === ResultCodeEnum.Succes) {
       dispatch(SetProfileStatus(status));
     }
   } catch(error: unknown) {
@@ -148,7 +148,7 @@ export const savePhoto = (file: File) => async (dispatch: Dispatch) => {
   try {
     let data = await ProfileApi.savePhoto(file);
 
-    if (data.resultCode === 0) {
+    if (data.resultCode === ResultCodeEnum.Succes) {
       dispatch(SavePhotoSucess(data.data.photos));
     }
   } catch(error: unknown) {
@@ -174,7 +174,7 @@ export const saveProfile = (profile: ProfileFormValue) => async (dispatch: AppDi
     
     const data = await ProfileApi.saveProfile(fullProfile);
 
-    if (data.resultCode === 0) {
+    if (data.resultCode === ResultCodeEnum.Succes) {
       dispatch(GetProfile(userId));
       return null;
     }

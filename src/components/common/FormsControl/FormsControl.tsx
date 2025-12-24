@@ -15,11 +15,14 @@ const TextArea = ({ field, form: { touched, errors }, astag = "textarea", ...pro
   )
 }
 
+export type Validator<T = string> = (value: T) => string | null
+
+
 export const createField = (
   placeholder: string = "",
   name: string = "",
-  validate?: any,
-  component: any = TextArea,
+  validate?: Validator,
+  component: React.ComponentType | null = TextArea,
   astag: string = "textarea",
   type?: string,
   text: string = "",
@@ -31,8 +34,8 @@ export const createField = (
         className={className}
         placeholder={placeholder}
         name={name}
-        validate={validate}
-        component={component}
+        validate={validate ?? undefined}
+        component={component ?? null}
         astag={astag}
         type={type}
       /> {text}
