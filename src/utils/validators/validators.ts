@@ -1,13 +1,13 @@
 import { Validator } from "../../components/common/FormsControl/FormsControl";
 
 export const required: Validator = value =>
-    !value ? 'Field is required' : null
+    !value ? 'Field is required' : undefined
 
 export const MaxLenghtCreator =
-  (max: number): Validator<string> =>
+  (max: number): Validator =>
   value =>
-    value && value.length > max
+    value.length > max
       ? `Max length is ${max} symbols`
-      : null
+      : undefined;
 
 

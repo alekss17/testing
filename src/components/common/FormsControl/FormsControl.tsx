@@ -1,32 +1,37 @@
-import React from "react"
-import { Field } from "formik";
-import '../../../Styles/formControl.css'
-import { getIn } from "formik"
+import React from "react";
+import { Field, FieldProps, getIn } from "formik";
+import "../../../Styles/formControl.css";
 
-const TextArea = ({ field, form: { touched, errors }, astag = "textarea", ...props }: any) => {
-  const error = getIn(touched, field.name) && getIn(errors, field.name)
-  const Tag = astag
+type AsTag = "textarea" | "input" | "select";
+
+export type Validator = (value: string) => string | undefined;
+
+interface TextAreaProps extends FieldProps {
+  astag?: AsTag;
+}
+
+const TextArea = ({ field, form, astag = "textarea", ...props}: TextAreaProps) => {
+  const error = getIn(form.touched, field.name) && getIn(form.errors, field.name);
+
+  const Tag = astag;
 
   return (
     <div className={"formControl" + (error ? " error" : "")}>
       <Tag {...field} {...props} />
       {error && <span>{error}</span>}
     </div>
-  )
-}
-
-export type Validator<T = string> = (value: T) => string | null
-
+  );
+};
 
 export const createField = (
-  placeholder: string = "",
-  name: string = "",
+  placeholder = "",
+  name = "",
   validate?: Validator,
-  component: React.ComponentType | null = TextArea,
-  astag: string = "textarea",
+  component: React.ComponentType<FieldProps> | undefined = undefined,
+  astag: AsTag = "textarea",
   type?: string,
-  text: string = "",
-  className: string = ''
+  text = "",
+  className = ""
 ) => {
   return (
     <div>
@@ -34,13 +39,14 @@ export const createField = (
         className={className}
         placeholder={placeholder}
         name={name}
-        validate={validate ?? undefined}
-        component={component ?? null}
+        validate={validate}
+        component={component}
         astag={astag}
         type={type}
-      /> {text}
+      />
+      {text}
     </div>
-  )
-}
+  );
+};
 
 export default TextArea;

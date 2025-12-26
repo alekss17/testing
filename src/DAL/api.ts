@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Photos, UserProfile } from "../types/Types";
+import { UserProfile } from "../types/Types";
 
 export const instance = axios.create({
     withCredentials: true,

@@ -38,7 +38,7 @@ const LoginForm = ({ formError, Submit, captchaUrl }: LoginFormType) => {
 
           {createField("email", "email", validate, TextArea, "input")}
           {createField("Password", "password", validate, TextArea, "input", "password")}
-          {createField("", "rememberMe", undefined, null, "", "checkbox", "remember me")}
+          {createField("", "rememberMe", undefined, undefined, undefined, "checkbox", "remember me")}
 
           {!isEmpty(status) &&
             <div className="form-summary-error">
